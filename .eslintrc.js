@@ -1,9 +1,14 @@
 module.exports = {
   extends: 'erb',
   rules: {
+    quotes: [2, 'single', 'avoid-escape'],
+    'import/no-unresolved': [
+      2,
+      { caseSensitive: false, commonjs: true, amd: true },
+    ],
+    'import/no-named-as-default': 0,
     // A temporary hack related to IDE not resolving correct package.json
     'import/no-extraneous-dependencies': 'off',
-    'import/no-unresolved': 'error',
     // Since React 17 and typescript 4.1 you can safely disable the rule
     'react/react-in-jsx-scope': 'off',
   },
@@ -17,7 +22,9 @@ module.exports = {
   settings: {
     'import/resolver': {
       // See https://github.com/benmosher/eslint-plugin-import/issues/1396#issuecomment-575727774 for line below
-      node: {},
+      node: {
+        extensions: ['.ts', '.tsx', '.native.js'],
+      },
       webpack: {
         config: require.resolve('./.erb/configs/webpack.config.eslint.ts'),
       },

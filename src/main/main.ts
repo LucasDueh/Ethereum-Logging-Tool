@@ -17,6 +17,9 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
+require('./ipc/blf'); // why require??
+require('./ipc/abi');
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -27,12 +30,9 @@ export default class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
-});
-
+/**
+ * Check if in production or development environment
+ */
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
@@ -58,6 +58,9 @@ const installExtensions = async () => {
     .catch(console.log);
 };
 
+/**
+ * Creates window of specified size
+ */
 const createWindow = async () => {
   if (isDevelopment) {
     await installExtensions();
@@ -73,8 +76,8 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 1600,
+    height: 1200,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -115,15 +118,6 @@ const createWindow = async () => {
 /**
  * Add event listeners...
  */
-
-app.on('window-all-closed', () => {
-  // Respect the OSX convention of having the application in memory even
-  // after all windows have been closed
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
 app
   .whenReady()
   .then(() => {
@@ -135,3 +129,12 @@ app
     });
   })
   .catch(console.log);
+
+// Handle event when all windows are closed
+app.on('window-all-closed', () => {
+  // Respect the OSX convention of having the application in memory even
+  // after all windows have been closed
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});

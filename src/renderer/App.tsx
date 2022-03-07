@@ -1,50 +1,42 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
-import './App.css';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
-const Hello = () => {
-  return (
-    <div>
-      <div className="Hello">
-        <img width="200px" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
-  );
-};
+import routes from './routes';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import AppTheme from './theming/themetypes';
+import AppThemeOptions from './theming/themes';
+import { Box, Toolbar } from '@mui/material';
 
-export default function App() {
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    electron: any;
+  }
+}
+
+function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
+      <Box sx={{ display: "flex", height: '100vh' }}>
+        <ThemeProvider theme={createTheme(AppThemeOptions[AppTheme.LIGHT])}>
+          <CssBaseline />
+          <Header/>
+          <Sidebar/>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Toolbar />
+            <Routes>
+              {routes.map((route) => (
+                <Route key={route.path} {...route} />
+              ))}
+            </Routes>
+          </Box>
+
+        </ThemeProvider>
+      </Box>
     </Router>
   );
 }
+
+export default App;
