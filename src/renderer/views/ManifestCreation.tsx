@@ -4,6 +4,7 @@ import { Box, Grid, Stepper, Step, StepLabel } from '@mui/material';
 import { ABIEntry, Activity } from 'types/types';
 import StepOne from '../components/manifest-creation/StepOne';
 import StepTwo from '../components/manifest-creation/StepTwo';
+import StepThree from '../components/manifest-creation/StepThree';
 
 function TutorialCreation() {
   const stepLabels = [
@@ -16,14 +17,6 @@ function TutorialCreation() {
   const [ABIEntries, setABIEntries] = React.useState<Array<ABIEntry>>([]);
   const [activities, setActivities] = React.useState<Array<Activity>>([]);
   const [activeStep, setActiveStep] = React.useState(0);
-
-  React.useEffect(() => {
-    console.log(ABIEntries);
-  }, [ABIEntries]);
-
-  React.useEffect(() => {
-    console.log(activities);
-  }, [activities]);
 
   const changeABIEntries = (newEntries: Array<ABIEntry>) => {
     setABIEntries(newEntries);
@@ -59,7 +52,7 @@ function TutorialCreation() {
           />
         );
       case 2:
-        return <Box />;
+        return <StepThree activities={activities} />;
       default:
         return <Box />;
     }

@@ -16,7 +16,7 @@ function StepTwo(props: any) {
 
   const confirmSelection = async (event: React.FormEvent) => {
     event.preventDefault();
-    confirmActivities(selected);
+    await confirmActivities(selected);
     handleSubmit();
   };
 
