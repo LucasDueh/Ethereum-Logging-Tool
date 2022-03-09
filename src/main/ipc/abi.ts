@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { ipcMain } from 'electron';
-import convertABI from '../util/abi-converter';
+import reduceABI from '../util/abi-reducer';
 
 const getABI = (input: string) => {
   let abi = `
@@ -11,7 +11,7 @@ const getABI = (input: string) => {
 
   abi = input;
 
-  const entries = convertABI(abi);
+  const entries = reduceABI(abi);
   return entries;
 };
 
