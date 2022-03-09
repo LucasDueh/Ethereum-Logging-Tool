@@ -14,8 +14,10 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.invoke('extract-manifest', filename);
     },
     getABI: async (input) => {
-      // eslint-disable-next-line @typescript-eslint/return-await
-      return await ipcRenderer.invoke('get-abi', input);
+      return ipcRenderer.invoke('get-abi', input);
+    },
+    transformABIToActivities: async (abiEntries) => {
+      return ipcRenderer.invoke('transform-abi-to-activities', abiEntries);
     },
     on(channel, func) {
       const validChannels = ['ipc-example'];
