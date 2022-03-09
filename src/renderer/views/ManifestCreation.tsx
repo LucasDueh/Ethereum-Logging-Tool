@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid, Stepper, Step, StepLabel } from '@mui/material';
 
-import { ABIEntry } from 'types/types';
+import { ABIEntry, Activity } from 'types/types';
 import StepOne from '../components/manifest-creation/StepOne';
 import StepTwo from '../components/manifest-creation/StepTwo';
 
@@ -14,10 +14,25 @@ function TutorialCreation() {
   ];
 
   const [ABIEntries, setABIEntries] = React.useState<Array<ABIEntry>>([]);
+  const [activities, setActivities] = React.useState<Array<Activity>>([]);
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const changeABIEntries = (convertedABI: Array<ABIEntry>) => {
-    setABIEntries(convertedABI);
+  React.useEffect(() => {
+    console.log(ABIEntries);
+  }, [ABIEntries]);
+
+  React.useEffect(() => {
+    console.log(activities);
+  }, [activities]);
+
+  const changeABIEntries = (newEntries: Array<ABIEntry>) => {
+    setABIEntries(newEntries);
+  };
+
+  const confirmActivities = async (selection: Array<ABIEntry>) => {
+    const selectedActivities: Array<Activity> =
+      await window.electron.ipcRenderer.transformABIToActivities(selection);
+    setActivities(selectedActivities);
   };
 
   const handleNext = () => {
@@ -38,6 +53,7 @@ function TutorialCreation() {
         return (
           <StepTwo
             rows={ABIEntries}
+            confirmActivities={confirmActivities}
             handleBack={handleBack}
             handleSubmit={handleNext}
           />

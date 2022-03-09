@@ -13,6 +13,11 @@ export interface ABIEntry {
   outputs: Array<SolidityFunctionParam>;
 }
 
+export interface Activity extends ABIEntry {
+  hash: string;
+  activityName: string;
+}
+
 /**
  * Table-Related
  */

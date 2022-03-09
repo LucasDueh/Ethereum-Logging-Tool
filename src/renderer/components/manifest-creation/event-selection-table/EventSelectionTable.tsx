@@ -18,11 +18,10 @@ import { getComparator } from './table-util';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function EventSelectionTable(props: any) {
-  const { rows } = props;
+  const { rows, selected, handleSelectionChange } = props;
 
   const [order, setOrder] = React.useState<string>('asc');
   const [orderBy, setOrderBy] = React.useState<string>('name');
-  const [selected, setSelected] = React.useState<Array<string>>([]);
 
   const headCells: Array<TableHeadCell> = [
     {
@@ -58,19 +57,19 @@ function EventSelectionTable(props: any) {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n: ABIEntry) => n.name);
-      setSelected(newSelecteds);
+      const newSelecteds = rows;
+      handleSelectionChange(newSelecteds);
       return;
     }
-    setSelected([]);
+    handleSelectionChange([]);
   };
 
-  const handleClick = (_event: React.MouseEvent, name: string) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected: string[] = [];
+  const handleClick = (_event: React.MouseEvent, row: ABIEntry) => {
+    const selectedIndex = selected.indexOf(row);
+    let newSelected: ABIEntry[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, row);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -82,10 +81,10 @@ function EventSelectionTable(props: any) {
       );
     }
 
-    setSelected(newSelected);
+    handleSelectionChange(newSelected);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+  const isSelected = (row: ABIEntry) => selected.indexOf(row) !== -1;
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -107,12 +106,12 @@ function EventSelectionTable(props: any) {
                 .slice()
                 .sort(getComparator(order, orderBy))
                 .map((row: ABIEntry) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row);
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row)}
                       role="checkbox"
                       tabIndex={-1}
                       key={row.name}
@@ -139,6 +138,8 @@ function EventSelectionTable(props: any) {
 
 EventSelectionTable.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selected: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleSelectionChange: PropTypes.func.isRequired,
 };
 
 export default EventSelectionTable;
