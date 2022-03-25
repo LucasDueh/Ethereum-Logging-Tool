@@ -1,9 +1,9 @@
-import { ABIEntry } from 'types/types';
+import { IAbiEntry } from 'types/types';
 
-const reduce = (entry: ABIEntry) => {
+const reduce = (entry: IAbiEntry) => {
   if (entry.type !== 'function' && entry.type !== 'event') return null;
 
-  const out: ABIEntry = { type: '', name: '', inputs: [], outputs: [] };
+  const out: IAbiEntry = { type: '', name: '', inputs: [], outputs: [] };
 
   out.type = entry.type;
   out.type = entry.type;
@@ -24,11 +24,11 @@ const reduce = (entry: ABIEntry) => {
   return out;
 };
 
-function reduceABI(abi: string) {
-  const jsonABI = JSON.parse(abi);
+function reduceAbiToJson(abi: string) {
+  const jsonAbi = JSON.parse(abi);
   const out = [];
-  for (let i = 0; i < jsonABI.length; i += 1) {
-    const entry = jsonABI[i];
+  for (let i = 0; i < jsonAbi.length; i += 1) {
+    const entry = jsonAbi[i];
     const abiEntry = reduce(entry);
     if (abiEntry) {
       out.push(abiEntry);
@@ -37,4 +37,4 @@ function reduceABI(abi: string) {
   return JSON.stringify(out);
 }
 
-export default reduceABI;
+export default reduceAbiToJson;

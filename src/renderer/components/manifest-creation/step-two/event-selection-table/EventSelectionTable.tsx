@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 
-import { ABIEntry, TableHeadCell } from 'types/types';
+import { IAbiEntry, ITableHeadCell } from 'types/types';
 import SelectionTableToolbar from './SelectionTableToolbar';
 import SelectionTableHead from './SelectionTableHead';
 import SelectionTableCell from './SelectionTableCell';
@@ -18,12 +18,12 @@ import { getComparator } from './table-util';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function EventSelectionTable(props: any) {
-  const { rows, selected, handleSelectionChange } = props;
+  const { id, rows, selected, handleSelectionChange } = props;
 
   const [order, setOrder] = React.useState<string>('asc');
   const [orderBy, setOrderBy] = React.useState<string>('name');
 
-  const headCells: Array<TableHeadCell> = [
+  const headCells: Array<ITableHeadCell> = [
     {
       id: 'name',
       numeric: false,
@@ -58,15 +58,15 @@ function EventSelectionTable(props: any) {
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelecteds = rows;
-      handleSelectionChange(newSelecteds);
+      handleSelectionChange(newSelecteds, id);
       return;
     }
-    handleSelectionChange([]);
+    handleSelectionChange([], id);
   };
 
-  const handleClick = (_event: React.MouseEvent, row: ABIEntry) => {
+  const handleClick = (_event: React.MouseEvent, row: IAbiEntry) => {
     const selectedIndex = selected.indexOf(row);
-    let newSelected: ABIEntry[] = [];
+    let newSelected: IAbiEntry[] = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, row);
@@ -81,14 +81,14 @@ function EventSelectionTable(props: any) {
       );
     }
 
-    handleSelectionChange(newSelected);
+    handleSelectionChange(newSelected, id);
   };
 
-  const isSelected = (row: ABIEntry) => selected.indexOf(row) !== -1;
+  const isSelected = (row: IAbiEntry) => selected.indexOf(row) !== -1;
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+      <Paper sx={{ width: '100%', mb: 2 }} variant="outlined" elevation={0}>
         <SelectionTableToolbar title="ABI Entries" />
         <TableContainer>
           <Table sx={{ minWidth: 600 }} size="small" padding="none">
@@ -105,7 +105,7 @@ function EventSelectionTable(props: any) {
               {rows
                 .slice()
                 .sort(getComparator(order, orderBy))
-                .map((row: ABIEntry) => {
+                .map((row: IAbiEntry) => {
                   const isItemSelected = isSelected(row);
 
                   return (
@@ -137,6 +137,7 @@ function EventSelectionTable(props: any) {
 }
 
 EventSelectionTable.propTypes = {
+  id: PropTypes.number.isRequired,
   rows: PropTypes.arrayOf(PropTypes.object).isRequired,
   selected: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleSelectionChange: PropTypes.func.isRequired,

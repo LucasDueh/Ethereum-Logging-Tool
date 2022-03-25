@@ -1,20 +1,20 @@
 /* eslint-disable no-console */
 import { ipcMain } from 'electron';
-import { ABIEntry, Activity } from 'types/types';
-import reduceABI from './util/abi-reducer';
+import { IAbiEntry, IActivity } from 'types/types';
+import reduceAbiToJson from './util/abi-reducer';
 import hashFunction from './util/function-hasher';
 
-const getABI = (input: string) => {
-  if (input === '') return null;
-
+const reduceAbi = (input: string) => {
   const abi: string = input;
 
-  const entries = reduceABI(abi);
-  return entries;
+  if (abi === '') return null;
+
+  const abiEntriesJson = reduceAbiToJson(abi);
+  return abiEntriesJson;
 };
 
-const transformABIToActivities = (abiEntries: Array<ABIEntry>) => {
-  const activites: Array<Activity> = [];
+const transformAbiToActivities = (abiEntries: Array<IAbiEntry>) => {
+  const activites: Array<IActivity> = [];
 
   abiEntries.forEach((entry) => {
     let keccak256Hash;
@@ -24,7 +24,7 @@ const transformABIToActivities = (abiEntries: Array<ABIEntry>) => {
       keccak256Hash = null;
     }
 
-    const activity: Activity = {
+    const activity: IActivity = {
       ...entry,
       hash: keccak256Hash,
       activityName: entry.name,
@@ -36,15 +36,15 @@ const transformABIToActivities = (abiEntries: Array<ABIEntry>) => {
 };
 
 module.exports = {
-  getABI: ipcMain.handle('get-abi', async (_event, input) => {
+  reduceAbi: ipcMain.handle('reduce-abi', async (_event, input) => {
     console.log('Reducing Solidity ABI');
-    return getABI(input);
+    return reduceAbi(input);
   }),
-  transformABIToActivities: ipcMain.handle(
+  transformAbiToActivities: ipcMain.handle(
     'transform-abi-to-activities',
     async (_event, abiEntries) => {
       console.log('Transforming ABI to Activities');
-      return transformABIToActivities(abiEntries);
+      return transformAbiToActivities(abiEntries);
     }
   ),
 };

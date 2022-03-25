@@ -13,10 +13,10 @@ contextBridge.exposeInMainWorld('electron', {
     extractManifest(filename) {
       ipcRenderer.invoke('extract-manifest', filename);
     },
-    getABI: async (input) => {
-      return ipcRenderer.invoke('get-abi', input);
+    reduceAbi: async (input) => {
+      return ipcRenderer.invoke('reduce-abi', input);
     },
-    transformABIToActivities: async (abiEntries) => {
+    transformAbiToActivities: async (abiEntries) => {
       return ipcRenderer.invoke('transform-abi-to-activities', abiEntries);
     },
     on(channel, func) {
