@@ -1,12 +1,13 @@
 import React from 'react';
 import { Box, Grid, Stepper, Step, StepLabel } from '@mui/material';
 
-import { ABIEntry, Activity } from 'types/types';
-import StepOne from '../components/manifest-creation/StepOne';
-import StepTwo from '../components/manifest-creation/StepTwo';
-import StepThree from '../components/manifest-creation/StepThree';
+import { IAbiEntry, IActivity, IContract } from 'types/types';
+import asyncForEach from 'renderer/util/util';
+import StepOne from '../components/manifest-creation/step-one/StepOne';
+import StepTwo from '../components/manifest-creation/step-two/StepTwo';
+import StepThree from '../components/manifest-creation/step-three/StepThree';
 
-function TutorialCreation() {
+function ManifestCreation() {
   const stepLabels = [
     'Enter Contract ABI',
     'Select Events',
@@ -14,18 +15,64 @@ function TutorialCreation() {
     'Extraction Commands',
   ];
 
-  const [ABIEntries, setABIEntries] = React.useState<Array<ABIEntry>>([]);
-  const [activities, setActivities] = React.useState<Array<Activity>>([]);
   const [activeStep, setActiveStep] = React.useState(0);
+  const [contracts, setContracts] = React.useState<Array<IContract>>([
+    {
+      address: '',
+      rawAbi: '',
+      abiEntries: [],
+      activities: [],
+    },
+  ]);
 
-  const changeABIEntries = (newEntries: Array<ABIEntry>) => {
-    setABIEntries(newEntries);
+  const addContract = () => {
+    const contract: IContract = {
+      address: '',
+      rawAbi: '',
+      abiEntries: [],
+      activities: [],
+    } as IContract;
+    const updatedContracts = [...contracts];
+    updatedContracts.push(contract);
+    setContracts(updatedContracts);
   };
 
-  const confirmActivities = async (selection: Array<ABIEntry>) => {
-    const selectedActivities: Array<Activity> =
-      await window.electron.ipcRenderer.transformABIToActivities(selection);
-    setActivities(selectedActivities);
+  const deleteContract = (id: number) => {
+    const updatedContracts = [...contracts];
+    updatedContracts.splice(id, 1);
+    setContracts(updatedContracts);
+  };
+
+  const updateContractAddress = (newAddress: string, id: number) => {
+    const updatedContracts = [...contracts];
+    updatedContracts[id].address = newAddress;
+    setContracts(updatedContracts);
+  };
+
+  const updateRawAbi = (newAbi: string, id: number) => {
+    const updatedContracts = [...contracts];
+    updatedContracts[id].rawAbi = newAbi;
+    setContracts(updatedContracts);
+  };
+
+  const updateAbiEntries = (newEntries: Array<IAbiEntry>, id: number) => {
+    const updatedContracts = [...contracts];
+    updatedContracts[id].abiEntries = newEntries;
+    setContracts(updatedContracts);
+  };
+
+  const updateActivities = async (selection: Array<Array<IAbiEntry>>) => {
+    await asyncForEach(
+      selection,
+      async (selected: Array<IAbiEntry>, index: number) => {
+        const selectedActivities: Array<IActivity> =
+          await window.electron.ipcRenderer.transformAbiToActivities(selected);
+
+        const updatedContracts = [...contracts];
+        updatedContracts[index].activities = selectedActivities;
+        setContracts(updatedContracts);
+      }
+    );
   };
 
   const handleNext = () => {
@@ -40,19 +87,27 @@ function TutorialCreation() {
     switch (activeStep) {
       case 0:
         return (
-          <StepOne setABIEntries={changeABIEntries} handleSubmit={handleNext} />
+          <StepOne
+            contracts={contracts}
+            addContract={addContract}
+            deleteContract={deleteContract}
+            setContractAddress={updateContractAddress}
+            setRawAbi={updateRawAbi}
+            setAbiEntries={updateAbiEntries}
+            handleSubmit={handleNext}
+          />
         );
       case 1:
         return (
           <StepTwo
-            rows={ABIEntries}
-            confirmActivities={confirmActivities}
+            contracts={contracts}
+            setActivities={updateActivities}
             handleBack={handleBack}
             handleSubmit={handleNext}
           />
         );
       case 2:
-        return <StepThree activities={activities} />;
+        return <StepThree contracts={contracts} />;
       default:
         return <Box />;
     }
@@ -81,4 +136,4 @@ function TutorialCreation() {
   );
 }
 
-export default TutorialCreation;
+export default ManifestCreation;

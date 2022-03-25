@@ -6,7 +6,7 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Box from '@mui/material/Box';
 import { visuallyHidden } from '@mui/utils';
-import { TableHeadCell } from 'types/types';
+import { ITableHeadCell } from 'types/types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function SelectionTableHead(props: any) {
@@ -35,7 +35,7 @@ function SelectionTableHead(props: any) {
             onChange={onSelectAllClick}
           />
         </TableCell>
-        {headCells.map((headCell: TableHeadCell) => (
+        {headCells.map((headCell: ITableHeadCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}

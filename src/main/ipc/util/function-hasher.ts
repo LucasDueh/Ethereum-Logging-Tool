@@ -1,12 +1,12 @@
-import { ABIEntry, SolidityFunctionParam } from 'types/types';
+import { IAbiEntry, ISolidityFunctionParam } from 'types/types';
 
 const { ethers } = require('ethers');
 
-const hashFunction = (entry: ABIEntry) => {
+const hashFunction = (entry: IAbiEntry) => {
   const functionSignature: string = entry.name;
 
   const functionParamTypes: Array<string> = [];
-  entry.inputs.forEach((param: SolidityFunctionParam) => {
+  entry.inputs.forEach((param: ISolidityFunctionParam) => {
     functionParamTypes.push(param.type);
   });
 
