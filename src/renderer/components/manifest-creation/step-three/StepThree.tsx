@@ -37,11 +37,7 @@ function StepThree(props: any) {
                   label="Abort On Exception"
                   value={settings.abortOnException ? 'true' : 'false'}
                   helperText="By default, the BLF will not abort when encountering an exception. It will instead try to carry on the rest of its work as best as it can. Let's say you are analyzing 1000 blocks of a blockchain. Just because there was an error extracting information from one block, the BLF might still be able to extract information from the rest of them. If you instead want it to directly abort the mission with an error code, you can use"
-                  onChange={(
-                    event:
-                      | React.ChangeEvent<HTMLSelectElement>
-                      | React.ChangeEvent<HTMLInputElement>
-                  ) => {
+                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                     setSettings(event, true);
                   }}
                 />
