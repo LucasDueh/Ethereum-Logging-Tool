@@ -19,6 +19,7 @@ import {
 import StepOne from '../components/manifest-creation/step-one/StepOne';
 import StepTwo from '../components/manifest-creation/step-two/StepTwo';
 import StepThree from '../components/manifest-creation/step-three/StepThree';
+import StepFour from '../components/manifest-creation/step-four/StepFour';
 
 function ManifestCreation() {
   const stepLabels = [
@@ -100,12 +101,21 @@ function ManifestCreation() {
   const updateSettings = (
     event:
       | React.ChangeEvent<HTMLSelectElement>
-      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLInputElement>,
+    booleanValue = false
   ) => {
+    let newValue: string | boolean = event.target.value;
+
+    if (booleanValue) newValue = event.target.value === 'true';
+
     setSettings({
       ...settings,
-      [event.target.name]: event.target.value,
+      [event.target.name]: newValue,
     });
+  };
+
+  const finishCreation = () => {
+    // TODO
   };
 
   const handleNext = () => {
@@ -165,7 +175,14 @@ function ManifestCreation() {
                   />
                 );
               default:
-                return <Box />;
+                return (
+                  <StepFour
+                    settings={settings}
+                    contracts={contracts}
+                    handleBack={handleBack}
+                    handleSubmit={finishCreation}
+                  />
+                );
             }
           })()}
         </Grid>

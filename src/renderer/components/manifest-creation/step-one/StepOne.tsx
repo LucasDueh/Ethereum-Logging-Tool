@@ -63,6 +63,7 @@ function StepOne(props: any) {
         {contracts.map((contract: IContract, index: number) => (
           <ContractInputAccordion
             id={index}
+            key={contract.address}
             contractAddress={contract.address}
             contractAbi={contract.rawAbi}
             deleteContract={deleteContract}

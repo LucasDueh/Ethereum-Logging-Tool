@@ -48,6 +48,7 @@ function StepTwo(props: any) {
         {selected.length === contracts.length ? (
           contracts.map((contract: IContract, index: number) => (
             <EventSelectionAccordion
+              key={contract.address}
               id={index}
               contractAddress={contract.address}
               contractAbi={contract.abiEntries}
