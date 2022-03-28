@@ -1,8 +1,21 @@
 import React from 'react';
 import { Box, Grid, Stepper, Step, StepLabel } from '@mui/material';
 
-import { IAbiEntry, IActivity, IContract } from 'types/types';
+import {
+  IAbiEntry,
+  IActivity,
+  IContract,
+  IExtractionSettings,
+} from 'types/types';
+
 import asyncForEach from 'renderer/util/util';
+
+import {
+  Blockchain,
+  EmissionMode,
+  ConnectionMode,
+} from '../constants/settings';
+
 import StepOne from '../components/manifest-creation/step-one/StepOne';
 import StepTwo from '../components/manifest-creation/step-two/StepTwo';
 import StepThree from '../components/manifest-creation/step-three/StepThree';
@@ -24,6 +37,15 @@ function ManifestCreation() {
       activities: [],
     },
   ]);
+  const [settings, setSettings] = React.useState<IExtractionSettings>({
+    blockchain: Blockchain.Ethereum,
+    outputFolder: 'test_output',
+    abortOnException: false,
+    emissionMode: EmissionMode.DefaultBatching,
+    connectionMode: ConnectionMode.WebSocket,
+    connection:
+      'wss://eth-mainnet.alchemyapi.io/v2/43UD7sDV0NX1hgJIZZms5btltccfFqqN',
+  });
 
   const addContract = () => {
     const contract: IContract = {
@@ -75,42 +97,23 @@ function ManifestCreation() {
     );
   };
 
+  const updateSettings = (
+    event:
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSettings({
+      ...settings,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const SwitchStep = () => {
-    switch (activeStep) {
-      case 0:
-        return (
-          <StepOne
-            contracts={contracts}
-            addContract={addContract}
-            deleteContract={deleteContract}
-            setContractAddress={updateContractAddress}
-            setRawAbi={updateRawAbi}
-            setAbiEntries={updateAbiEntries}
-            handleSubmit={handleNext}
-          />
-        );
-      case 1:
-        return (
-          <StepTwo
-            contracts={contracts}
-            setActivities={updateActivities}
-            handleBack={handleBack}
-            handleSubmit={handleNext}
-          />
-        );
-      case 2:
-        return <StepThree contracts={contracts} />;
-      default:
-        return <Box />;
-    }
   };
 
   return (
@@ -129,7 +132,42 @@ function ManifestCreation() {
         </Grid>
 
         <Grid item xs={12}>
-          <SwitchStep />
+          {(() => {
+            switch (activeStep) {
+              case 0:
+                return (
+                  <StepOne
+                    contracts={contracts}
+                    addContract={addContract}
+                    deleteContract={deleteContract}
+                    setContractAddress={updateContractAddress}
+                    setRawAbi={updateRawAbi}
+                    setAbiEntries={updateAbiEntries}
+                    handleSubmit={handleNext}
+                  />
+                );
+              case 1:
+                return (
+                  <StepTwo
+                    contracts={contracts}
+                    setActivities={updateActivities}
+                    handleBack={handleBack}
+                    handleSubmit={handleNext}
+                  />
+                );
+              case 2:
+                return (
+                  <StepThree
+                    settings={settings}
+                    setSettings={updateSettings}
+                    handleBack={handleBack}
+                    handleSubmit={handleNext}
+                  />
+                );
+              default:
+                return <Box />;
+            }
+          })()}
         </Grid>
       </Grid>
     </Box>

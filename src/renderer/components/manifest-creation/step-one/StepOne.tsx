@@ -42,7 +42,7 @@ function StepOne(props: any) {
           <Stack direction="row" justifyContent="space-between" spacing={2}>
             <Box>
               <Typography>
-                Enter Contract Address and/or ABI of Solidity Smart Contract
+                Enter Contract Address and ABI of Solidity Smart Contract
               </Typography>
               <Typography variant="body2">
                 The ABI and Contract Address can be copied from websites like

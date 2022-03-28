@@ -25,6 +25,16 @@ export interface IContract {
   activities: Array<IActivity>;
 }
 
+export interface IExtractionSettings {
+  blockchain: string;
+  outputFolder: string;
+  abortOnException: boolean;
+  errorOutputFolder?: string;
+  emissionMode: string;
+  connectionMode: string;
+  connection: string;
+}
+
 /**
  * Table-Related
  */
