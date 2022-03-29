@@ -15,7 +15,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ContractInputAccordion(props) {
+function ContractInputAccordion(props: any) {
   const {
     id,
     contractAddress,

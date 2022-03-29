@@ -47,6 +47,20 @@ function ManifestCreation() {
     connection:
       'wss://eth-mainnet.alchemyapi.io/v2/43UD7sDV0NX1hgJIZZms5btltccfFqqN',
   });
+  const [settingsCode, setSettingsCode] = React.useState<string>(
+    `
+    SET CONNECTION
+      asdda
+      asdasd
+    asdass`
+  );
+  const [extractionCode, setExtractionCode] = React.useState<string>(
+    `
+    SET CONNECTION
+      asdda
+      asdasd
+    asdass`
+  );
 
   const addContract = () => {
     const contract: IContract = {
@@ -98,6 +112,17 @@ function ManifestCreation() {
     );
   };
 
+  const updateSettingsCode = () => {
+    const newSettingsCode = `SET ${
+      settings.connectionMode === ConnectionMode.IPCSocket ? 'IPC ' : null
+    } CONNECTION ${settings.connection}
+    asdda
+    asdasd
+    asdass`;
+
+    setSettingsCode(newSettingsCode);
+  };
+
   const updateSettings = (
     event:
       | React.ChangeEvent<HTMLSelectElement>
@@ -112,6 +137,8 @@ function ManifestCreation() {
       ...settings,
       [event.target.name]: newValue,
     });
+
+    updateSettingsCode();
   };
 
   const finishCreation = () => {
@@ -177,7 +204,8 @@ function ManifestCreation() {
               default:
                 return (
                   <StepFour
-                    settings={settings}
+                    settingsCode={settingsCode}
+                    extractionCode={extractionCode}
                     contracts={contracts}
                     handleBack={handleBack}
                     handleSubmit={finishCreation}
