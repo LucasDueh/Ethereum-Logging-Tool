@@ -1,12 +1,13 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, Button } from '@mui/material';
+import { Box, Grid, Typography, Button } from '@mui/material';
 import { IContract } from 'types/types';
 
 import AceEditor from 'react-ace';
 
 import BcqlMode from './BcqlMode';
-import 'ace-builds/src-noconflict/theme-github';
+import 'ace-builds/src-noconflict/theme-eclipse';
+import 'ace-builds/src-min-noconflict/ext-language_tools';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepFour(props: any) {
@@ -21,7 +22,7 @@ function StepFour(props: any) {
     }
   });
 
-  const onChange = (newValue: any) => {
+  const onChange = (newValue: string) => {
     console.log('change', newValue);
   };
 
@@ -45,7 +46,7 @@ function StepFour(props: any) {
 
         <Grid item xs={4}>
           {contracts.map((contract: IContract, index: number) => (
-            <></>
+            <Box key={contract.address} />
           ))}
         </Grid>
 
@@ -54,18 +55,17 @@ function StepFour(props: any) {
             ref={aceEditor}
             value={[settingsCode, extractionCode].join('')}
             mode="text"
-            theme="github"
+            theme="eclipse"
             onChange={onChange}
             name="ace"
             width="100%"
             editorProps={{ $blockScrolling: true }}
-            setOptions={{
-              enableBasicAutocompletion: false,
-              enableLiveAutocompletion: true,
-              enableSnippets: true,
-              showLineNumbers: true,
-              tabSize: 2,
+            style={{
+              width: '100%',
+              borderRadius: '4px',
             }}
+            enableBasicAutocompletion
+            enableLiveAutocompletion
           />
         </Grid>
 

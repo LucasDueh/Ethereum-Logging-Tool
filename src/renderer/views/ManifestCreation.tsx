@@ -47,20 +47,8 @@ function ManifestCreation() {
     connection:
       'wss://eth-mainnet.alchemyapi.io/v2/43UD7sDV0NX1hgJIZZms5btltccfFqqN',
   });
-  const [settingsCode, setSettingsCode] = React.useState<string>(
-    `
-    SET CONNECTION
-      asdda
-      asdasd
-    asdass`
-  );
-  const [extractionCode, setExtractionCode] = React.useState<string>(
-    `
-    SET CONNECTION
-      asdda
-      asdasd
-    asdass`
-  );
+  const [settingsCode, setSettingsCode] = React.useState<string>('');
+  const [extractionCode, setExtractionCode] = React.useState<string>('');
 
   const addContract = () => {
     const contract: IContract = {
@@ -112,17 +100,6 @@ function ManifestCreation() {
     );
   };
 
-  const updateSettingsCode = () => {
-    const newSettingsCode = `SET ${
-      settings.connectionMode === ConnectionMode.IPCSocket ? 'IPC ' : null
-    } CONNECTION ${settings.connection}
-    asdda
-    asdasd
-    asdass`;
-
-    setSettingsCode(newSettingsCode);
-  };
-
   const updateSettings = (
     event:
       | React.ChangeEvent<HTMLSelectElement>
@@ -130,16 +107,30 @@ function ManifestCreation() {
     booleanValue = false
   ) => {
     let newValue: string | boolean = event.target.value;
-
     if (booleanValue) newValue = event.target.value === 'true';
 
     setSettings({
       ...settings,
       [event.target.name]: newValue,
     });
-
-    updateSettingsCode();
   };
+
+  const updateSettingsCode = () => {
+    const newSettingsCode = `SET BLOCKCHAIN "${
+      settings.blockchain
+    }";\nSET OUTPUT FOLDER "./${settings.outputFolder}";\nSET ${
+      settings.connectionMode === ConnectionMode.IPCSocket ? 'IPC ' : ''
+    }CONNECTION "${settings.connection}";\nSET ABORT ON EXCEPTION "${
+      settings.abortOnException
+    }";\nSET EMISSION MODE "${settings.emissionMode}";`;
+
+    setSettingsCode(newSettingsCode);
+  };
+
+  React.useEffect(() => {
+    updateSettingsCode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings]);
 
   const finishCreation = () => {
     // TODO
