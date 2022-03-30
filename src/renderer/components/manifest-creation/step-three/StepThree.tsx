@@ -1,16 +1,10 @@
 import PropTypes from 'prop-types';
-import {
-  Stack,
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  TextField,
-} from '@mui/material';
+import { Stack, Card, CardContent, TextField } from '@mui/material';
 
 import { EmissionMode, ConnectionMode } from '../../../constants/settings';
 
 import SelectInput from './SelectInput';
+import StepInstructions from '../StepInstructions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepThree(props: any) {
@@ -19,16 +13,14 @@ function StepThree(props: any) {
   return (
     <form id={formId} onSubmit={handleSubmit}>
       <Stack spacing={2} justifyContent="space-between" alignItems="stretch">
-        <Box>
-          <Typography>Choose Mandatory Settings for extraction</Typography>
-          <Typography variant="body2">
-            The extraction behaviour is controlled through the options set here.
-          </Typography>
-        </Box>
+        <StepInstructions
+          heading="Choose Mandatory Settings for the Extraction"
+          details="The extraction behaviour is controlled through the options set here."
+        />
 
         <Card>
           <CardContent>
-            <Stack style={{ width: '100%' }} spacing={3}>
+            <Stack style={{ width: '100%' }} spacing={4}>
               <SelectInput
                 items={{ true: 'true', false: 'false' }}
                 name="abortOnException"

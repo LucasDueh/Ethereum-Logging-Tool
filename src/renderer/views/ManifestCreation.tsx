@@ -32,7 +32,7 @@ import StepFour from '../components/manifest-creation/step-four/StepFour';
 
 const useStyles = makeStyles({
   stepLabel: {
-    fontSize: '14px',
+    fontSize: '15px',
   },
 });
 
@@ -44,7 +44,7 @@ function ManifestCreation(props: any) {
     'Enter Contract ABI',
     'Select Events',
     'Mandatory Settings',
-    'Extraction Commands',
+    'Define Extraction',
   ];
 
   const [activeStep, setActiveStep] = React.useState(0);

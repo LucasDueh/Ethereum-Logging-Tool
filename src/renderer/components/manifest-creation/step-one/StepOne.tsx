@@ -1,9 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Stack, Typography, Button } from '@mui/material';
+import { Stack, Button } from '@mui/material';
 import { IContract } from 'types/types';
 import AddIcon from '@mui/icons-material/Add';
 import ContractInputAccordion from './ContractInputAccordion';
+import StepInstructions from '../StepInstructions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepOne(props: any) {
@@ -40,15 +41,11 @@ function StepOne(props: any) {
     <form id={formId} onSubmit={handleSubmit}>
       <Stack spacing={2} justifyContent="center" alignItems="space-between">
         <Stack direction="row" justifyContent="space-between" spacing={2}>
-          <Box>
-            <Typography>
-              Enter Contract Address and ABI of Solidity Smart Contract
-            </Typography>
-            <Typography variant="body2">
-              The ABI and Contract Address can be copied from websites like
-              etherscan.io.
-            </Typography>
-          </Box>
+          <StepInstructions
+            heading="Enter Contract Address and ABI of Solidity Smart Contract"
+            details="The ABI and contract address can be copied from websites like
+          etherscan.io."
+          />
 
           <Button
             startIcon={<AddIcon />}
