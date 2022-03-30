@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Grid, Typography, Button } from '@mui/material';
+import { Stack, Box, Grid, Typography } from '@mui/material';
 import { IContract } from 'types/types';
 
 import AceEditor from 'react-ace';
@@ -11,8 +11,14 @@ import 'ace-builds/src-min-noconflict/ext-language_tools';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepFour(props: any) {
-  const { settingsCode, extractionCode, contracts, handleBack, handleSubmit } =
-    props;
+  const {
+    formId,
+    settingsCode,
+    extractionCode,
+    setExtractionCode,
+    contracts,
+    handleSubmit,
+  } = props;
   const aceEditor = React.useRef<AceEditor>(null);
 
   React.useEffect(() => {
@@ -22,77 +28,60 @@ function StepFour(props: any) {
     }
   });
 
-  const onChange = (newValue: string) => {
-    console.log('change', newValue);
+  const onEditorChange = (newEditorValue: string) => {
+    const newExtractionCode = newEditorValue.replace(settingsCode, '');
+    setExtractionCode(newExtractionCode);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Grid
-        container
-        spacing={2}
-        justifyContent="center"
-        style={{ height: '80vh' }}
-      >
-        <Grid item xs={12}>
-          <Typography>
-            Enter Contract Address and ABI of Solidity Smart Contract
-          </Typography>
+    <form id={formId} onSubmit={handleSubmit}>
+      <Stack spacing={2} justifyContent="space-between" alignItems="stretch">
+        <Box>
+          <Typography>Specify Manifest</Typography>
           <Typography variant="body2">
-            The ABI and Contract Address can be copied from websites like
-            etherscan.io.
+            Copy and paste code blocks from the right side.
           </Typography>
-        </Grid>
+        </Box>
 
-        <Grid item xs={4}>
-          {contracts.map((contract: IContract, index: number) => (
-            <Box key={contract.address} />
-          ))}
-        </Grid>
+        <Grid container>
+          <Grid item xs={9}>
+            <Box style={{ height: '67vh' }}>
+              <AceEditor
+                ref={aceEditor}
+                value={[settingsCode, extractionCode].join('')}
+                mode="text"
+                theme="eclipse"
+                onChange={onEditorChange}
+                name="ace"
+                height="100%"
+                editorProps={{ $blockScrolling: true }}
+                style={{
+                  width: '100%',
+                  borderRadius: '4px',
+                }}
+                enableBasicAutocompletion
+                enableLiveAutocompletion
+              />
+            </Box>
+          </Grid>
 
-        <Grid item xs={8}>
-          <AceEditor
-            ref={aceEditor}
-            value={[settingsCode, extractionCode].join('')}
-            mode="text"
-            theme="eclipse"
-            onChange={onChange}
-            name="ace"
-            width="100%"
-            editorProps={{ $blockScrolling: true }}
-            style={{
-              width: '100%',
-              borderRadius: '4px',
-            }}
-            enableBasicAutocompletion
-            enableLiveAutocompletion
-          />
+          <Grid item xs={3}>
+            {contracts.map((contract: IContract, index: number) => (
+              <Box key={contract.address} />
+            ))}
+          </Grid>
         </Grid>
-
-        <Grid item>
-          <Button
-            type="button"
-            variant="contained"
-            onClick={handleBack}
-            sx={{ mr: 2 }}
-          >
-            Back
-          </Button>
-
-          <Button type="submit" variant="contained">
-            Finish
-          </Button>
-        </Grid>
-      </Grid>
+      </Stack>
     </form>
   );
 }
 
 StepFour.propTypes = {
+  formId: PropTypes.string.isRequired,
   settingsCode: PropTypes.string.isRequired,
   extractionCode: PropTypes.string.isRequired,
+  setExtractionCode: PropTypes.func.isRequired,
   contracts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleBack: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
 

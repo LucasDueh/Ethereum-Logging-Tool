@@ -1,4 +1,4 @@
-import { Box, Grid, Button, Typography } from '@mui/material';
+import { Stack, Box, Grid, Button, Typography } from '@mui/material';
 
 import FileListSidebar from 'renderer/components/manifest-list/FileListSidebar';
 
@@ -6,7 +6,7 @@ function ManifestList() {
   const labelSpace = 2;
 
   return (
-    <Box>
+    <Stack direction="row" spacing={1}>
       <FileListSidebar />
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -86,7 +86,7 @@ function ManifestList() {
           </Button>
         </Grid>
       </Grid>
-    </Box>
+    </Stack>
   );
 }
 

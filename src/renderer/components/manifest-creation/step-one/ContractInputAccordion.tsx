@@ -1,5 +1,4 @@
 import {
-  Grid,
   TextField,
   Typography,
   Accordion,
@@ -40,45 +39,43 @@ function ContractInputAccordion(props: any) {
   };
 
   return (
-    <Grid item xs={12}>
-      <Accordion defaultExpanded>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            style={{ width: '100%' }}
-          >
-            <Typography>Contract {id + 1}</Typography>
-            <IconButton onClick={deleteContractId}>
-              <DeleteIcon />
-            </IconButton>
-          </Stack>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Stack spacing={2}>
-            <TextField
-              label="Contract Address"
-              placeholder="Enter Contract Address"
-              onChange={handleChangeAddressId}
-              defaultValue={contractAddress}
-              fullWidth
-            />
+    <Accordion defaultExpanded>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          style={{ width: '100%' }}
+        >
+          <Typography>Contract {id + 1}</Typography>
+          <IconButton onClick={deleteContractId}>
+            <DeleteIcon />
+          </IconButton>
+        </Stack>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Stack spacing={2}>
+          <TextField
+            label="Contract Address"
+            placeholder="Enter Contract Address"
+            onChange={handleChangeAddressId}
+            defaultValue={contractAddress}
+            fullWidth
+          />
 
-            <TextField
-              label="Contract ABI"
-              placeholder="Enter Contract ABI"
-              onChange={handleChangeAbiId}
-              defaultValue={contractAbi}
-              multiline
-              minRows={4}
-              maxRows={8}
-              fullWidth
-            />
-          </Stack>
-        </AccordionDetails>
-      </Accordion>
-    </Grid>
+          <TextField
+            label="Contract ABI"
+            placeholder="Enter Contract ABI"
+            onChange={handleChangeAbiId}
+            defaultValue={contractAbi}
+            multiline
+            minRows={4}
+            maxRows={8}
+            fullWidth
+          />
+        </Stack>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 

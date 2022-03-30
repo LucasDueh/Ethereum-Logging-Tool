@@ -1,5 +1,14 @@
 import React from 'react';
-import { Box, Grid, Stepper, Step, StepLabel } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import {
+  Button,
+  Box,
+  Stack,
+  Stepper,
+  Step,
+  StepLabel,
+  Divider,
+} from '@mui/material';
 
 import {
   IAbiEntry,
@@ -21,7 +30,16 @@ import StepTwo from '../components/manifest-creation/step-two/StepTwo';
 import StepThree from '../components/manifest-creation/step-three/StepThree';
 import StepFour from '../components/manifest-creation/step-four/StepFour';
 
-function ManifestCreation() {
+const useStyles = makeStyles({
+  stepLabel: {
+    fontSize: '14px',
+  },
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ManifestCreation(props: any) {
+  const classes = useStyles(props);
+
   const stepLabels = [
     'Enter Contract ABI',
     'Select Events',
@@ -48,7 +66,7 @@ function ManifestCreation() {
       'wss://eth-mainnet.alchemyapi.io/v2/43UD7sDV0NX1hgJIZZms5btltccfFqqN',
   });
   const [settingsCode, setSettingsCode] = React.useState<string>('');
-  const [extractionCode, setExtractionCode] = React.useState<string>('');
+  const [extractionCode, setExtractionCode] = React.useState<string>('\n\n');
 
   const addContract = () => {
     const contract: IContract = {
@@ -132,6 +150,10 @@ function ManifestCreation() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings]);
 
+  const updateExtractionCode = (newExtractionCode: string) => {
+    setExtractionCode(newExtractionCode);
+  };
+
   const finishCreation = () => {
     // TODO
   };
@@ -141,72 +163,98 @@ function ManifestCreation() {
   };
 
   const handleBack = () => {
+    if (activeStep === 0) return;
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   return (
-    <Box sx={{ p: 1 }}>
-      <Grid container spacing={4} justifyContent="center" alignItems="center">
-        <Grid item xs={12}>
-          <Stepper activeStep={activeStep} alternativeLabel>
-            {stepLabels.map((label) => {
-              return (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              );
-            })}
-          </Stepper>
-        </Grid>
+    <Stack
+      sx={{ py: 1 }}
+      spacing={1}
+      justifyContent="space-between"
+      alignItems="space-between"
+    >
+      <Box sx={{ px: 3, py: 1 }}>
+        <Stepper activeStep={activeStep}>
+          {stepLabels.map((label) => {
+            return (
+              <Step key={label}>
+                <StepLabel classes={{ label: classes.stepLabel }}>
+                  {label}
+                </StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
+      </Box>
+      <Divider />
 
-        <Grid item xs={12}>
-          {(() => {
-            switch (activeStep) {
-              case 0:
-                return (
-                  <StepOne
-                    contracts={contracts}
-                    addContract={addContract}
-                    deleteContract={deleteContract}
-                    setContractAddress={updateContractAddress}
-                    setRawAbi={updateRawAbi}
-                    setAbiEntries={updateAbiEntries}
-                    handleSubmit={handleNext}
-                  />
-                );
-              case 1:
-                return (
-                  <StepTwo
-                    contracts={contracts}
-                    setActivities={updateActivities}
-                    handleBack={handleBack}
-                    handleSubmit={handleNext}
-                  />
-                );
-              case 2:
-                return (
-                  <StepThree
-                    settings={settings}
-                    setSettings={updateSettings}
-                    handleBack={handleBack}
-                    handleSubmit={handleNext}
-                  />
-                );
-              default:
-                return (
-                  <StepFour
-                    settingsCode={settingsCode}
-                    extractionCode={extractionCode}
-                    contracts={contracts}
-                    handleBack={handleBack}
-                    handleSubmit={finishCreation}
-                  />
-                );
-            }
-          })()}
-        </Grid>
-      </Grid>
-    </Box>
+      <Box sx={{ p: 3, overflowY: 'auto', height: '80vh' }}>
+        {(() => {
+          switch (activeStep) {
+            case 0:
+              return (
+                <StepOne
+                  formId={stepLabels[0]}
+                  contracts={contracts}
+                  addContract={addContract}
+                  deleteContract={deleteContract}
+                  setContractAddress={updateContractAddress}
+                  setRawAbi={updateRawAbi}
+                  setAbiEntries={updateAbiEntries}
+                  handleSubmit={handleNext}
+                />
+              );
+            case 1:
+              return (
+                <StepTwo
+                  formId={stepLabels[1]}
+                  contracts={contracts}
+                  setActivities={updateActivities}
+                  handleSubmit={handleNext}
+                />
+              );
+            case 2:
+              return (
+                <StepThree
+                  formId={stepLabels[2]}
+                  settings={settings}
+                  setSettings={updateSettings}
+                  handleSubmit={handleNext}
+                />
+              );
+            default:
+              return (
+                <StepFour
+                  formId={stepLabels[3]}
+                  settingsCode={settingsCode}
+                  extractionCode={extractionCode}
+                  setExtractionCode={updateExtractionCode}
+                  contracts={contracts}
+                  handleSubmit={finishCreation}
+                />
+              );
+          }
+        })()}
+      </Box>
+
+      <Divider />
+      <Stack direction="row" justifyContent="center">
+        <Button
+          disabled={activeStep <= 0}
+          type="button"
+          variant="outlined"
+          onClick={handleBack}
+          sx={{ mr: 1 }}
+        >
+          Back
+        </Button>
+
+        <Button form={stepLabels[activeStep]} type="submit" variant="outlined">
+          Next
+        </Button>
+      </Stack>
+    </Stack>
   );
 }
 

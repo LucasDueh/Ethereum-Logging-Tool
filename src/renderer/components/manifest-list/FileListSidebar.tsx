@@ -31,103 +31,101 @@ function FileListSidebar() {
 
   const FileList = () => {
     return (
-      <>
-        <Box sx={{ overflow: 'auto' }}>
-          <List
-            sx={{
-              width: '100%',
-              maxWidth: drawerWidth,
-              bgcolor: 'background.paper',
-            }}
-            component="nav"
-            subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                Manifests
-              </ListSubheader>
-            }
-          >
-            <Divider />
-            <ListItemButton>
-              <ListItemIcon>
-                <Article />
-              </ListItemIcon>
-              <ListItemText primary="Cargox.bcql" />
-            </ListItemButton>
-            <Divider />
-            <ListItemButton>
-              <ListItemIcon>
-                <Article />
-              </ListItemIcon>
-              <ListItemText primary="KryptoKitties.bcql" />
-            </ListItemButton>
-            <Divider />
-            <ListItemButton onClick={handleClick}>
-              <ListItemIcon>
-                <Folder />
-              </ListItemIcon>
-              <ListItemText primary="Augur" />
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <Article />
-                  </ListItemIcon>
-                  <ListItemText primary="Augur.bcql" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <Article />
-                  </ListItemIcon>
-                  <ListItemText primary="Augur2.bcql" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <Article />
-                  </ListItemIcon>
-                  <ListItemText primary="Augur3.bcql" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-            <Divider />
-            <ListItemButton onClick={handleClick2}>
-              <ListItemIcon>
-                <Folder />
-              </ListItemIcon>
-              <ListItemText primary="Forsage" />
-              {open2 ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={open2} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <Article />
-                  </ListItemIcon>
-                  <ListItemText primary="Forsage.bcql" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <Article />
-                  </ListItemIcon>
-                  <ListItemText primary="Forsage2.bcql" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <Article />
-                  </ListItemIcon>
-                  <ListItemText primary="Forsage3.bcql" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      </>
+      <Box sx={{ overflow: 'auto' }}>
+        <List
+          sx={{
+            width: '100%',
+            maxWidth: drawerWidth,
+            bgcolor: 'background.paper',
+          }}
+          component="nav"
+          subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              Manifests
+            </ListSubheader>
+          }
+        >
+          <Divider />
+          <ListItemButton>
+            <ListItemIcon>
+              <Article />
+            </ListItemIcon>
+            <ListItemText primary="Cargox.bcql" />
+          </ListItemButton>
+          <Divider />
+          <ListItemButton>
+            <ListItemIcon>
+              <Article />
+            </ListItemIcon>
+            <ListItemText primary="KryptoKitties.bcql" />
+          </ListItemButton>
+          <Divider />
+          <ListItemButton onClick={handleClick}>
+            <ListItemIcon>
+              <Folder />
+            </ListItemIcon>
+            <ListItemText primary="Augur" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <Article />
+                </ListItemIcon>
+                <ListItemText primary="Augur.bcql" />
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <Article />
+                </ListItemIcon>
+                <ListItemText primary="Augur2.bcql" />
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <Article />
+                </ListItemIcon>
+                <ListItemText primary="Augur3.bcql" />
+              </ListItemButton>
+            </List>
+          </Collapse>
+          <Divider />
+          <ListItemButton onClick={handleClick2}>
+            <ListItemIcon>
+              <Folder />
+            </ListItemIcon>
+            <ListItemText primary="Forsage" />
+            {open2 ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open2} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <Article />
+                </ListItemIcon>
+                <ListItemText primary="Forsage.bcql" />
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <Article />
+                </ListItemIcon>
+                <ListItemText primary="Forsage2.bcql" />
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <Article />
+                </ListItemIcon>
+                <ListItemText primary="Forsage3.bcql" />
+              </ListItemButton>
+            </List>
+          </Collapse>
+        </List>
+      </Box>
     );
   };
 
   return (
-    <Sidebar content={<FileList />} anchor="right" drawerWidth={drawerWidth} />
+    <Sidebar content={<FileList />} anchor="left" drawerWidth={drawerWidth} />
   );
 }
 
