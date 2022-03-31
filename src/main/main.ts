@@ -17,8 +17,8 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
-require('./ipc/blf'); // why require??
-require('./ipc/abi');
+require('./ipc/blf/blf'); // why require??
+require('./ipc/abi/abi');
 
 export default class AppUpdater {
   constructor() {
