@@ -20,11 +20,11 @@ const themeindependent = {
     },
     body1: {
       color: jet,
-      fontSize: 18,
+      fontSize: 17,
     },
     body2: {
       color: battleshipGrey,
-      fontSize: 16,
+      fontSize: 15,
     },
   },
 };

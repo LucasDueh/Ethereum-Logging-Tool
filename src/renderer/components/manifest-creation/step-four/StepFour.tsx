@@ -1,14 +1,12 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Stack, Box, Grid } from '@mui/material';
+import { Paper, Tabs, Tab, Stack, Grid } from '@mui/material';
 import { IContract } from 'types/types';
 
-import AceEditor from 'react-ace';
-import BcqlMode from './BcqlMode';
-import 'ace-builds/src-noconflict/theme-eclipse';
-import 'ace-builds/src-min-noconflict/ext-language_tools';
-
 import StepInstructions from '../StepInstructions';
+import CodeEditor from '../../code-editor/CodeEditor';
+import TabPanel from './TabPanel';
+import CodeSuggestions from './CodeSuggestions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepFour(props: any) {
@@ -20,14 +18,12 @@ function StepFour(props: any) {
     contracts,
     handleSubmit,
   } = props;
-  const aceEditor = React.useRef<AceEditor>(null);
 
-  React.useEffect(() => {
-    if (aceEditor.current != null) {
-      const customMode = new BcqlMode();
-      aceEditor.current.editor.getSession().setMode(customMode);
-    }
-  });
+  const [selectedTab, setSelectedTab] = React.useState(0);
+
+  const handleTabChange = (_event: React.SyntheticEvent, newTab: number) => {
+    setSelectedTab(newTab);
+  };
 
   const onEditorChange = (newEditorValue: string) => {
     const newExtractionCode = newEditorValue.replace(settingsCode, '');
@@ -43,31 +39,41 @@ function StepFour(props: any) {
         />
 
         <Grid container>
-          <Grid item xs={9}>
-            <Box style={{ height: '67vh' }}>
-              <AceEditor
-                ref={aceEditor}
+          <Grid item xs={8}>
+            <Paper variant="outlined" square style={{ height: '69vh' }}>
+              <CodeEditor
                 value={[settingsCode, extractionCode].join('')}
-                mode="text"
-                theme="eclipse"
                 onChange={onEditorChange}
-                name="ace"
-                height="100%"
-                editorProps={{ $blockScrolling: true }}
-                style={{
-                  width: '100%',
-                  borderRadius: '4px',
-                }}
-                enableBasicAutocompletion
-                enableLiveAutocompletion
+                readOnly={false}
               />
-            </Box>
+            </Paper>
           </Grid>
 
-          <Grid item xs={3}>
-            {contracts.map((contract: IContract, index: number) => (
-              <Box key={contract.address} />
-            ))}
+          <Grid item xs={4}>
+            <Paper variant="outlined" square style={{ height: '69vh' }}>
+              <Tabs
+                value={selectedTab}
+                onChange={handleTabChange}
+                variant="scrollable"
+                scrollButtons="auto"
+                centered
+              >
+                {contracts.map((contract: IContract, index: number) => {
+                  return <Tab label={`Contract ${index + 1}`} />;
+                })}
+              </Tabs>
+              {contracts.map((contract: IContract, index: number) => {
+                return (
+                  <TabPanel value={selectedTab} index={index}>
+                    <CodeSuggestions
+                      id={index}
+                      contractAddress={contract.address}
+                      contractActivities={contract.activities}
+                    />
+                  </TabPanel>
+                );
+              })}
+            </Paper>
           </Grid>
         </Grid>
       </Stack>

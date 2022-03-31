@@ -189,7 +189,7 @@ function ManifestCreation(props: any) {
       </Box>
       <Divider />
 
-      <Box sx={{ p: 3, overflowY: 'auto', height: '80vh' }}>
+      <Box sx={{ px: 3, py: 1, overflowY: 'auto', height: '80vh' }}>
         {(() => {
           switch (activeStep) {
             case 0:
