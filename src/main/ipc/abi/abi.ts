@@ -3,8 +3,8 @@ import { ipcMain } from 'electron';
 import { IAbiEntry, IActivity } from 'types/types';
 import AbiType from 'constants/abi-type';
 
-import reduceAbiToJson from './util/abi-reducer';
-import hashFunction from './util/function-hasher';
+import reduceAbiToJson from './abi-reducer';
+import hashFunction from './function-hasher';
 
 const reduceAbi = (input: string) => {
   const abi: string = input;
