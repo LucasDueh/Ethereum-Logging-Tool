@@ -1,5 +1,3 @@
-import AbiType from 'constants/abi-type';
-
 /**
  * General
  */
@@ -9,7 +7,7 @@ export interface ISolidityFunctionParam {
 }
 
 export interface IAbiEntry {
-  type: AbiType;
+  type: string;
   name: string;
   inputs: Array<ISolidityFunctionParam>;
   outputs: Array<ISolidityFunctionParam>;

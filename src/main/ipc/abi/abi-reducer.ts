@@ -1,11 +1,10 @@
-import AbiType from 'constants/abi-type';
 import { IAbiEntry } from 'types/types';
 
 const reduce = (entry: IAbiEntry) => {
   if (entry.type !== 'function' && entry.type !== 'event') return null;
 
   const out: IAbiEntry = {
-    type: AbiType.Empty,
+    type: '',
     name: '',
     inputs: [],
     outputs: [],
