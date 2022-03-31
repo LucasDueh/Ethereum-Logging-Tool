@@ -3,14 +3,11 @@ import { ipcMain } from 'electron';
 import { IAbiEntry, IActivity } from 'types/types';
 
 import reduceAbiToJson from './abi-reducer';
+import AbiTypes from './abi-types';
 import hashFunction from './function-hasher';
 
 const reduceAbi = (input: string) => {
-  const abi: string = input;
-
-  if (abi === '') return null;
-
-  const abiEntriesJson = reduceAbiToJson(abi);
+  const abiEntriesJson = reduceAbiToJson(input);
   return abiEntriesJson;
 };
 
@@ -19,8 +16,20 @@ const transformAbiToActivities = (abiEntries: Array<IAbiEntry>) => {
 
   abiEntries.forEach((entry) => {
     let keccak256Hash;
-    if (entry.type === 'function') {
+
+    // If a an abi entry of type function has input parameters
+    // it can be seen as a function as well as a decodable function
+    if (entry.type === AbiTypes.Function && entry.inputs.length > 0) {
       keccak256Hash = hashFunction(entry);
+      const type = AbiTypes.DecodableFunction;
+
+      const activity: IActivity = {
+        ...entry,
+        hash: keccak256Hash,
+        activityName: entry.name,
+      };
+      activity.type = type;
+      activites.push(activity);
     } else {
       keccak256Hash = null;
     }

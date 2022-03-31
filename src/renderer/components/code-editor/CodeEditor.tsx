@@ -8,14 +8,25 @@ import 'ace-builds/src-min-noconflict/ext-language_tools';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function CodeEditor(props: any) {
-  const { value, onChange, readOnly } = props;
+  const { isManifestEditor, value, onChange, readOnly, maxLines } = props;
 
   const aceEditor = React.useRef<AceEditor>(null);
 
   React.useEffect(() => {
-    if (aceEditor.current != null) {
+    const { editor } = aceEditor.current as AceEditor;
+    if (editor != null) {
       const customMode = new BcqlMode();
-      aceEditor.current.editor.getSession().setMode(customMode);
+      editor.getSession().setMode(customMode);
+
+      if (isManifestEditor) {
+        editor.commands.on('exec', (event: React.KeyboardEvent) => {
+          const rowCol = editor.selection.getCursor();
+          if ([0, 1, 2, 3, 4].includes(rowCol.row)) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        });
+      }
     }
   });
 
@@ -37,14 +48,24 @@ function CodeEditor(props: any) {
       }}
       enableBasicAutocompletion
       enableLiveAutocompletion
+      maxLines={maxLines}
     />
   );
 }
 
+CodeEditor.defaultProps = {
+  isManifestEditor: false,
+  maxLines: undefined,
+  onChange: () => {},
+  readOnly: false,
+};
+
 CodeEditor.propTypes = {
+  isManifestEditor: PropTypes.bool,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool.isRequired,
+  onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
+  maxLines: PropTypes.number,
 };
 
 export default CodeEditor;
