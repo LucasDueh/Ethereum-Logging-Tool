@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import { ipcMain } from 'electron';
 import { IAbiEntry, IActivity } from 'types/types';
+import AbiType from 'constants/abi-type';
+
 import reduceAbiToJson from './util/abi-reducer';
 import hashFunction from './util/function-hasher';
 
@@ -18,7 +20,7 @@ const transformAbiToActivities = (abiEntries: Array<IAbiEntry>) => {
 
   abiEntries.forEach((entry) => {
     let keccak256Hash;
-    if (entry.type === 'function') {
+    if (entry.type === AbiType.Function) {
       keccak256Hash = hashFunction(entry);
     } else {
       keccak256Hash = null;

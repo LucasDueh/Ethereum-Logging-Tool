@@ -1,9 +1,15 @@
+import AbiType from 'constants/abi-type';
 import { IAbiEntry } from 'types/types';
 
 const reduce = (entry: IAbiEntry) => {
   if (entry.type !== 'function' && entry.type !== 'event') return null;
 
-  const out: IAbiEntry = { type: '', name: '', inputs: [], outputs: [] };
+  const out: IAbiEntry = {
+    type: AbiType.Empty,
+    name: '',
+    inputs: [],
+    outputs: [],
+  };
 
   out.type = entry.type;
   out.type = entry.type;
@@ -14,9 +20,6 @@ const reduce = (entry: IAbiEntry) => {
   });
 
   if (entry.outputs && entry.outputs.length > 0) {
-    // Throw out ABI variables that have { type: function }
-    if (!entry.outputs[0].name) return null;
-
     entry.outputs.forEach((element) => {
       out.outputs.push({ type: element.type, name: element.name });
     });
