@@ -4,6 +4,8 @@ import { Stack, Box } from '@mui/material';
 import { IActivity } from 'types/types';
 import AbiTypes from 'renderer/constants/abi-types';
 import AbiEventBlock from './code-blocks/AbiEventBlock';
+import AbiFunctionBlock from './code-blocks/AbiFunctionBlock';
+import AbiDecodableFunctionBlock from './code-blocks/AbiDecodableFunctionBlock';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function CodeSuggestions(props: any) {
@@ -23,12 +25,23 @@ function CodeSuggestions(props: any) {
               />
             );
           case AbiTypes.Function:
-            return <Box>{activity.activityName}</Box>;
+            return (
+              <AbiFunctionBlock
+                contractAddress={contractAddress}
+                name={activity.name}
+                inputs={activity.inputs}
+                outputs={activity.outputs}
+                activityName={activity.activityName}
+              />
+            );
           case AbiTypes.DecodableFunction:
             return (
-              <Box>
-                {activity.activityName} {activity.hash}
-              </Box>
+              <AbiDecodableFunctionBlock
+                contractAddress={contractAddress}
+                name={activity.name}
+                inputs={activity.inputs}
+                activityName={activity.activityName}
+              />
             );
           default:
             return <Box />;

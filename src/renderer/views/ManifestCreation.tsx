@@ -151,7 +151,11 @@ function ManifestCreation(props: any) {
   }, [settings]);
 
   const updateExtractionCode = (newExtractionCode: string) => {
-    setExtractionCode(newExtractionCode);
+    if (newExtractionCode === '') {
+      setExtractionCode('\n');
+    } else {
+      setExtractionCode(newExtractionCode);
+    }
   };
 
   const finishCreation = () => {

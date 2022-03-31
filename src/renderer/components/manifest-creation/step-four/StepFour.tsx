@@ -42,6 +42,7 @@ function StepFour(props: any) {
           <Grid item xs={6}>
             <Paper variant="outlined" square style={{ height: '69vh' }}>
               <CodeEditor
+                isManifestEditor
                 value={[settingsCode, extractionCode].join('')}
                 onChange={onEditorChange}
               />

@@ -1,25 +1,21 @@
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import { ISolidityFunctionParam } from 'types/types';
 import CodeEditor from '../../../code-editor/CodeEditor';
+import paramsToString from './util';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function AbiEventBlock(props: any) {
   const { contractAddress, name, inputs, activityName } = props;
 
   const code = () => {
-    let parameters = '';
-    inputs.forEach((input: ISolidityFunctionParam, index: number) => {
-      parameters += `${input.type} ${input.name}`;
-      if (index < inputs.length - 1) parameters += ', ';
-    });
+    const parameters = paramsToString(inputs);
 
-    return `LOG ENTRIES (${contractAddress}) (${name}(${parameters})) {\n\t// Enter your extraction code here\n\t// E.g., EMIT XES EVENT ()(VARIABLE)()("${activityName}" as xs:string concept:name);\n}`;
+    return `LOG ENTRIES (${contractAddress}) (\n\t${name}(${parameters})) {\n\t// Enter your extraction code here\n}`;
   };
 
   return (
     <Box>
-      <CodeEditor value={code()} readOnly maxLines={4} />
+      <CodeEditor value={code()} readOnly maxLines={10} />
     </Box>
   );
 }
