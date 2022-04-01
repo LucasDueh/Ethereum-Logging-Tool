@@ -1,6 +1,6 @@
-async function asyncForEach(
-  array: Array<unknown>,
-  callback: (arg0: unknown, arg1: number, arg2: Array<unknown>) => void
+async function asyncForEach<Type>(
+  array: Array<Type>,
+  callback: (arg0: Type, arg1: number, arg2: Array<Type>) => void
 ) {
   for (let index = 0; index < array.length; index += 1) {
     // eslint-disable-next-line no-await-in-loop

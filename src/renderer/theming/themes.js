@@ -8,7 +8,7 @@ const starCommandBlue = '#197bbdff'; // primary
 const hanPurple = '#5438dcff'; // secondary
 const flame = '#ec4e20ff'; // error
 const honeyYellow = '#f6ae2dff'; // warning
-const aeroBlue = '#d3f8e2ff'; // info
+const aeroBlue = '#F4FAFFff'; // info
 const greenCyan = '#2d936cff'; // success
 
 const themeindependent = {
@@ -20,11 +20,11 @@ const themeindependent = {
     },
     body1: {
       color: jet,
-      fontSize: 18,
+      fontSize: 17,
     },
     body2: {
       color: battleshipGrey,
-      fontSize: 16,
+      fontSize: 15,
     },
   },
 };

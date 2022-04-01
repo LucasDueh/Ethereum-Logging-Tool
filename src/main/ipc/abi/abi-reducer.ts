@@ -1,9 +1,16 @@
 import { IAbiEntry } from 'types/types';
+import AbiTypes from './abi-types';
 
 const reduce = (entry: IAbiEntry) => {
-  if (entry.type !== 'function' && entry.type !== 'event') return null;
+  if (entry.type !== AbiTypes.Function && entry.type !== AbiTypes.Event)
+    return null;
 
-  const out: IAbiEntry = { type: '', name: '', inputs: [], outputs: [] };
+  const out: IAbiEntry = {
+    type: '',
+    name: '',
+    inputs: [],
+    outputs: [],
+  };
 
   out.type = entry.type;
   out.type = entry.type;
@@ -14,9 +21,6 @@ const reduce = (entry: IAbiEntry) => {
   });
 
   if (entry.outputs && entry.outputs.length > 0) {
-    // Throw out ABI variables that have { type: function }
-    if (!entry.outputs[0].name) return null;
-
     entry.outputs.forEach((element) => {
       out.outputs.push({ type: element.type, name: element.name });
     });
@@ -25,16 +29,20 @@ const reduce = (entry: IAbiEntry) => {
 };
 
 function reduceAbiToJson(abi: string) {
-  const jsonAbi = JSON.parse(abi);
-  const out = [];
-  for (let i = 0; i < jsonAbi.length; i += 1) {
-    const entry = jsonAbi[i];
-    const abiEntry = reduce(entry);
-    if (abiEntry) {
-      out.push(abiEntry);
+  try {
+    const jsonAbi = JSON.parse(abi);
+    const out = [];
+    for (let i = 0; i < jsonAbi.length; i += 1) {
+      const entry = jsonAbi[i];
+      const abiEntry = reduce(entry);
+      if (abiEntry) {
+        out.push(abiEntry);
+      }
     }
+    return JSON.stringify(out);
+  } catch (e) {
+    return null;
   }
-  return JSON.stringify(out);
 }
 
 export default reduceAbiToJson;

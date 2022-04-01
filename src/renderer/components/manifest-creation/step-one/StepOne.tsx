@@ -1,13 +1,15 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Stack, Grid, Typography, Button } from '@mui/material';
+import { Stack, Button } from '@mui/material';
 import { IContract } from 'types/types';
 import AddIcon from '@mui/icons-material/Add';
 import ContractInputAccordion from './ContractInputAccordion';
+import StepInstructions from '../StepInstructions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepOne(props: any) {
   const {
+    formId,
     contracts,
     addContract,
     deleteContract,
@@ -36,33 +38,28 @@ function StepOne(props: any) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Grid container spacing={2} justifyContent="center" alignItems="flex-end">
-        <Grid item xs={12}>
-          <Stack direction="row" justifyContent="space-between" spacing={2}>
-            <Box>
-              <Typography>
-                Enter Contract Address and/or ABI of Solidity Smart Contract
-              </Typography>
-              <Typography variant="body2">
-                The ABI and Contract Address can be copied from websites like
-                etherscan.io.
-              </Typography>
-            </Box>
+    <form id={formId} onSubmit={handleSubmit}>
+      <Stack spacing={2} justifyContent="center" alignItems="space-between">
+        <Stack direction="row" justifyContent="space-between" spacing={2}>
+          <StepInstructions
+            heading="Enter Contract Address and ABI of Solidity Smart Contract"
+            details="The ABI and contract address can be copied from websites like
+          etherscan.io."
+          />
 
-            <Button
-              startIcon={<AddIcon />}
-              variant="outlined"
-              onClick={addContract}
-            >
-              Add Contract
-            </Button>
-          </Stack>
-        </Grid>
+          <Button
+            startIcon={<AddIcon />}
+            variant="contained"
+            onClick={addContract}
+          >
+            Add Contract
+          </Button>
+        </Stack>
 
         {contracts.map((contract: IContract, index: number) => (
           <ContractInputAccordion
             id={index}
+            key={[contract.address, index.toString()].join('')}
             contractAddress={contract.address}
             contractAbi={contract.rawAbi}
             deleteContract={deleteContract}
@@ -70,18 +67,13 @@ function StepOne(props: any) {
             handleChangeAdress={handleChangeAddress}
           />
         ))}
-
-        <Grid item>
-          <Button type="submit" variant="contained">
-            Confirm
-          </Button>
-        </Grid>
-      </Grid>
+      </Stack>
     </form>
   );
 }
 
 StepOne.propTypes = {
+  formId: PropTypes.string.isRequired,
   contracts: PropTypes.arrayOf(PropTypes.object).isRequired,
   addContract: PropTypes.func.isRequired,
   deleteContract: PropTypes.func.isRequired,

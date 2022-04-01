@@ -14,7 +14,7 @@ export interface IAbiEntry {
 }
 
 export interface IActivity extends IAbiEntry {
-  hash: string;
+  hash?: string;
   activityName: string;
 }
 
@@ -23,6 +23,18 @@ export interface IContract {
   rawAbi: string;
   abiEntries: Array<IAbiEntry>;
   activities: Array<IActivity>;
+}
+
+export interface IExtractionSettings {
+  blockchain: string;
+  outputFolder: string;
+  abortOnException: boolean;
+  errorOutputFolder?: string;
+  emissionMode: string;
+  connectionMode: string;
+  connection: string;
+  blockScopeFrom: number;
+  blockScopeTo: number;
 }
 
 /**

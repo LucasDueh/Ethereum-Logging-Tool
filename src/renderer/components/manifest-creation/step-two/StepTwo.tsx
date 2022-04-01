@@ -1,13 +1,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, Button } from '@mui/material';
+import { Stack } from '@mui/material';
 
 import { IAbiEntry, IContract } from 'types/types';
 import EventSelectionAccordion from './EventSelectionAccordion';
+import StepInstructions from '../StepInstructions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepTwo(props: any) {
-  const { contracts, setActivities, handleBack, handleSubmit } = props;
+  const { formId, contracts, setActivities, handleSubmit } = props;
   const [selected, setSelected] = React.useState<Array<Array<IAbiEntry>>>([]);
 
   const initSelected: Array<Array<IAbiEntry>> = [];
@@ -36,18 +37,17 @@ function StepTwo(props: any) {
   };
 
   return (
-    <form onSubmit={confirmSelection}>
-      <Grid container spacing={1} justifyContent="center">
-        <Grid item xs={12}>
-          <Typography>Select ABI Entries for Process Mining</Typography>
-          <Typography variant="body2">
-            Every selected entry can later be mapped to an event.
-          </Typography>
-        </Grid>
+    <form id={formId} onSubmit={confirmSelection}>
+      <Stack spacing={2} justifyContent="space-between" alignItems="stretch">
+        <StepInstructions
+          heading="Select ABI Entries for Process Mining"
+          details="Every selected entry can later be mapped to an event."
+        />
 
         {selected.length === contracts.length ? (
           contracts.map((contract: IContract, index: number) => (
             <EventSelectionAccordion
+              key={[contract.address, index.toString()].join('')}
               id={index}
               contractAddress={contract.address}
               contractAbi={contract.abiEntries}
@@ -58,30 +58,15 @@ function StepTwo(props: any) {
         ) : (
           <div />
         )}
-
-        <Grid item>
-          <Button
-            type="button"
-            variant="contained"
-            onClick={handleBack}
-            sx={{ mr: 2 }}
-          >
-            Back
-          </Button>
-
-          <Button type="submit" variant="contained">
-            Next
-          </Button>
-        </Grid>
-      </Grid>
+      </Stack>
     </form>
   );
 }
 
 StepTwo.propTypes = {
+  formId: PropTypes.string.isRequired,
   contracts: PropTypes.arrayOf(PropTypes.object).isRequired,
   setActivities: PropTypes.func.isRequired,
-  handleBack: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
 

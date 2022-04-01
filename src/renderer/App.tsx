@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Box, Toolbar } from '@mui/material';
 import routes from './routes';
 import Header from './components/Header';
-import NavSidebar from './components/NavSidebar';
 import AppTheme from './theming/themetypes';
 import AppThemeOptions from './theming/themes';
 
@@ -23,8 +22,7 @@ function App() {
         <ThemeProvider theme={createTheme(AppThemeOptions[AppTheme.LIGHT])}>
           <CssBaseline />
           <Header />
-          <NavSidebar />
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Box component="main" sx={{ flexGrow: 1 }}>
             <Toolbar />
             <Routes>
               {routes.map((route) => (
