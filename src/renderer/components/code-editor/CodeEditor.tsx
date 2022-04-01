@@ -28,10 +28,19 @@ function CodeEditor(props: any) {
         showFoldWidgets: false,
       });
 
+      // Disable the removal of settings code in the manifest editor
       if (isManifestEditor) {
-        editor.commands.on('exec', (event: React.KeyboardEvent) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        editor.commands.on('exec', (event: any) => {
           const rowCol = editor.selection.getCursor();
-          if ([0, 1, 2, 3, 4].includes(rowCol.row)) {
+          if (
+            [0, 1, 2, 3, 4, 5, 6].includes(rowCol.row) ||
+            rowCol.row + 1 === editor.session.getLength() ||
+            [0, 1, 2, 3, 4, 5, 6].includes(
+              editor.selection.getRange().end.row
+            ) ||
+            event.command.name === 'selectall'
+          ) {
             event.preventDefault();
             event.stopPropagation();
           }

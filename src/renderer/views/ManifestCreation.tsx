@@ -47,6 +47,8 @@ function ManifestCreation(props: any) {
     'Define Extraction',
   ];
 
+  const defaultBlockScope = '\n\t\n}';
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [contracts, setContracts] = React.useState<Array<IContract>>([
     {
@@ -64,11 +66,12 @@ function ManifestCreation(props: any) {
     connectionMode: ConnectionMode.WebSocket,
     connection:
       'wss://eth-mainnet.alchemyapi.io/v2/43UD7sDV0NX1hgJIZZms5btltccfFqqN',
+    blockScopeFrom: 0,
+    blockScopeTo: 0,
   });
   const [settingsCode, setSettingsCode] = React.useState<string>('');
-  const [extractionCode, setExtractionCode] = React.useState<string>(
-    '\n\nBLOCKS (from) (to) {\n\t\n}'
-  );
+  const [extractionCode, setExtractionCode] =
+    React.useState<string>(defaultBlockScope);
 
   const addContract = () => {
     const contract: IContract = {
@@ -142,7 +145,9 @@ function ManifestCreation(props: any) {
       settings.connectionMode === ConnectionMode.IPCSocket ? 'IPC ' : ''
     }CONNECTION "${settings.connection}";\nSET ABORT ON EXCEPTION "${
       settings.abortOnException
-    }";\nSET EMISSION MODE "${settings.emissionMode}";`;
+    }";\nSET EMISSION MODE "${settings.emissionMode}";\n\nBLOCKS (${
+      settings.blockScopeFrom
+    }) (${settings.blockScopeTo}) {`;
 
     setSettingsCode(newSettingsCode);
   };
@@ -153,8 +158,8 @@ function ManifestCreation(props: any) {
   }, [settings]);
 
   const updateExtractionCode = (newExtractionCode: string) => {
-    if (newExtractionCode === '') {
-      setExtractionCode('\n');
+    if (newExtractionCode.length <= 2) {
+      setExtractionCode(defaultBlockScope);
     } else {
       setExtractionCode(newExtractionCode);
     }
