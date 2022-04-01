@@ -14,7 +14,7 @@ export interface IAbiEntry {
 }
 
 export interface IActivity extends IAbiEntry {
-  hash: string;
+  hash?: string;
   activityName: string;
 }
 

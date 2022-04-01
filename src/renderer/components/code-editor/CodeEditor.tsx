@@ -1,5 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { IconButton, Box } from '@mui/material';
+import CopyAll from '@mui/icons-material/CopyAll';
 
 import AceEditor from 'react-ace';
 import BcqlMode from './BcqlMode';
@@ -12,11 +14,19 @@ function CodeEditor(props: any) {
 
   const aceEditor = React.useRef<AceEditor>(null);
 
+  const copyCode = () => {
+    navigator.clipboard.writeText(value);
+  };
+
   React.useEffect(() => {
     const { editor } = aceEditor.current as AceEditor;
     if (editor != null) {
       const customMode = new BcqlMode();
       editor.getSession().setMode(customMode);
+
+      editor.setOptions({
+        showFoldWidgets: false,
+      });
 
       if (isManifestEditor) {
         editor.commands.on('exec', (event: React.KeyboardEvent) => {
@@ -31,25 +41,38 @@ function CodeEditor(props: any) {
   });
 
   return (
-    <AceEditor
-      ref={aceEditor}
-      value={value}
-      onChange={onChange}
-      readOnly={readOnly}
-      mode="text"
-      theme="eclipse"
-      name="ace"
-      height="100%"
-      tabSize={2}
-      editorProps={{ $blockScrolling: true }}
-      style={{
-        width: '100%',
-        borderRadius: '4px',
-      }}
-      enableBasicAutocompletion
-      enableLiveAutocompletion
-      maxLines={maxLines}
-    />
+    <>
+      <Box
+        sx={{
+          position: 'absolute',
+          right: '-2px',
+          zIndex: 1000,
+        }}
+      >
+        <IconButton size="small" onClick={copyCode}>
+          <CopyAll />
+        </IconButton>
+      </Box>
+      <AceEditor
+        ref={aceEditor}
+        value={value}
+        onChange={onChange}
+        readOnly={readOnly}
+        mode="text"
+        theme="eclipse"
+        name="ace"
+        height="100%"
+        tabSize={2}
+        editorProps={{ $blockScrolling: true }}
+        style={{
+          width: '100%',
+          borderRadius: '4px',
+        }}
+        enableBasicAutocompletion
+        enableLiveAutocompletion
+        maxLines={maxLines}
+      />
+    </>
   );
 }
 

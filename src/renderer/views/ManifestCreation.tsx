@@ -66,7 +66,9 @@ function ManifestCreation(props: any) {
       'wss://eth-mainnet.alchemyapi.io/v2/43UD7sDV0NX1hgJIZZms5btltccfFqqN',
   });
   const [settingsCode, setSettingsCode] = React.useState<string>('');
-  const [extractionCode, setExtractionCode] = React.useState<string>('\n\n');
+  const [extractionCode, setExtractionCode] = React.useState<string>(
+    '\n\nBLOCKS (from) (to) {\n\t\n}'
+  );
 
   const addContract = () => {
     const contract: IContract = {

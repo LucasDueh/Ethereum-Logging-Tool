@@ -39,8 +39,12 @@ function StepFour(props: any) {
         />
 
         <Grid container>
-          <Grid item xs={6}>
-            <Paper variant="outlined" square style={{ height: '69vh' }}>
+          <Grid item xs={7}>
+            <Paper
+              variant="outlined"
+              square
+              sx={{ height: '69vh', position: 'relative' }}
+            >
               <CodeEditor
                 isManifestEditor
                 value={[settingsCode, extractionCode].join('')}
@@ -49,7 +53,7 @@ function StepFour(props: any) {
             </Paper>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <Paper variant="outlined" square style={{ height: '69vh' }}>
               <Tabs
                 value={selectedTab}

@@ -6,8 +6,8 @@ function TabPanel(props: any) {
   const { children, value, index } = props;
 
   return (
-    <Box hidden={value !== index}>
-      {value === index && <Box sx={{ p: 1 }}>{children}</Box>}
+    <Box sx={{ overflow: 'auto' }} hidden={value !== index}>
+      {value === index && <Box sx={{ overflow: 'auto' }}>{children}</Box>}
     </Box>
   );
 }

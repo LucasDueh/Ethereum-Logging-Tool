@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
 import CodeEditor from '../../../code-editor/CodeEditor';
 import paramsToString from './util';
 
@@ -8,16 +7,12 @@ function AbiEventBlock(props: any) {
   const { contractAddress, name, inputs, activityName } = props;
 
   const code = () => {
-    const parameters = paramsToString(inputs);
+    const inputParameters = paramsToString(inputs);
 
-    return `LOG ENTRIES (${contractAddress}) (\n\t${name}(${parameters})) {\n\t// Enter your extraction code here\n}`;
+    return `LOG ENTRIES (${contractAddress}) (\n\t${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
   };
 
-  return (
-    <Box>
-      <CodeEditor value={code()} readOnly maxLines={10} />
-    </Box>
-  );
+  return <CodeEditor value={code()} readOnly maxLines={10} />;
 }
 
 AbiEventBlock.propTypes = {

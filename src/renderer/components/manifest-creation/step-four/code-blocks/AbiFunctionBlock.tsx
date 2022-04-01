@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
 import CodeEditor from '../../../code-editor/CodeEditor';
 import paramsToString from './util';
 
@@ -11,14 +10,10 @@ function AbiFunctionBlock(props: any) {
     const inputParameters = paramsToString(inputs);
     const outputParameters = paramsToString(outputs);
 
-    return `SMART CONTRACT (${contractAddress}) (\n\t${outputParameters} = ${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
+    return `SMART CONTRACT (${contractAddress}) (${outputParameters} = ${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
   };
 
-  return (
-    <Box>
-      <CodeEditor value={code()} readOnly maxLines={15} />
-    </Box>
-  );
+  return <CodeEditor value={code()} readOnly maxLines={10} />;
 }
 
 AbiFunctionBlock.propTypes = {
