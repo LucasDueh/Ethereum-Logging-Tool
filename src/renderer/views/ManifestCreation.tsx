@@ -165,8 +165,8 @@ function ManifestCreation(props: any) {
     }
   };
 
-  const finishCreation = () => {
-    // TODO
+  const finishCreation = async () => {
+    await window.electron.ipcRenderer.saveManifestFile('Test File Content');
   };
 
   const handleNext = () => {

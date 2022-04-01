@@ -19,6 +19,12 @@ contextBridge.exposeInMainWorld('electron', {
     transformAbiToActivities: async (abiEntries) => {
       return ipcRenderer.invoke('transform-abi-to-activities', abiEntries);
     },
+    saveManifestFile: (content) => {
+      return ipcRenderer.invoke('save-manifest-file', content);
+    },
+    openManifestFile: (filename) => {
+      return ipcRenderer.invoke('open-manifest-file', filename);
+    },
     on(channel, func) {
       const validChannels = ['ipc-example'];
       if (validChannels.includes(channel)) {
