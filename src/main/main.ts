@@ -19,6 +19,7 @@ import { resolveHtmlPath } from './util';
 
 require('./ipc/blf/blf'); // why require??
 require('./ipc/abi/abi');
+require('./ipc/file-io/file-io');
 
 export default class AppUpdater {
   constructor() {

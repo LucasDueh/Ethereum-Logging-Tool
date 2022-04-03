@@ -14,11 +14,15 @@ function CodeSuggestions(props: any) {
 
   return (
     <Stack sx={{ overflow: 'auto' }}>
-      {contractActivities.map((activity: IActivity) => {
+      {contractActivities.map((activity: IActivity, index: number) => {
         switch (activity.type) {
           case AbiTypes.Event:
             return (
-              <CodeBlockAccordion name={activity.name}>
+              <CodeBlockAccordion
+                key={[activity.name, index].join('')}
+                type="Solidity Event Log"
+                name={activity.name}
+              >
                 <AbiEventBlock
                   contractAddress={contractAddress}
                   name={activity.name}
@@ -29,7 +33,11 @@ function CodeSuggestions(props: any) {
             );
           case AbiTypes.Function:
             return (
-              <CodeBlockAccordion name={activity.name}>
+              <CodeBlockAccordion
+                key={[activity.name, index].join('')}
+                type="Public Member Query"
+                name={activity.name}
+              >
                 <AbiFunctionBlock
                   contractAddress={contractAddress}
                   name={activity.name}
@@ -41,7 +49,11 @@ function CodeSuggestions(props: any) {
             );
           case AbiTypes.DecodableFunction:
             return (
-              <CodeBlockAccordion name={activity.name}>
+              <CodeBlockAccordion
+                key={[activity.name, index].join('')}
+                type="Transaction Input Decoding"
+                name={activity.name}
+              >
                 <AbiDecodableFunctionBlock
                   contractAddress={contractAddress}
                   name={activity.name}

@@ -10,7 +10,14 @@ import 'ace-builds/src-min-noconflict/ext-language_tools';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function CodeEditor(props: any) {
-  const { isManifestEditor, value, onChange, readOnly, maxLines } = props;
+  const {
+    isManifestEditor,
+    value,
+    onChange,
+    readOnly,
+    maxLines,
+    highlightActiveLine,
+  } = props;
 
   const aceEditor = React.useRef<AceEditor>(null);
 
@@ -26,6 +33,9 @@ function CodeEditor(props: any) {
 
       editor.setOptions({
         showFoldWidgets: false,
+        highlightActiveLine,
+        highlightGutterLine: highlightActiveLine,
+        highlightSelectedWord: highlightActiveLine,
       });
 
       // Disable the removal of settings code in the manifest editor
@@ -90,6 +100,7 @@ CodeEditor.defaultProps = {
   maxLines: undefined,
   onChange: () => {},
   readOnly: false,
+  highlightActiveLine: true,
 };
 
 CodeEditor.propTypes = {
@@ -98,6 +109,7 @@ CodeEditor.propTypes = {
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   maxLines: PropTypes.number,
+  highlightActiveLine: PropTypes.bool,
 };
 
 export default CodeEditor;

@@ -61,13 +61,22 @@ function StepFour(props: any) {
                 variant="scrollable"
                 scrollButtons="auto"
               >
-                {contracts.map((_contract: IContract, index: number) => {
-                  return <Tab label={`Contract ${index + 1}`} />;
+                {contracts.map((contract: IContract, index: number) => {
+                  return (
+                    <Tab
+                      key={[contract.address, index.toString()].join('')}
+                      label={`Contract ${index + 1}`}
+                    />
+                  );
                 })}
               </Tabs>
               {contracts.map((contract: IContract, index: number) => {
                 return (
-                  <TabPanel value={selectedTab} index={index}>
+                  <TabPanel
+                    key={[contract.address, index.toString()].join('')}
+                    value={selectedTab}
+                    index={index}
+                  >
                     <CodeSuggestions
                       contractAddress={contract.address}
                       contractActivities={contract.activities}

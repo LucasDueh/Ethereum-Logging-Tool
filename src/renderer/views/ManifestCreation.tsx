@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
+import { useNavigate } from 'react-router-dom';
+
 import {
   Button,
   Box,
@@ -38,6 +40,8 @@ const useStyles = makeStyles({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ManifestCreation(props: any) {
+  const navigate = useNavigate();
+
   const classes = useStyles(props);
 
   const stepLabels = [
@@ -165,11 +169,22 @@ function ManifestCreation(props: any) {
     }
   };
 
-  const finishCreation = () => {
-    // TODO
+  const finishCreation = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    await window.electron.ipcRenderer
+      .saveManifestFile([settingsCode, extractionCode].join(''))
+      .then(() => {
+        navigate('/');
+        return null;
+      })
+      .catch(() => {
+        return null;
+      });
   };
 
-  const handleNext = () => {
+  const handleNext = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 

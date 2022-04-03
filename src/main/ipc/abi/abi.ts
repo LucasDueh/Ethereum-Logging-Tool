@@ -16,7 +16,7 @@ const transformAbiToActivities = (abiEntries: Array<IAbiEntry>) => {
 
   abiEntries.forEach((entry) => {
     // If an abi entry of type function has input parameters
-    // it can be seen as a query-able function as well as a decodable function
+    // it is seen as a decodable function that could be part of tx.input
     if (entry.type === AbiTypes.Function && entry.inputs.length > 0) {
       const keccak256Hash = hashFunction(entry);
       const type = AbiTypes.DecodableFunction;
@@ -30,8 +30,8 @@ const transformAbiToActivities = (abiEntries: Array<IAbiEntry>) => {
       activites.push(activity);
     }
 
-    // If an abi entry of type function, it should only be query-able
-    // if it has output parameters
+    // An abi entry of type function is seen as a query-able function
+    // only if it has output parameters
     if (
       (entry.type === AbiTypes.Function && entry.outputs.length > 0) ||
       entry.type === AbiTypes.Event

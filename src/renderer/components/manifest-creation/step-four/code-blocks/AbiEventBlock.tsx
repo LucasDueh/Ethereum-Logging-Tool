@@ -9,10 +9,17 @@ function AbiEventBlock(props: any) {
   const code = () => {
     const inputParameters = paramsToString(inputs);
 
-    return `LOG ENTRIES (${contractAddress}) (\n\t${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
+    return `LOG ENTRIES (${contractAddress})\n\t(${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
   };
 
-  return <CodeEditor value={code()} readOnly maxLines={10} />;
+  return (
+    <CodeEditor
+      value={code()}
+      readOnly
+      maxLines={15}
+      highlightActiveLine={false}
+    />
+  );
 }
 
 AbiEventBlock.propTypes = {
