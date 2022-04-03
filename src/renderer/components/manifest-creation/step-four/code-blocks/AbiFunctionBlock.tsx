@@ -10,10 +10,17 @@ function AbiFunctionBlock(props: any) {
     const inputParameters = paramsToString(inputs);
     const outputParameters = paramsToString(outputs);
 
-    return `SMART CONTRACT (${contractAddress}) (${outputParameters} = ${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
+    return `SMART CONTRACT (${contractAddress})\n\t(${outputParameters} = ${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
   };
 
-  return <CodeEditor value={code()} readOnly maxLines={10} />;
+  return (
+    <CodeEditor
+      value={code()}
+      readOnly
+      maxLines={15}
+      highlightActiveLine={false}
+    />
+  );
 }
 
 AbiFunctionBlock.propTypes = {

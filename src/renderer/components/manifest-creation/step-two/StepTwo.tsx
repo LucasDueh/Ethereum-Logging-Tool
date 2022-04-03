@@ -33,7 +33,7 @@ function StepTwo(props: any) {
   const confirmSelection = async (event: React.FormEvent) => {
     event.preventDefault();
     await setActivities(selected);
-    handleSubmit();
+    handleSubmit(event);
   };
 
   return (

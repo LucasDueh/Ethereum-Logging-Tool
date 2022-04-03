@@ -9,10 +9,17 @@ function AbiDecodableFunctionBlock(props: any) {
   const code = () => {
     const inputParameters = paramsToString(inputs);
 
-    return `DECODE ETH TX INPUT (${contractAddress}) (${inputParameters}) {\n\t// Enter your extraction code here\n}`;
+    return `TRANSACTIONS () (${contractAddress}) {\n\tDECODE ETH TX INPUT \n\t\t(${inputParameters}) {\n\t\t// Enter your extraction code here\n\t}\n}`;
   };
 
-  return <CodeEditor value={code()} readOnly maxLines={4} />;
+  return (
+    <CodeEditor
+      value={code()}
+      readOnly
+      maxLines={15}
+      highlightActiveLine={false}
+    />
+  );
 }
 
 AbiDecodableFunctionBlock.defaultProps = {
