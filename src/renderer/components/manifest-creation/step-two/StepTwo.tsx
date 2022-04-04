@@ -38,7 +38,7 @@ function StepTwo(props: any) {
 
   return (
     <form id={formId} onSubmit={confirmSelection}>
-      <Stack spacing={2} justifyContent="space-between" alignItems="stretch">
+      <Stack spacing={1} justifyContent="space-between" alignItems="stretch">
         <StepInstructions
           heading="Select ABI Entries for Process Mining"
           details="Every selected entry can later be mapped to an event."

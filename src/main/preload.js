@@ -7,6 +7,9 @@ contextBridge.exposeInMainWorld('electron', {
     myPing() {
       ipcRenderer.send('ipc-example', 'ping');
     },
+    validateTempManifest(content) {
+      ipcRenderer.invoke('validate-temp-manifest', content);
+    },
     validateManifest(filename) {
       ipcRenderer.invoke('validate-manifest', filename);
     },
@@ -26,16 +29,14 @@ contextBridge.exposeInMainWorld('electron', {
       return ipcRenderer.invoke('open-manifest-file', filename);
     },
     on(channel, func) {
-      const validChannels = ['ipc-example'];
+      const validChannels = ['blf-stdout', 'blf-stderr'];
       if (validChannels.includes(channel)) {
-        // Deliberately strip event as it includes `sender`
         ipcRenderer.on(channel, (event, ...args) => func(...args));
       }
     },
     once(channel, func) {
-      const validChannels = ['ipc-example'];
+      const validChannels = ['blf-stdout', 'blf-stderr'];
       if (validChannels.includes(channel)) {
-        // Deliberately strip event as it includes `sender`
         ipcRenderer.once(channel, (event, ...args) => func(...args));
       }
     },

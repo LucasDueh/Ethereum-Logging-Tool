@@ -12,7 +12,7 @@ function StepThree(props: any) {
 
   return (
     <form id={formId} onSubmit={handleSubmit}>
-      <Stack spacing={2} justifyContent="space-between" alignItems="stretch">
+      <Stack spacing={1} justifyContent="space-between" alignItems="stretch">
         <StepInstructions
           heading="Choose Mandatory Settings for the Extraction"
           details="The extraction behaviour is controlled through the options set here."

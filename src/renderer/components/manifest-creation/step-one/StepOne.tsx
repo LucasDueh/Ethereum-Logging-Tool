@@ -39,7 +39,7 @@ function StepOne(props: any) {
 
   return (
     <form id={formId} onSubmit={handleSubmit}>
-      <Stack spacing={2} justifyContent="center" alignItems="space-between">
+      <Stack spacing={1} justifyContent="space-between" alignItems="stretch">
         <Stack direction="row" justifyContent="space-between" spacing={2}>
           <StepInstructions
             heading="Enter Contract Address and ABI of Solidity Smart Contract"

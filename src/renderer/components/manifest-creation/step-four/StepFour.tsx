@@ -1,12 +1,10 @@
-import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Paper, Tabs, Tab, Stack, Grid } from '@mui/material';
-import { IContract } from 'types/types';
+import { Paper, Stack, Grid } from '@mui/material';
 
 import StepInstructions from '../StepInstructions';
 import CodeEditor from '../../code-editor/CodeEditor';
-import TabPanel from '../../general/TabPanel';
-import CodeSuggestions from './CodeSuggestions';
+import CodeTabs from './code-tabs/CodeTabs';
+import ValidationButton from '../../blf-invocation/ValidationButton';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepFour(props: any) {
@@ -19,12 +17,6 @@ function StepFour(props: any) {
     handleSubmit,
   } = props;
 
-  const [selectedTab, setSelectedTab] = React.useState(0);
-
-  const handleTabChange = (_event: React.SyntheticEvent, newTab: number) => {
-    setSelectedTab(newTab);
-  };
-
   const onEditorChange = (newEditorValue: string) => {
     const newExtractionCode = newEditorValue.replace(settingsCode, '');
     setExtractionCode(newExtractionCode);
@@ -32,7 +24,7 @@ function StepFour(props: any) {
 
   return (
     <form id={formId} onSubmit={handleSubmit}>
-      <Stack spacing={2} justifyContent="space-between" alignItems="stretch">
+      <Stack spacing={1} justifyContent="space-between" alignItems="stretch">
         <StepInstructions
           heading="Specify the content of the Manifest File"
           details="Copy and paste code blocks from the right side."
@@ -43,7 +35,7 @@ function StepFour(props: any) {
             <Paper
               variant="outlined"
               square
-              sx={{ height: '69vh', position: 'relative' }}
+              sx={{ height: '65vh', position: 'relative' }}
             >
               <CodeEditor
                 isManifestEditor
@@ -54,39 +46,13 @@ function StepFour(props: any) {
           </Grid>
 
           <Grid item xs={5}>
-            <Paper variant="outlined" square style={{ height: '69vh' }}>
-              <Tabs
-                value={selectedTab}
-                onChange={handleTabChange}
-                variant="scrollable"
-                scrollButtons="auto"
-              >
-                {contracts.map((contract: IContract, index: number) => {
-                  return (
-                    <Tab
-                      key={[contract.address, index.toString()].join('')}
-                      label={`Contract ${index + 1}`}
-                    />
-                  );
-                })}
-              </Tabs>
-              {contracts.map((contract: IContract, index: number) => {
-                return (
-                  <TabPanel
-                    key={[contract.address, index.toString()].join('')}
-                    value={selectedTab}
-                    index={index}
-                  >
-                    <CodeSuggestions
-                      contractAddress={contract.address}
-                      contractActivities={contract.activities}
-                    />
-                  </TabPanel>
-                );
-              })}
+            <Paper variant="outlined" square sx={{ height: '65vh' }}>
+              <CodeTabs contracts={contracts} />
             </Paper>
           </Grid>
         </Grid>
+
+        <ValidationButton code={[settingsCode, extractionCode].join('')} />
       </Stack>
     </form>
   );
