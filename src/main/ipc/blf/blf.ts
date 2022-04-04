@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { app, ipcMain } from 'electron';
+import { app, ipcMain, BrowserWindow } from 'electron';
 import path from 'path';
 import { spawn } from 'child_process';
 
@@ -21,12 +21,17 @@ const spawnBLFProcess = (mode: string, folder: string, filename: string) => {
     ),
   });
 
+  BLF.stdout.setEncoding('utf-8');
+  BLF.stderr.setEncoding('utf-8');
+
   BLF.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
+    const mainWindow = BrowserWindow.getFocusedWindow();
+    mainWindow?.webContents.send('blf-stdout', data.toString());
   });
 
   BLF.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
+    const mainWindow = BrowserWindow.getFocusedWindow();
+    mainWindow?.webContents.send('blf-stderr', data.toString());
   });
 
   BLF.on('close', (code) => {
