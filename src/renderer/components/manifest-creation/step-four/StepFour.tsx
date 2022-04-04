@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { Paper, Stack, Grid } from '@mui/material';
+import { Paper, Stack, Grid, Button } from '@mui/material';
+import GradingIcon from '@mui/icons-material/Grading';
 
 import StepInstructions from '../StepInstructions';
 import CodeEditor from '../../code-editor/CodeEditor';
@@ -24,10 +25,24 @@ function StepFour(props: any) {
   return (
     <form id={formId} onSubmit={handleSubmit}>
       <Stack spacing={2} justifyContent="space-between" alignItems="stretch">
-        <StepInstructions
-          heading="Specify the content of the Manifest File"
-          details="Copy and paste code blocks from the right side."
-        />
+        <Stack direction="row" justifyContent="space-between" spacing={2}>
+          <StepInstructions
+            heading="Specify the content of the Manifest File"
+            details="Copy and paste code blocks from the right side."
+          />
+
+          <Button
+            startIcon={<GradingIcon />}
+            variant="contained"
+            onClick={async () => {
+              window.electron.ipcRenderer.validateTempManifest(
+                [settingsCode, extractionCode].join('')
+              );
+            }}
+          >
+            Validate
+          </Button>
+        </Stack>
 
         <Grid container>
           <Grid item xs={7}>

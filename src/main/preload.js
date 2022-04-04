@@ -7,6 +7,9 @@ contextBridge.exposeInMainWorld('electron', {
     myPing() {
       ipcRenderer.send('ipc-example', 'ping');
     },
+    validateTempManifest(content) {
+      ipcRenderer.invoke('validate-temp-manifest', content);
+    },
     validateManifest(filename) {
       ipcRenderer.invoke('validate-manifest', filename);
     },

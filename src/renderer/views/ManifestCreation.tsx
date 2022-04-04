@@ -145,11 +145,13 @@ function ManifestCreation(props: any) {
   const updateSettingsCode = () => {
     const newSettingsCode = `SET BLOCKCHAIN "${
       settings.blockchain
-    }";\nSET OUTPUT FOLDER "./${settings.outputFolder}";\nSET ${
-      settings.connectionMode === ConnectionMode.IPCSocket ? 'IPC ' : ''
-    }CONNECTION "${settings.connection}";\nSET ABORT ON EXCEPTION "${
+    }";\nSET OUTPUT FOLDER "./${
+      settings.outputFolder
+    }";\nSET ABORT ON EXCEPTION ${
       settings.abortOnException
-    }";\nSET EMISSION MODE "${settings.emissionMode}";\n\nBLOCKS (${
+    };\nSET EMISSION MODE "${settings.emissionMode}";\nSET ${
+      settings.connectionMode === ConnectionMode.IPCSocket ? 'IPC ' : ''
+    }CONNECTION "${settings.connection}";\n\nBLOCKS (${
       settings.blockScopeFrom
     }) (${settings.blockScopeTo}) {`;
 
