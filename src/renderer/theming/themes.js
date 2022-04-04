@@ -43,11 +43,6 @@ const AppThemeOptions = {
         main: hanPurple,
         dark: hanPurple,
       },
-      error: {
-        light: flame,
-        main: flame,
-        dark: flame,
-      },
       warning: {
         light: honeyYellow,
         main: honeyYellow,
