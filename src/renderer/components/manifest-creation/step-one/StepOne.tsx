@@ -13,28 +13,30 @@ function StepOne(props: any) {
     contracts,
     addContract,
     deleteContract,
+    setContractName,
     setContractAddress,
     setRawAbi,
     setAbiEntries,
     handleSubmit,
   } = props;
 
-  const handleChangeAddress = (
+  const handleChange = async (
     event: React.ChangeEvent<HTMLTextAreaElement>,
     id: number
   ) => {
-    setContractAddress(event.target.value, id);
-  };
+    if (event.target.name === 'address') {
+      setContractAddress(event.target.value, id);
+    } else if (event.target.name === 'name') {
+      setContractName(event.target.value, id);
+    } else if (event.target.name === 'rawAbi') {
+      const newAbiEntries = event.target.value;
+      setRawAbi(newAbiEntries, id);
 
-  const handleChangeAbi = async (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-    id: number
-  ) => {
-    const newAbiEntries = event.target.value;
-    setRawAbi(newAbiEntries, id);
-
-    const abiJson = await window.electron.ipcRenderer.reduceAbi(newAbiEntries);
-    setAbiEntries(JSON.parse(abiJson), id);
+      const abiJson = await window.electron.ipcRenderer.reduceAbi(
+        newAbiEntries
+      );
+      setAbiEntries(JSON.parse(abiJson), id);
+    }
   };
 
   return (
@@ -59,12 +61,12 @@ function StepOne(props: any) {
         {contracts.map((contract: IContract, index: number) => (
           <ContractInputAccordion
             id={index}
-            key={[contract.address, index.toString()].join('')}
+            key={['contract', index.toString()].join('')}
+            contractName={contract.name}
             contractAddress={contract.address}
             contractAbi={contract.rawAbi}
             deleteContract={deleteContract}
-            handleChangeAbi={handleChangeAbi}
-            handleChangeAdress={handleChangeAddress}
+            handleChange={handleChange}
           />
         ))}
       </Stack>
@@ -77,6 +79,7 @@ StepOne.propTypes = {
   contracts: PropTypes.arrayOf(PropTypes.object).isRequired,
   addContract: PropTypes.func.isRequired,
   deleteContract: PropTypes.func.isRequired,
+  setContractName: PropTypes.func.isRequired,
   setContractAddress: PropTypes.func.isRequired,
   setRawAbi: PropTypes.func.isRequired,
   setAbiEntries: PropTypes.func.isRequired,

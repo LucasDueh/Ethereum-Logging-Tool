@@ -27,8 +27,9 @@ function CodeTabs(props: any) {
         {contracts.map((contract: IContract, index: number) => {
           return (
             <Tab
+              sx={{ textTransform: 'none' }}
               key={[contract.address, index.toString()].join('')}
-              label={`Contract ${index + 1}`}
+              label={contract.name}
             />
           );
         })}

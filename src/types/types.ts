@@ -19,6 +19,7 @@ export interface IActivity extends IAbiEntry {
 }
 
 export interface IContract {
+  name: string;
   address: string;
   rawAbi: string;
   abiEntries: Array<IAbiEntry>;
