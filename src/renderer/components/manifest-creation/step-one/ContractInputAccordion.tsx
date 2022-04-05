@@ -1,6 +1,5 @@
 import {
   TextField,
-  Typography,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -17,21 +16,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function ContractInputAccordion(props: any) {
   const {
     id,
+    contractName,
     contractAddress,
     contractAbi,
     deleteContract,
-    handleChangeAbi,
-    handleChangeAdress,
+    handleChange,
   } = props;
 
-  const handleChangeAddressId = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    handleChangeAdress(event, id);
-  };
-
-  const handleChangeAbiId = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    handleChangeAbi(event, id);
+  const handleChangeId = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    handleChange(event, id);
   };
 
   const deleteContractId = () => {
@@ -39,7 +32,15 @@ function ContractInputAccordion(props: any) {
   };
 
   return (
-    <Accordion defaultExpanded>
+    <Accordion
+      sx={{
+        '&: .Mui-focusVisible': {
+          outline: 'none',
+          background: 'transparent',
+        },
+      }}
+      defaultExpanded
+    >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Stack
           direction="row"
@@ -47,7 +48,15 @@ function ContractInputAccordion(props: any) {
           justifyContent="space-between"
           style={{ width: '100%' }}
         >
-          <Typography>Contract {id + 1}</Typography>
+          <TextField
+            name="name"
+            label="Contract Name"
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
+            onChange={handleChangeId}
+            value={contractName}
+          />
           <IconButton onClick={deleteContractId}>
             <DeleteIcon />
           </IconButton>
@@ -56,18 +65,20 @@ function ContractInputAccordion(props: any) {
       <AccordionDetails>
         <Stack spacing={2}>
           <TextField
+            name="address"
             label="Contract Address"
             placeholder="Enter Contract Address"
-            onChange={handleChangeAddressId}
-            defaultValue={contractAddress}
+            onChange={handleChangeId}
+            value={contractAddress}
             fullWidth
           />
 
           <TextField
+            name="rawAbi"
             label="Contract ABI"
             placeholder="Enter Contract ABI"
-            onChange={handleChangeAbiId}
-            defaultValue={contractAbi}
+            onChange={handleChangeId}
+            value={contractAbi}
             multiline
             minRows={4}
             maxRows={8}
@@ -81,11 +92,11 @@ function ContractInputAccordion(props: any) {
 
 ContractInputAccordion.propTypes = {
   id: PropTypes.number.isRequired,
+  contractName: PropTypes.string.isRequired,
   contractAddress: PropTypes.string.isRequired,
   contractAbi: PropTypes.string.isRequired,
   deleteContract: PropTypes.func.isRequired,
-  handleChangeAbi: PropTypes.func.isRequired,
-  handleChangeAdress: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default ContractInputAccordion;

@@ -53,40 +53,39 @@ function ValidationButton(props: any) {
   };
 
   return (
-    <Stack direction="row" justifyContent="space-between" spacing={0}>
-      {validated === null && (
-        <Alert
-          variant="outlined"
-          severity={color as AlertColor}
-          sx={{ py: 0, width: '100%' }}
-        >
-          <strong>Validation Required</strong> - Verify that your manifest does
-          not contain any syntactical or semantic errors.
-        </Alert>
-      )}
-      {validated === true && (
-        <Alert
-          variant="outlined"
-          severity={color as AlertColor}
-          sx={{ py: 0, width: '100%' }}
-        >
-          <strong>Validation Successful</strong> - {stderr}
-        </Alert>
-      )}
-      {validated === false && (
-        <Alert
-          variant="outlined"
-          severity={color as AlertColor}
-          sx={{ py: 0, width: '100%' }}
-        >
-          <strong>Validation Error</strong> - {stderr}
-          <Box>{stdout}</Box>
-        </Alert>
-      )}
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      spacing={0}
+      sx={{ border: 2, borderColor: `${color}.main`, borderRadius: 2 }}
+    >
+      <Alert
+        variant="outlined"
+        severity={color as AlertColor}
+        sx={{ py: 0, width: '100%', border: 0 }}
+      >
+        {validated === null && (
+          <>
+            <strong>Validation Required</strong> - Verify that your manifest
+            does not contain any syntactical or semantic errors.
+          </>
+        )}
+        {validated === true && (
+          <>
+            <strong>Validation Successful</strong> - {stderr}
+          </>
+        )}
+        {validated === false && (
+          <>
+            <strong>Validation Error</strong> - {stderr}
+            <Box>{stdout}</Box>
+          </>
+        )}
+      </Alert>
 
       <Box sx={{ m: 0, position: 'relative' }}>
         <Button
-          sx={{ width: '100%', height: '100%' }}
+          sx={{ width: '100%', height: '100%', color: 'white', boxShadow: 0 }}
           startIcon={<GradingIcon />}
           variant="contained"
           onClick={handleButtonClick}

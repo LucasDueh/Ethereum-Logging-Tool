@@ -56,6 +56,7 @@ function ManifestCreation(props: any) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [contracts, setContracts] = React.useState<Array<IContract>>([
     {
+      name: 'Contract 1',
       address: '',
       rawAbi: '',
       abiEntries: [],
@@ -78,7 +79,9 @@ function ManifestCreation(props: any) {
     React.useState<string>(defaultBlockScope);
 
   const addContract = () => {
+    const { length } = contracts;
     const contract: IContract = {
+      name: `Contract ${length + 1}`,
       address: '',
       rawAbi: '',
       abiEntries: [],
@@ -92,6 +95,12 @@ function ManifestCreation(props: any) {
   const deleteContract = (id: number) => {
     const updatedContracts = [...contracts];
     updatedContracts.splice(id, 1);
+    setContracts(updatedContracts);
+  };
+
+  const updateContractName = (newName: string, id: number) => {
+    const updatedContracts = [...contracts];
+    updatedContracts[id].name = newName;
     setContracts(updatedContracts);
   };
 
@@ -227,6 +236,7 @@ function ManifestCreation(props: any) {
                   contracts={contracts}
                   addContract={addContract}
                   deleteContract={deleteContract}
+                  setContractName={updateContractName}
                   setContractAddress={updateContractAddress}
                   setRawAbi={updateRawAbi}
                   setAbiEntries={updateAbiEntries}

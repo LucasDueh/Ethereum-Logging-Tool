@@ -49,6 +49,7 @@ function StepTwo(props: any) {
             <EventSelectionAccordion
               key={[contract.address, index.toString()].join('')}
               id={index}
+              contractName={contract.name}
               contractAddress={contract.address}
               contractAbi={contract.abiEntries}
               selected={selected[index]}

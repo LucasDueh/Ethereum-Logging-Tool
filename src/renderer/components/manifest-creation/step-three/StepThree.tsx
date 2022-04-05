@@ -21,12 +21,37 @@ function StepThree(props: any) {
         <Card>
           <CardContent>
             <Stack style={{ width: '100%' }} spacing={4}>
+              <Stack direction="row">
+                <TextField
+                  sx={{ mr: 2 }}
+                  value={settings.blockScopeFrom}
+                  name="blockScopeFrom"
+                  label="From Block"
+                  helperText="Specify the starting block of the block scope."
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setSettings(event, false);
+                  }}
+                  fullWidth
+                />
+
+                <TextField
+                  value={settings.blockScopeTo}
+                  name="blockScopeTo"
+                  label="To"
+                  helperText="Specify the end block of the block scope."
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setSettings(event, false);
+                  }}
+                  fullWidth
+                />
+              </Stack>
+
               <SelectInput
                 items={{ true: 'true', false: 'false' }}
                 name="abortOnException"
                 label="Abort On Exception"
                 value={settings.abortOnException ? 'true' : 'false'}
-                helperText="By default, the BLF will not abort when encountering an exception. It will instead try to carry on the rest of its work as best as it can. Let's say you are analyzing 1000 blocks of a blockchain. Just because there was an error extracting information from one block, the BLF might still be able to extract information from the rest of them. If you instead want it to directly abort the mission with an error code, you can use"
+                helperText="By default, the BLF will not abort when encountering an exception. It will instead try to carry on the rest of its work as best as it can. Let's say you are analyzing 1000 blocks of a blockchain. Just because there was an error extracting information from one block, the BLF might still be able to extract information from the rest of them. If you instead want it to directly abort the mission with an error code, you can set this option to true."
                 onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                   setSettings(event, true);
                 }}
@@ -37,7 +62,7 @@ function StepThree(props: any) {
                 name="emissionMode"
                 label="Emission Mode"
                 value={settings.emissionMode}
-                helperText="The last optional setting is the emission mode of the BLF. Normally, the BLF will output all of its extracted data at once at the very end of the currently running extraction. This emission mode is called default batching. It can however be a bit inconvenient to not have any partially extracted data from a run when the BLF fails before it finished, especially when ABORT ON EXCEPTION is set. The second emission mode therefore is safe batching, which will output the information that it has extracted up to this point at the end of each analyzed block. The data is still all written to one big file, like in default batching. The third emission mode is the streaming mode. This mode behaves similar to the safe batching mode in that it writes the currently gathered data after each block is analyzed. But instead of writing everything to one file, it will create one output file for each block."
+                helperText="Normally, the BLF will output all of its extracted data at once at the very end of the currently running extraction. This emission mode is called default batching. It can however be a bit inconvenient to not have any partially extracted data from a run when the BLF fails before it finished, especially when ABORT ON EXCEPTION is set. The second emission mode therefore is safe batching, which will output the information that it has extracted up to this point at the end of each analyzed block. The data is still all written to one big file, like in default batching. The third emission mode is the streaming mode. This mode behaves similar to the safe batching mode in that it writes the currently gathered data after each block is analyzed. But instead of writing everything to one file, it will create one output file for each block."
                 onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                   setSettings(event, false);
                 }}
@@ -64,31 +89,6 @@ function StepThree(props: any) {
                 }}
                 fullWidth
               />
-
-              <Stack direction="row">
-                <TextField
-                  sx={{ mr: 2 }}
-                  value={settings.blockScopeFrom}
-                  name="blockScopeFrom"
-                  label="From Block"
-                  helperText="Specify the starting block of the block scope."
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setSettings(event, false);
-                  }}
-                  fullWidth
-                />
-
-                <TextField
-                  value={settings.blockScopeTo}
-                  name="blockScopeTo"
-                  label="To"
-                  helperText="Specify the end block of the block scope."
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setSettings(event, false);
-                  }}
-                  fullWidth
-                />
-              </Stack>
             </Stack>
           </CardContent>
         </Card>

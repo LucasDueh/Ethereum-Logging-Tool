@@ -13,8 +13,14 @@ import EventSelectionTable from './event-selection-table/EventSelectionTable';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function EventSelectionAccordion(props: any) {
-  const { id, contractAddress, contractAbi, selected, handleSelectionChange } =
-    props;
+  const {
+    id,
+    contractName,
+    contractAddress,
+    contractAbi,
+    selected,
+    handleSelectionChange,
+  } = props;
 
   return (
     <Grid item xs={12}>
@@ -23,11 +29,11 @@ function EventSelectionAccordion(props: any) {
           <Stack
             direction="row"
             alignItems="center"
-            justifyContent="space-between"
+            justifyContent="flex-start"
             style={{ width: '100%' }}
           >
-            <Typography>Contract {id + 1}</Typography>
-            <Typography>{contractAddress}</Typography>
+            <Typography sx={{ mr: 1 }}>{contractName}</Typography>
+            <Typography variant="body2">{contractAddress}</Typography>
           </Stack>
         </AccordionSummary>
         <AccordionDetails>
@@ -45,6 +51,7 @@ function EventSelectionAccordion(props: any) {
 
 EventSelectionAccordion.propTypes = {
   id: PropTypes.number.isRequired,
+  contractName: PropTypes.string.isRequired,
   contractAddress: PropTypes.string.isRequired,
   contractAbi: PropTypes.arrayOf(PropTypes.object).isRequired,
   selected: PropTypes.arrayOf(PropTypes.object).isRequired,
