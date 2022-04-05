@@ -4,12 +4,12 @@ import { AppTheme } from './themetypes';
 const jet = '#393939ff';
 const battleshipGrey = '#8c8c8cff';
 
-const starCommandBlue = '#197bbdff'; // primary
+const main = '#197bbdff'; // blue
 const hanPurple = '#5438dcff'; // secondary
-const flame = '#ec4e20ff'; // error
-const honeyYellow = '#f6ae2dff'; // warning
-const aeroBlue = '#F4FAFFff'; // info
-const greenCyan = '#2d936cff'; // success
+const error = '#D41C1C';
+const warning = '#EBA937'; // warning
+const info = '#F4FAFFff'; // info
+const success = '#2d936cff'; // success
 
 const themeindependent = {
   typography: {
@@ -34,29 +34,34 @@ const AppThemeOptions = {
     palette: {
       type: 'light',
       primary: {
-        light: starCommandBlue,
-        main: starCommandBlue,
-        dark: starCommandBlue,
+        light: main,
+        main,
+        dark: main,
       },
       secondary: {
         light: hanPurple,
         main: hanPurple,
         dark: hanPurple,
       },
+      error: {
+        light: error,
+        main: error,
+        dark: error,
+      },
       warning: {
-        light: honeyYellow,
-        main: honeyYellow,
-        dark: honeyYellow,
+        light: warning,
+        main: warning,
+        dark: warning,
       },
       info: {
-        light: aeroBlue,
-        main: aeroBlue,
-        dark: aeroBlue,
+        light: info,
+        main: info,
+        dark: info,
       },
-      succcess: {
-        light: greenCyan,
-        main: greenCyan,
-        dark: greenCyan,
+      success: {
+        light: success,
+        main: success,
+        dark: success,
       },
       background: {
         paper: '#fff',
