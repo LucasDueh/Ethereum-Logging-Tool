@@ -9,7 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 
-import { IAbiEntry, ITableHeadCell } from 'types/types';
+import { IAbiEntry, IActivity } from 'types/types';
+import { ITableHeadCell } from './table-types';
 import SelectionTableToolbar from './SelectionTableToolbar';
 import SelectionTableHead from './SelectionTableHead';
 import SelectionTableCell from './SelectionTableCell';
@@ -84,7 +85,11 @@ function EventSelectionTable(props: any) {
     handleSelectionChange(newSelected, id);
   };
 
-  const isSelected = (row: IAbiEntry) => selected.indexOf(row) !== -1;
+  const isSelected = (row: IAbiEntry) =>
+    selected.filter(
+      (entry: IAbiEntry | IActivity) =>
+        entry.name === row.name && entry.type === row.type
+    ).length > 0;
 
   return (
     <Box sx={{ width: '100%' }}>

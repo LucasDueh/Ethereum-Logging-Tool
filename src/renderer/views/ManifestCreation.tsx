@@ -25,7 +25,7 @@ import {
   Blockchain,
   EmissionMode,
   ConnectionMode,
-} from '../constants/settings';
+} from '../components/manifest-creation/step-three/settings-types';
 
 import StepOne from '../components/manifest-creation/step-one/StepOne';
 import StepTwo from '../components/manifest-creation/step-two/StepTwo';
@@ -208,7 +208,8 @@ function ManifestCreation(props: any) {
     <Stack
       sx={{ py: 1 }}
       spacing={1}
-      justifyContent="space-between"
+      direction="column"
+      justifyContent="stretch"
       alignItems="space-between"
     >
       <Box sx={{ px: 3, py: 1 }}>

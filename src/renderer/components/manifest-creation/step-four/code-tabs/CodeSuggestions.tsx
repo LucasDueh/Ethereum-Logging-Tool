@@ -2,21 +2,21 @@ import PropTypes from 'prop-types';
 import { Stack, Box } from '@mui/material';
 
 import { IActivity } from 'types/types';
-import AbiTypes from 'renderer/constants/abi-types';
 import AbiEventBlock from './code-blocks/AbiEventBlock';
-import AbiFunctionBlock from './code-blocks/AbiFunctionBlock';
+import AbiPublicQueryBlock from './code-blocks/AbiPublicQueryBlock';
 import AbiDecodableFunctionBlock from './code-blocks/AbiDecodableFunctionBlock';
 import CodeBlockAccordion from './CodeBlockAccordion';
+import { AccessorTypes } from './abi-types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function CodeSuggestions(props: any) {
   const { contractAddress, contractActivities } = props;
 
   return (
-    <Stack sx={{ overflow: 'auto' }}>
+    <Stack sx={{ overflow: 'hidden' }}>
       {contractActivities.map((activity: IActivity, index: number) => {
-        switch (activity.type) {
-          case AbiTypes.Event:
+        switch (activity.accessorType) {
+          case AccessorTypes.EventLog:
             return (
               <CodeBlockAccordion
                 key={[activity.name, index].join('')}
@@ -31,14 +31,14 @@ function CodeSuggestions(props: any) {
                 />
               </CodeBlockAccordion>
             );
-          case AbiTypes.Function:
+          case AccessorTypes.PublicMemberQuery:
             return (
               <CodeBlockAccordion
                 key={[activity.name, index].join('')}
                 type="Public Member Query"
                 name={activity.name}
               >
-                <AbiFunctionBlock
+                <AbiPublicQueryBlock
                   contractAddress={contractAddress}
                   name={activity.name}
                   inputs={activity.inputs}
@@ -47,7 +47,7 @@ function CodeSuggestions(props: any) {
                 />
               </CodeBlockAccordion>
             );
-          case AbiTypes.DecodableFunction:
+          case AccessorTypes.DecodableFunctionInput:
             return (
               <CodeBlockAccordion
                 key={[activity.name, index].join('')}

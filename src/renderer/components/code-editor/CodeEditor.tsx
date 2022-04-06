@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { IconButton, Box } from '@mui/material';
-import CopyAll from '@mui/icons-material/CopyAll';
+import CopyIcon from '@mui/icons-material/ContentCopyRounded';
 
 import AceEditor from 'react-ace';
 import BcqlMode from './BcqlMode';
@@ -64,12 +64,23 @@ function CodeEditor(props: any) {
       <Box
         sx={{
           position: 'absolute',
-          right: '-2px',
+          right: '1px',
+          top: '1px',
           zIndex: 1000,
         }}
       >
-        <IconButton size="small" onClick={copyCode}>
-          <CopyAll />
+        <IconButton
+          sx={{
+            backgroundColor: 'rgba(240, 240, 240, .90)',
+            borderRadius: 2,
+            '&.MuiButtonBase-root:hover': {
+              bgcolor: 'rgba(220, 220, 220, .95)',
+            },
+          }}
+          size="small"
+          onClick={copyCode}
+        >
+          <CopyIcon style={{ fontSize: 20 }} />
         </IconButton>
       </Box>
       <AceEditor
@@ -85,7 +96,7 @@ function CodeEditor(props: any) {
         editorProps={{ $blockScrolling: true }}
         style={{
           width: '100%',
-          borderRadius: '4px',
+          borderRadius: '1px',
         }}
         enableBasicAutocompletion
         enableLiveAutocompletion

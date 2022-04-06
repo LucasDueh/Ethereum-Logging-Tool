@@ -3,7 +3,7 @@ import { ipcMain } from 'electron';
 import { IAbiEntry, IActivity } from 'types/types';
 
 import reduceAbiToJson from './abi-reducer';
-import AbiTypes from './abi-types';
+import { AbiTypes, AccessorTypes } from './abi-types';
 import hashFunction from './function-hasher';
 
 const reduceAbi = (input: string) => {
@@ -19,26 +19,32 @@ const transformAbiToActivities = (abiEntries: Array<IAbiEntry>) => {
     // it is seen as a decodable function that could be part of tx.input
     if (entry.type === AbiTypes.Function && entry.inputs.length > 0) {
       const keccak256Hash = hashFunction(entry);
-      const type = AbiTypes.DecodableFunction;
 
       const activity: IActivity = {
         ...entry,
         hash: keccak256Hash,
         activityName: entry.name,
+        accessorType: AccessorTypes.DecodableFunctionInput,
       };
-      activity.type = type;
       activites.push(activity);
     }
 
     // An abi entry of type function is seen as a query-able function
     // only if it has output parameters
-    if (
-      (entry.type === AbiTypes.Function && entry.outputs.length > 0) ||
-      entry.type === AbiTypes.Event
-    ) {
+    if (entry.type === AbiTypes.Function && entry.outputs.length > 0) {
       const activity: IActivity = {
         ...entry,
         activityName: entry.name,
+        accessorType: AccessorTypes.PublicMemberQuery,
+      };
+      activites.push(activity);
+    }
+
+    if (entry.type === AbiTypes.Event) {
+      const activity: IActivity = {
+        ...entry,
+        activityName: entry.name,
+        accessorType: AccessorTypes.EventLog,
       };
       activites.push(activity);
     }
