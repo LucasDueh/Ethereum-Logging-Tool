@@ -9,7 +9,7 @@ const inputName = (name: string, index: number) => {
 
 const paramsToString = (
   parameters: Array<ISolidityFunctionParam>,
-  indent?: string
+  indent = ''
 ) => {
   let paramString = '';
   parameters.forEach((input: ISolidityFunctionParam, index: number) => {
