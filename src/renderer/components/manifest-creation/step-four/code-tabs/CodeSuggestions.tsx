@@ -3,7 +3,7 @@ import { Stack, Box } from '@mui/material';
 
 import { IActivity } from 'types/types';
 import AbiEventBlock from './code-blocks/AbiEventBlock';
-import AbiFunctionBlock from './code-blocks/AbiFunctionBlock';
+import AbiPublicQueryBlock from './code-blocks/AbiPublicQueryBlock';
 import AbiDecodableFunctionBlock from './code-blocks/AbiDecodableFunctionBlock';
 import CodeBlockAccordion from './CodeBlockAccordion';
 import { AccessorTypes } from './abi-types';
@@ -38,7 +38,7 @@ function CodeSuggestions(props: any) {
                 type="Public Member Query"
                 name={activity.name}
               >
-                <AbiFunctionBlock
+                <AbiPublicQueryBlock
                   contractAddress={contractAddress}
                   name={activity.name}
                   inputs={activity.inputs}

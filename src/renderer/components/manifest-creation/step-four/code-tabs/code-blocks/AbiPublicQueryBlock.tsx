@@ -3,7 +3,7 @@ import CodeEditor from '../../../../code-editor/CodeEditor';
 import paramsToString from './util';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function AbiFunctionBlock(props: any) {
+function AbiPublicQueryBlock(props: any) {
   const { contractAddress, name, inputs, outputs, activityName } = props;
 
   const code = () => {
@@ -23,7 +23,7 @@ function AbiFunctionBlock(props: any) {
   );
 }
 
-AbiFunctionBlock.propTypes = {
+AbiPublicQueryBlock.propTypes = {
   contractAddress: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   inputs: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -31,4 +31,4 @@ AbiFunctionBlock.propTypes = {
   activityName: PropTypes.string.isRequired,
 };
 
-export default AbiFunctionBlock;
+export default AbiPublicQueryBlock;

@@ -7,10 +7,13 @@ const inputName = (name: string, index: number) => {
   return name;
 };
 
-const paramsToString = (parameters: Array<ISolidityFunctionParam>) => {
+const paramsToString = (
+  parameters: Array<ISolidityFunctionParam>,
+  indent?: string
+) => {
   let paramString = '';
   parameters.forEach((input: ISolidityFunctionParam, index: number) => {
-    if (index !== 0) paramString += '\t';
+    if (index !== 0) paramString += `\t${indent}`;
     paramString += `${input.type} ${inputName(input.name, index)}`;
     if (index < parameters.length - 1) paramString += ',\n';
   });

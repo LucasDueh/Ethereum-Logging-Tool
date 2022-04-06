@@ -7,7 +7,7 @@ function AbiDecodableFunctionBlock(props: any) {
   const { contractAddress, name, hash, inputs, activityName } = props;
 
   const code = () => {
-    const inputParameters = paramsToString(inputs);
+    const inputParameters = paramsToString(inputs, '\t');
 
     return `TRANSACTIONS () (${contractAddress}) {\n\tDECODE ETH TX INPUT \n\t\t(${inputParameters}) {\n\t\t// Enter your extraction code here\n\t}\n}`;
   };
