@@ -14,8 +14,11 @@ function StepTwo(props: any) {
   const initSelected: Array<Array<IAbiEntry>> = [];
 
   React.useEffect(() => {
-    contracts.forEach(() => {
+    contracts.forEach((contract: IContract, index: number) => {
       initSelected.push(new Array<IAbiEntry>());
+      if (contract.activities.length > 0) {
+        initSelected[index] = contract.activities;
+      }
     });
     setSelected(initSelected);
     // eslint-disable-next-line react-hooks/exhaustive-deps

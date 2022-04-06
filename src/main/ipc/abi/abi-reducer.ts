@@ -1,5 +1,5 @@
 import { IAbiEntry } from 'types/types';
-import AbiTypes from './abi-types';
+import { AbiTypes } from './abi-types';
 
 const reduce = (entry: IAbiEntry) => {
   if (entry.type !== AbiTypes.Function && entry.type !== AbiTypes.Event)

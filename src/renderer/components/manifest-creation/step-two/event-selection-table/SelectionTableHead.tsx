@@ -6,7 +6,7 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Box from '@mui/material/Box';
 import { visuallyHidden } from '@mui/utils';
-import { ITableHeadCell } from 'types/types';
+import { ITableHeadCell } from './table-types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function SelectionTableHead(props: any) {

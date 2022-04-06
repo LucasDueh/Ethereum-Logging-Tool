@@ -35,7 +35,7 @@ function StepOne(props: any) {
       const abiJson = await window.electron.ipcRenderer.reduceAbi(
         newAbiEntries
       );
-      setAbiEntries(JSON.parse(abiJson), id);
+      if (abiJson != null) setAbiEntries(JSON.parse(abiJson), id);
     }
   };
 

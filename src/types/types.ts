@@ -16,6 +16,7 @@ export interface IAbiEntry {
 export interface IActivity extends IAbiEntry {
   hash?: string;
   activityName: string;
+  accessorType: string;
 }
 
 export interface IContract {
@@ -36,13 +37,4 @@ export interface IExtractionSettings {
   connection: string;
   blockScopeFrom: number;
   blockScopeTo: number;
-}
-
-/**
- * Table-Related
- */
-export interface ITableHeadCell {
-  id: string;
-  numeric: boolean;
-  label: string;
 }

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Stack, Card, CardContent, TextField } from '@mui/material';
 
-import { EmissionMode, ConnectionMode } from '../../../constants/settings';
+import { EmissionMode, ConnectionMode } from './settings-types';
 
 import SelectInput from './SelectInput';
 import StepInstructions from '../StepInstructions';
