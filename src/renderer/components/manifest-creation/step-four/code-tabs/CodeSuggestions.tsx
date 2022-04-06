@@ -13,7 +13,7 @@ function CodeSuggestions(props: any) {
   const { contractAddress, contractActivities } = props;
 
   return (
-    <Stack sx={{ overflow: 'auto' }}>
+    <Stack sx={{ overflow: 'hidden' }}>
       {contractActivities.map((activity: IActivity, index: number) => {
         switch (activity.accessorType) {
           case AccessorTypes.EventLog:

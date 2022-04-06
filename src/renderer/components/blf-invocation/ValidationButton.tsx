@@ -57,7 +57,7 @@ function ValidationButton(props: any) {
       direction="row"
       justifyContent="space-between"
       spacing={0}
-      sx={{ border: 2, borderColor: `${color}.main`, borderRadius: 2 }}
+      sx={{ p: 1, border: 2, borderColor: `${color}.main`, borderRadius: 2 }}
     >
       <Alert
         variant="outlined"

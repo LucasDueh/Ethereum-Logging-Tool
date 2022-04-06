@@ -208,7 +208,8 @@ function ManifestCreation(props: any) {
     <Stack
       sx={{ py: 1 }}
       spacing={1}
-      justifyContent="space-between"
+      direction="column"
+      justifyContent="stretch"
       alignItems="space-between"
     >
       <Box sx={{ px: 3, py: 1 }}>

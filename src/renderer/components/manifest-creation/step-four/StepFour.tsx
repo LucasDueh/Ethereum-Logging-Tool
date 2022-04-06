@@ -35,7 +35,7 @@ function StepFour(props: any) {
             <Paper
               variant="outlined"
               square
-              sx={{ height: '65vh', position: 'relative' }}
+              sx={{ borderRadius: 2, height: '65vh', position: 'relative' }}
             >
               <CodeEditor
                 isManifestEditor
@@ -46,7 +46,11 @@ function StepFour(props: any) {
           </Grid>
 
           <Grid item xs={5}>
-            <Paper variant="outlined" square sx={{ height: '65vh' }}>
+            <Paper
+              variant="outlined"
+              square
+              sx={{ borderRadius: 2, height: '65vh', overflowY: 'auto' }}
+            >
               <CodeTabs contracts={contracts} />
             </Paper>
           </Grid>
