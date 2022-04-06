@@ -14,7 +14,7 @@ function CodeBlockAccordion(props: any) {
   const { type, name, children } = props;
 
   return (
-    <Accordion disableGutters sx={{ backgroundColor: 'rgba(0, 0, 0, .08)' }}>
+    <Accordion disableGutters sx={{ backgroundColor: 'rgba(0, 0, 0, .02)' }}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Grid
           container
