@@ -45,7 +45,6 @@ function CodeEditor(props: any) {
           const rowCol = editor.selection.getCursor();
           if (
             [0, 1, 2, 3, 4, 5, 6].includes(rowCol.row) ||
-            rowCol.row + 1 === editor.session.getLength() ||
             [0, 1, 2, 3, 4, 5, 6].includes(
               editor.selection.getRange().end.row
             ) ||
