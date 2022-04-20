@@ -11,6 +11,7 @@ export interface IAbiEntry {
   name: string;
   inputs: Array<ISolidityFunctionParam>;
   outputs: Array<ISolidityFunctionParam>;
+  stateMutability: string;
 }
 
 export interface IActivity extends IAbiEntry {
