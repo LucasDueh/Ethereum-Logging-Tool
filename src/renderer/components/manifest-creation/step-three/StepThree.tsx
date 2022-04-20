@@ -21,31 +21,6 @@ function StepThree(props: any) {
         <Card>
           <CardContent>
             <Stack style={{ width: '100%' }} spacing={4}>
-              <Stack direction="row">
-                <TextField
-                  sx={{ mr: 2 }}
-                  value={settings.blockScopeFrom}
-                  name="blockScopeFrom"
-                  label="From Block"
-                  helperText="Specify the starting block of the block scope."
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setSettings(event, false);
-                  }}
-                  fullWidth
-                />
-
-                <TextField
-                  value={settings.blockScopeTo}
-                  name="blockScopeTo"
-                  label="To"
-                  helperText="Specify the end block of the block scope."
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setSettings(event, false);
-                  }}
-                  fullWidth
-                />
-              </Stack>
-
               <SelectInput
                 items={{ true: 'true', false: 'false' }}
                 name="abortOnException"

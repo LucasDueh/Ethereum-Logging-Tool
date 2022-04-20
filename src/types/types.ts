@@ -11,6 +11,7 @@ export interface IAbiEntry {
   name: string;
   inputs: Array<ISolidityFunctionParam>;
   outputs: Array<ISolidityFunctionParam>;
+  stateMutability: string;
 }
 
 export interface IActivity extends IAbiEntry {
@@ -35,6 +36,4 @@ export interface IExtractionSettings {
   emissionMode: string;
   connectionMode: string;
   connection: string;
-  blockScopeFrom: number;
-  blockScopeTo: number;
 }

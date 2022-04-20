@@ -44,11 +44,8 @@ function CodeEditor(props: any) {
         editor.commands.on('exec', (event: any) => {
           const rowCol = editor.selection.getCursor();
           if (
-            [0, 1, 2, 3, 4, 5, 6].includes(rowCol.row) ||
-            rowCol.row + 1 === editor.session.getLength() ||
-            [0, 1, 2, 3, 4, 5, 6].includes(
-              editor.selection.getRange().end.row
-            ) ||
+            [0, 1, 2, 3, 4, 5].includes(rowCol.row) ||
+            [0, 1, 2, 3, 4, 5].includes(editor.selection.getRange().end.row) ||
             event.command.name === 'selectall'
           ) {
             event.preventDefault();

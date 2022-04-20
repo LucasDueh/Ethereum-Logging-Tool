@@ -6,6 +6,9 @@ import reduceAbiToJson from './abi-reducer';
 import { AbiTypes, AccessorTypes } from './abi-types';
 import hashFunction from './function-hasher';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const _ = require('lodash');
+
 const reduceAbi = (input: string) => {
   const abiEntriesJson = reduceAbiToJson(input);
   return abiEntriesJson;
@@ -15,9 +18,14 @@ const transformAbiToActivities = (abiEntries: Array<IAbiEntry>) => {
   const activites: Array<IActivity> = [];
 
   abiEntries.forEach((entry) => {
-    // If an abi entry of type function has input parameters
+    // If an abi entry of type function has
+    // input parameters and does not have view or pure stateMutability
     // it is seen as a decodable function that could be part of tx.input
-    if (entry.type === AbiTypes.Function && entry.inputs.length > 0) {
+    if (
+      entry.type === AbiTypes.Function &&
+      entry.inputs.length > 0 &&
+      _.includes(['view', 'pure'], entry.stateMutability)
+    ) {
       const keccak256Hash = hashFunction(entry);
 
       const activity: IActivity = {

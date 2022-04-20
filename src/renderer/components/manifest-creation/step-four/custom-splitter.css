@@ -1,0 +1,9 @@
+.custom-splitter {
+  padding: 0 1px;
+  height: 100%;
+  width: 10px;
+  background: #ebebeb;
+}
+.custom-splitter:hover {
+  cursor: col-resize;
+}

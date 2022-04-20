@@ -49,7 +49,7 @@ export class BcqlHighlightRules extends window.ace.acequire(
       `uint|${uintN()}int|${intN()}` +
       'address|bool|string|function|indexed|' +
       'BLOCKS|TRANSACTIONS|SMART CONTRACT|LOG ENTRIES|' +
-      'DECODE ETH TX INPUT|IF|EMIT|CSV ROW|LOG LINE|XES EVENT|XES TRACE';
+      'TRANSACTION INPUT|IF|EMIT|CSV ROW|LOG LINE|XES EVENT|XES TRACE';
 
     const buildinConstants = 'null|EARLIEST|CURRENT|CONTINUOUS|ANY';
 
@@ -88,7 +88,7 @@ export class BcqlHighlightRules extends window.ace.acequire(
         {
           token: 'keyword',
           regex:
-            /(?:SET|BLOCKCHAIN|OUTPUT FOLDER|CONNECTION|IPC|EMISSION MODE|ABORT ON EXCEPTION|BLOCKS|TRANSACTIONS|SMART CONTRACT|LOG ENTRIES|DECODE ETH TX INPUT|IF|EMIT|CSV ROW|LOG LINE|XES EVENT|XES TRACE)\b/,
+            /(?:SET|BLOCKCHAIN|OUTPUT FOLDER|CONNECTION|IPC|EMISSION MODE|ABORT ON EXCEPTION|BLOCKS|TRANSACTIONS|SMART CONTRACT|LOG ENTRIES|TRANSACTION INPUT|IF|EMIT|CSV ROW|LOG LINE|XES EVENT|XES TRACE)\b/,
           caseInsensitive: false,
         },
         {

@@ -51,7 +51,7 @@ function ManifestCreation(props: any) {
     'Define Extraction',
   ];
 
-  const defaultBlockScope = '\n\t\n}';
+  const defaultBlockScope = 'BLOCKS (FROM) (TO) {\n\t\n}';
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [contracts, setContracts] = React.useState<Array<IContract>>([
@@ -71,8 +71,6 @@ function ManifestCreation(props: any) {
     connectionMode: ConnectionMode.WebSocket,
     connection:
       'wss://eth-mainnet.alchemyapi.io/v2/43UD7sDV0NX1hgJIZZms5btltccfFqqN',
-    blockScopeFrom: 0,
-    blockScopeTo: 0,
   });
   const [settingsCode, setSettingsCode] = React.useState<string>('');
   const [extractionCode, setExtractionCode] =
@@ -160,9 +158,7 @@ function ManifestCreation(props: any) {
       settings.abortOnException
     };\nSET EMISSION MODE "${settings.emissionMode}";\nSET ${
       settings.connectionMode === ConnectionMode.IPCSocket ? 'IPC ' : ''
-    }CONNECTION "${settings.connection}";\n\nBLOCKS (${
-      settings.blockScopeFrom
-    }) (${settings.blockScopeTo}) {`;
+    }CONNECTION "${settings.connection}";\n\n`;
 
     setSettingsCode(newSettingsCode);
   };

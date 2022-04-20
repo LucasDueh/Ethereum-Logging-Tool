@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
-import { Paper, Stack, Grid } from '@mui/material';
+import { Paper, Stack, Box } from '@mui/material';
+
+import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
+import './custom-splitter.css';
 
 import StepInstructions from '../StepInstructions';
 import CodeEditor from '../../code-editor/CodeEditor';
@@ -30,12 +33,27 @@ function StepFour(props: any) {
           details="Copy and paste code blocks from the right side."
         />
 
-        <Grid container>
-          <Grid item xs={7}>
+        <Box
+          sx={{
+            width: '100%',
+            borderRadius: 2,
+            height: '65vh',
+          }}
+        >
+          <ReactSplit
+            direction={SplitDirection.Horizontal}
+            initialSizes={[70, 30]}
+            minWidths={[400, 16]}
+            gutterClassName="custom-splitter"
+          >
             <Paper
               variant="outlined"
               square
-              sx={{ borderRadius: 2, height: '65vh', position: 'relative' }}
+              sx={{
+                borderRadius: '2px 0px 0px 2px',
+                height: '65vh',
+                position: 'relative',
+              }}
             >
               <CodeEditor
                 isManifestEditor
@@ -43,18 +61,20 @@ function StepFour(props: any) {
                 onChange={onEditorChange}
               />
             </Paper>
-          </Grid>
 
-          <Grid item xs={5}>
             <Paper
               variant="outlined"
               square
-              sx={{ borderRadius: 2, height: '65vh', overflowY: 'auto' }}
+              sx={{
+                borderRadius: '0px 2px 2px 0px',
+                height: '65vh',
+                overflowY: 'auto',
+              }}
             >
               <CodeTabs contracts={contracts} />
             </Paper>
-          </Grid>
-        </Grid>
+          </ReactSplit>
+        </Box>
 
         <ValidationButton code={[settingsCode, extractionCode].join('')} />
       </Stack>
