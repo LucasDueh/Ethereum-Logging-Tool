@@ -36,6 +36,4 @@ export interface IExtractionSettings {
   emissionMode: string;
   connectionMode: string;
   connection: string;
-  blockScopeFrom: number;
-  blockScopeTo: number;
 }
