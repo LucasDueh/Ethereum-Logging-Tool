@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
-import { Paper, Stack, Box } from '@mui/material';
+import { Paper, Box } from '@mui/material';
 
 import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
 import './custom-splitter.css';
 
-import StepInstructions from '../StepInstructions';
 import CodeEditor from '../../code-editor/CodeEditor';
 import CodeTabs from './code-tabs/CodeTabs';
 import ValidationButton from '../../blf-invocation/ValidationButton';
@@ -27,38 +26,44 @@ function StepFour(props: any) {
 
   return (
     <form id={formId} onSubmit={handleSubmit}>
-      <Stack spacing={1} justifyContent="space-between" alignItems="stretch">
-        <StepInstructions
+      {/* <StepInstructions
           heading="Specify the content of the Manifest File"
           details="Copy and paste code blocks from the right side."
-        />
-
-        <Box
-          sx={{
-            width: '100%',
-            borderRadius: 2,
-            height: '65vh',
-          }}
+        /> */}
+      <Box
+        sx={{
+          width: '100%',
+          borderRadius: 2,
+          height: '82vh',
+        }}
+      >
+        <ReactSplit
+          direction={SplitDirection.Vertical}
+          initialSizes={[85, 15]}
+          minHeights={[500, 50]}
+          gutterClassName="custom-splitter-vertical"
         >
           <ReactSplit
             direction={SplitDirection.Horizontal}
             initialSizes={[70, 30]}
-            minWidths={[400, 16]}
-            gutterClassName="custom-splitter"
+            minWidths={[500, 16]}
+            gutterClassName="custom-splitter-horizontal"
           >
             <Paper
               variant="outlined"
               square
               sx={{
                 borderRadius: '2px 0px 0px 2px',
-                height: '65vh',
+                height: '100%',
                 position: 'relative',
+                overflowY: 'auto',
               }}
             >
               <CodeEditor
                 isManifestEditor
                 value={[settingsCode, extractionCode].join('')}
                 onChange={onEditorChange}
+                minLines={10}
               />
             </Paper>
 
@@ -67,17 +72,16 @@ function StepFour(props: any) {
               square
               sx={{
                 borderRadius: '0px 2px 2px 0px',
-                height: '65vh',
+                height: '100%',
                 overflowY: 'auto',
               }}
             >
               <CodeTabs contracts={contracts} />
             </Paper>
           </ReactSplit>
-        </Box>
-
-        <ValidationButton code={[settingsCode, extractionCode].join('')} />
-      </Stack>
+          <ValidationButton code={[settingsCode, extractionCode].join('')} />
+        </ReactSplit>
+      </Box>
     </form>
   );
 }

@@ -57,7 +57,12 @@ function ContractInputAccordion(props: any) {
             onChange={handleChangeId}
             value={contractName}
           />
-          <IconButton onClick={deleteContractId}>
+          <IconButton
+            onClick={(event) => {
+              event.stopPropagation();
+              deleteContractId();
+            }}
+          >
             <DeleteIcon />
           </IconButton>
         </Stack>

@@ -15,6 +15,7 @@ function CodeEditor(props: any) {
     value,
     onChange,
     readOnly,
+    minLines,
     maxLines,
     highlightActiveLine,
   } = props;
@@ -43,9 +44,21 @@ function CodeEditor(props: any) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         editor.commands.on('exec', (event: any) => {
           const rowCol = editor.selection.getCursor();
+
           if (
-            [0, 1, 2, 3, 4, 5].includes(rowCol.row) ||
-            [0, 1, 2, 3, 4, 5].includes(editor.selection.getRange().end.row) ||
+            event.command.name === 'backspace' &&
+            rowCol.row === 7 &&
+            rowCol.column === 0
+          ) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          if (
+            [0, 1, 2, 3, 4, 5, 6].includes(rowCol.row) ||
+            [0, 1, 2, 3, 4, 5, 6].includes(
+              editor.selection.getRange().end.row
+            ) ||
             event.command.name === 'selectall'
           ) {
             event.preventDefault();
@@ -98,6 +111,7 @@ function CodeEditor(props: any) {
         enableBasicAutocompletion
         enableLiveAutocompletion
         maxLines={maxLines}
+        minLines={minLines}
       />
     </>
   );
@@ -105,7 +119,8 @@ function CodeEditor(props: any) {
 
 CodeEditor.defaultProps = {
   isManifestEditor: false,
-  maxLines: undefined,
+  minLines: 1,
+  maxLines: 10000,
   onChange: () => {},
   readOnly: false,
   highlightActiveLine: true,
@@ -116,6 +131,7 @@ CodeEditor.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
+  minLines: PropTypes.number,
   maxLines: PropTypes.number,
   highlightActiveLine: PropTypes.bool,
 };

@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 
 import { IAbiEntry, IContract } from 'types/types';
 import EventSelectionAccordion from './EventSelectionAccordion';
-import StepInstructions from '../StepInstructions';
+import StepInstructions from '../step-instructions/StepInstructions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepTwo(props: any) {
@@ -41,7 +41,12 @@ function StepTwo(props: any) {
 
   return (
     <form id={formId} onSubmit={confirmSelection}>
-      <Stack spacing={1} justifyContent="space-between" alignItems="stretch">
+      <Stack
+        sx={{ p: 2 }}
+        spacing={2}
+        justifyContent="flex-start"
+        alignItems="stretch"
+      >
         <StepInstructions
           heading="Select ABI Entries for Process Mining"
           details="Every selected entry can later be mapped to an event."

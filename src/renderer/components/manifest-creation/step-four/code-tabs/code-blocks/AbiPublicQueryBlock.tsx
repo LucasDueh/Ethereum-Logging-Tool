@@ -10,7 +10,7 @@ function AbiPublicQueryBlock(props: any) {
     const inputParameters = paramsToString(inputs);
     const outputParameters = paramsToString(outputs);
 
-    return `SMART CONTRACT (${contractAddress})\n\t(${outputParameters} = ${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
+    return `SMART CONTRACT (0) (${contractAddress})\n\t(${outputParameters} = ${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
   };
 
   return (

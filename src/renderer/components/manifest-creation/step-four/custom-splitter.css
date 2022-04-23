@@ -1,9 +1,19 @@
-.custom-splitter {
+.custom-splitter-horizontal {
   padding: 0 1px;
   height: 100%;
-  width: 10px;
+  width: 6px;
   background: #ebebeb;
 }
-.custom-splitter:hover {
+.custom-splitter-horizontal:hover {
+  cursor: col-resize;
+}
+
+.custom-splitter-vertical {
+  padding: 1px 0;
+  width: 100%;
+  height: 6px;
+  background: #ebebeb;
+}
+.custom-splitter-vertical:hover {
   cursor: col-resize;
 }
