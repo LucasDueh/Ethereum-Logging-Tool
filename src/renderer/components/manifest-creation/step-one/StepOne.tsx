@@ -41,10 +41,15 @@ function StepOne(props: any) {
 
   return (
     <form id={formId} onSubmit={handleSubmit}>
-      <Stack spacing={1} justifyContent="space-between" alignItems="stretch">
+      <Stack
+        sx={{ p: 2 }}
+        spacing={2}
+        justifyContent="flex-start"
+        alignItems="stretch"
+      >
         <Stack direction="row" justifyContent="space-between" spacing={2}>
           <StepInstructions
-            heading="Enter Contract Address and ABI of Solidity Smart Contract"
+            heading="Enter Contract Address and ABI of Ethereum Smart Contracts"
             details="The ABI and contract address can be copied from websites like
           etherscan.io."
           />

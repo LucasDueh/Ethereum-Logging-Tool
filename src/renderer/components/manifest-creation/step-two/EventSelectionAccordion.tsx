@@ -1,5 +1,4 @@
 import {
-  Grid,
   Typography,
   Accordion,
   AccordionSummary,
@@ -23,29 +22,27 @@ function EventSelectionAccordion(props: any) {
   } = props;
 
   return (
-    <Grid item xs={12}>
-      <Accordion defaultExpanded>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="flex-start"
-            style={{ width: '100%' }}
-          >
-            <Typography sx={{ mr: 1 }}>{contractName}</Typography>
-            <Typography variant="body2">{contractAddress}</Typography>
-          </Stack>
-        </AccordionSummary>
-        <AccordionDetails>
-          <EventSelectionTable
-            id={id}
-            rows={contractAbi}
-            selected={selected}
-            handleSelectionChange={handleSelectionChange}
-          />
-        </AccordionDetails>
-      </Accordion>
-    </Grid>
+    <Accordion defaultExpanded>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="flex-start"
+          style={{ width: '100%' }}
+        >
+          <Typography sx={{ mr: 1 }}>{contractName}</Typography>
+          <Typography variant="body2">{contractAddress}</Typography>
+        </Stack>
+      </AccordionSummary>
+      <AccordionDetails>
+        <EventSelectionTable
+          id={id}
+          rows={contractAbi}
+          selected={selected}
+          handleSelectionChange={handleSelectionChange}
+        />
+      </AccordionDetails>
+    </Accordion>
   );
 }
 

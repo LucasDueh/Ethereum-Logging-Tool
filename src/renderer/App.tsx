@@ -22,7 +22,15 @@ function App() {
         <ThemeProvider theme={createTheme(AppThemeOptions[AppTheme.LIGHT])}>
           <CssBaseline />
           <Header />
-          <Box component="main" sx={{ flexGrow: 1 }}>
+          <Box
+            className="app-box"
+            component="main"
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <Toolbar />
             <Routes>
               {routes.map((route) => (

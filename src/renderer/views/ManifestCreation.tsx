@@ -51,7 +51,7 @@ function ManifestCreation(props: any) {
     'Define Extraction',
   ];
 
-  const defaultBlockScope = 'BLOCKS (FROM) (TO) {\n\t\n}';
+  const defaultBlockScope = '\n\n\n\nBLOCKS (FROM) (TO) {\n\t\n}';
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [contracts, setContracts] = React.useState<Array<IContract>>([
@@ -158,7 +158,7 @@ function ManifestCreation(props: any) {
       settings.abortOnException
     };\nSET EMISSION MODE "${settings.emissionMode}";\nSET ${
       settings.connectionMode === ConnectionMode.IPCSocket ? 'IPC ' : ''
-    }CONNECTION "${settings.connection}";\n\n`;
+    }CONNECTION "${settings.connection}";\n`;
 
     setSettingsCode(newSettingsCode);
   };
@@ -202,93 +202,112 @@ function ManifestCreation(props: any) {
 
   return (
     <Stack
-      sx={{ py: 1 }}
-      spacing={1}
+      className="outer-stack"
       direction="column"
-      justifyContent="stretch"
-      alignItems="space-between"
+      justifyContent="space-between"
+      alignItems="stretch"
+      sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
     >
-      <Box sx={{ px: 3, py: 1 }}>
-        <Stepper activeStep={activeStep}>
-          {stepLabels.map((label) => {
-            return (
-              <Step key={label}>
-                <StepLabel classes={{ label: classes.stepLabel }}>
-                  {label}
-                </StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
-      </Box>
-      <Divider />
+      <Stack direction="column" justifyContent="flex-start">
+        <Box className="step-labels-box" sx={{ px: 3, py: 1 }}>
+          <Stepper activeStep={activeStep}>
+            {stepLabels.map((label) => {
+              return (
+                <Step key={label}>
+                  <StepLabel classes={{ label: classes.stepLabel }}>
+                    {label}
+                  </StepLabel>
+                </Step>
+              );
+            })}
+          </Stepper>
+        </Box>
 
-      <Box sx={{ px: 3, py: 1, overflowY: 'auto', height: '80vh' }}>
-        {(() => {
-          switch (activeStep) {
-            case 0:
-              return (
-                <StepOne
-                  formId={stepLabels[0]}
-                  contracts={contracts}
-                  addContract={addContract}
-                  deleteContract={deleteContract}
-                  setContractName={updateContractName}
-                  setContractAddress={updateContractAddress}
-                  setRawAbi={updateRawAbi}
-                  setAbiEntries={updateAbiEntries}
-                  handleSubmit={handleNext}
-                />
-              );
-            case 1:
-              return (
-                <StepTwo
-                  formId={stepLabels[1]}
-                  contracts={contracts}
-                  setActivities={updateActivities}
-                  handleSubmit={handleNext}
-                />
-              );
-            case 2:
-              return (
-                <StepThree
-                  formId={stepLabels[2]}
-                  settings={settings}
-                  setSettings={updateSettings}
-                  handleSubmit={handleNext}
-                />
-              );
-            default:
-              return (
-                <StepFour
-                  formId={stepLabels[3]}
-                  settingsCode={settingsCode}
-                  extractionCode={extractionCode}
-                  setExtractionCode={updateExtractionCode}
-                  contracts={contracts}
-                  handleSubmit={finishCreation}
-                />
-              );
-          }
-        })()}
-      </Box>
+        <Divider />
 
-      <Divider />
-      <Stack direction="row" justifyContent="center">
-        <Button
-          disabled={activeStep <= 0}
-          type="button"
-          variant="outlined"
-          onClick={handleBack}
-          sx={{ mr: 1 }}
+        <Box
+          className="step-box"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+          }}
         >
-          Back
-        </Button>
-
-        <Button form={stepLabels[activeStep]} type="submit" variant="outlined">
-          Next
-        </Button>
+          <Box sx={{ height: '82vh', overflowY: 'auto', width: '100%' }}>
+            {(() => {
+              switch (activeStep) {
+                case 0:
+                  return (
+                    <StepOne
+                      formId={stepLabels[0]}
+                      contracts={contracts}
+                      addContract={addContract}
+                      deleteContract={deleteContract}
+                      setContractName={updateContractName}
+                      setContractAddress={updateContractAddress}
+                      setRawAbi={updateRawAbi}
+                      setAbiEntries={updateAbiEntries}
+                      handleSubmit={handleNext}
+                    />
+                  );
+                case 1:
+                  return (
+                    <StepTwo
+                      formId={stepLabels[1]}
+                      contracts={contracts}
+                      setActivities={updateActivities}
+                      handleSubmit={handleNext}
+                    />
+                  );
+                case 2:
+                  return (
+                    <StepThree
+                      formId={stepLabels[2]}
+                      settings={settings}
+                      setSettings={updateSettings}
+                      handleSubmit={handleNext}
+                    />
+                  );
+                default:
+                  return (
+                    <StepFour
+                      formId={stepLabels[3]}
+                      settingsCode={settingsCode}
+                      extractionCode={extractionCode}
+                      setExtractionCode={updateExtractionCode}
+                      contracts={contracts}
+                      handleSubmit={finishCreation}
+                    />
+                  );
+              }
+            })()}
+          </Box>
+        </Box>
       </Stack>
+
+      <Box className="step-buttons-box">
+        <Divider />
+
+        <Stack direction="row" justifyContent="center" sx={{ p: 1 }}>
+          <Button
+            disabled={activeStep <= 0}
+            type="button"
+            variant="outlined"
+            onClick={handleBack}
+            sx={{ mr: 1 }}
+          >
+            Back
+          </Button>
+
+          <Button
+            form={stepLabels[activeStep]}
+            type="submit"
+            variant="outlined"
+          >
+            {activeStep === 3 ? <>Finish</> : <>Next</>}
+          </Button>
+        </Stack>
+      </Box>
     </Stack>
   );
 }

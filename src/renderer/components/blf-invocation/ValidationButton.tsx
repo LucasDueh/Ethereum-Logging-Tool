@@ -7,6 +7,7 @@ import {
   Button,
   CircularProgress,
   AlertColor,
+  Divider,
 } from '@mui/material';
 import GradingIcon from '@mui/icons-material/Grading';
 
@@ -55,9 +56,17 @@ function ValidationButton(props: any) {
   return (
     <Stack
       direction="row"
+      divider={<Divider orientation="vertical" flexItem />}
       justifyContent="space-between"
-      spacing={0}
-      sx={{ p: 1, border: 2, borderColor: `${color}.main`, borderRadius: 2 }}
+      spacing={1}
+      sx={{
+        p: 0.5,
+        border: 1,
+        borderColor: `${color}.main`,
+        borderRadius: 0.3,
+        height: '100%',
+        overflowY: 'auto',
+      }}
     >
       <Alert
         variant="outlined"
@@ -83,9 +92,17 @@ function ValidationButton(props: any) {
         )}
       </Alert>
 
-      <Box sx={{ m: 0, position: 'relative' }}>
+      <Box
+        sx={{
+          m: 0,
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
         <Button
-          sx={{ width: '100%', height: '100%', color: 'white', boxShadow: 0 }}
+          sx={{ color: 'white', boxShadow: 0 }}
           startIcon={<GradingIcon />}
           variant="contained"
           onClick={handleButtonClick}
