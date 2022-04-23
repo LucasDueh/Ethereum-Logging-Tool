@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 
 import { IAbiEntry, IContract } from 'types/types';
 import EventSelectionAccordion from './EventSelectionAccordion';
-import StepInstructions from '../StepInstructions';
+import StepInstructions from '../step-instructions/StepInstructions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepTwo(props: any) {

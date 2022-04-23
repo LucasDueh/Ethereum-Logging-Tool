@@ -4,7 +4,7 @@ import { Stack, Button } from '@mui/material';
 import { IContract } from 'types/types';
 import AddIcon from '@mui/icons-material/Add';
 import ContractInputAccordion from './ContractInputAccordion';
-import StepInstructions from '../StepInstructions';
+import StepInstructions from '../step-instructions/StepInstructions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepOne(props: any) {

@@ -4,7 +4,7 @@ import { Stack, Card, CardContent, TextField } from '@mui/material';
 import { EmissionMode, ConnectionMode } from './settings-types';
 
 import SelectInput from './SelectInput';
-import StepInstructions from '../StepInstructions';
+import StepInstructions from '../step-instructions/StepInstructions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepThree(props: any) {
