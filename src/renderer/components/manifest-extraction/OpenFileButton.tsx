@@ -11,20 +11,23 @@ function OpenFileButton(props: any) {
   const [loading, setLoading] = React.useState(false);
 
   const handleButtonClick = async () => {
+    let isError = false;
     if (!loading) {
       setLoading(true);
       await window.electron.ipcRenderer
         .openManifestFile()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((fileData: any) => {
           updateFilePath(fileData.filePath);
           updateManifestCode(fileData.data);
           return null;
         })
-        .catch(() => {
+        .catch((_error: Error) => {
+          isError = true;
           return null;
         });
       setLoading(false);
-      updateFileOpened(true);
+      updateFileOpened(!isError);
     }
   };
 

@@ -42,6 +42,12 @@ const openManifestFile = async () => {
   const { canceled, filePaths } = result;
   const filePath = filePaths[0];
 
+  if (canceled) {
+    return new Promise((_resolve, reject) => {
+      return reject(new Error('Read operation canceled'));
+    });
+  }
+
   let messageOptions;
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, 'utf8', (err: Error, data: string | Buffer) => {
@@ -78,7 +84,7 @@ module.exports = {
       return saveManifestFile(content);
     }
   ),
-  openManifestFile: ipcMain.handle('open-manifest-file', async (_event) => {
+  openManifestFile: ipcMain.handle('open-manifest-file', async () => {
     console.log('Attempting to open manifest file ');
     return openManifestFile();
   }),
