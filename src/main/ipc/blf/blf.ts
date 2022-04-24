@@ -8,15 +8,12 @@ import { writeTempManifest, dailyTempFolderUri } from './temp-files';
 const BLFBinary = path.join(
   __dirname,
   '../../../../assets',
-  'java/Blockchain-Logging-Framework/target/blf-cmd.jar'
+  'java/Blockchain-Logging-Framework/blf-cmd.jar'
 );
 
 const spawnBLFProcess = (mode: string, filePath: string) => {
   const BLF = spawn('/usr/bin/java', ['-jar', BLFBinary, mode, filePath], {
-    cwd: path.join(
-      process.cwd(),
-      'assets/java/Blockchain-Logging-Framework/target'
-    ),
+    cwd: path.join(process.cwd(), 'assets/java/Blockchain-Logging-Framework/'),
   });
 
   BLF.stdout.setEncoding('utf-8');
