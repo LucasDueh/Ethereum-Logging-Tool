@@ -7,7 +7,7 @@ import CodeEditor from '../general/code-editor/CodeEditor';
 import ExtractionButton from '../blf-invocation/ExtractionButton';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ExtractionInvokation(props: any) {
+function ExtractionInvocation(props: any) {
   const { manifestCode, filePath } = props;
 
   return (
@@ -48,9 +48,9 @@ function ExtractionInvokation(props: any) {
   );
 }
 
-ExtractionInvokation.propTypes = {
+ExtractionInvocation.propTypes = {
   manifestCode: PropTypes.string.isRequired,
   filePath: PropTypes.string.isRequired,
 };
 
-export default ExtractionInvokation;
+export default ExtractionInvocation;
