@@ -22,6 +22,7 @@ function OpenFileButton(props: any) {
           updateManifestCode(fileData.data);
           return null;
         })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .catch((_error: Error) => {
           isError = true;
           return null;
