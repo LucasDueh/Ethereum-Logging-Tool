@@ -1,10 +1,10 @@
 import ManifestCreation from './views/ManifestCreation';
-import ManifestList from './views/ManifestList';
+import ManifestExtraction from './views/ManifestExtraction';
 
 const routes = [
   {
     path: '/',
-    element: <ManifestList />,
+    element: <ManifestExtraction />,
     exact: true,
   },
   {

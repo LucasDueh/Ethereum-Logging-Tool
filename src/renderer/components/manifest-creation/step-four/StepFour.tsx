@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { Paper, Box } from '@mui/material';
 
 import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
-import './custom-splitter.css';
+import '../../general/splitter/custom-splitter.css';
 
-import CodeEditor from '../../code-editor/CodeEditor';
+import CodeEditor from '../../general/code-editor/CodeEditor';
 import CodeTabs from './code-tabs/CodeTabs';
 import ValidationButton from '../../blf-invocation/ValidationButton';
 

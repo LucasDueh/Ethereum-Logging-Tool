@@ -5,11 +5,10 @@ const fs = require('fs');
 
 const saveManifestFile = async (content: string) => {
   const dialogOptions = {};
-  let messageOptions;
-
   const result = await dialog.showSaveDialog(dialogOptions);
   const { filePath } = result;
 
+  let messageOptions;
   return new Promise<void>((resolve, reject) => {
     fs.writeFile(filePath, content, (err: Error) => {
       if (err) {
@@ -17,7 +16,7 @@ const saveManifestFile = async (content: string) => {
           buttons: ['Close'],
           title: 'Error',
           type: 'error',
-          message: err.name || 'Export Error',
+          message: err.name || 'Write Error',
           detail: err.toString(),
         };
         dialog.showMessageBox(messageOptions);
@@ -35,7 +34,41 @@ const saveManifestFile = async (content: string) => {
   });
 };
 
-const openManifestFile = async (filename: string) => {};
+const openManifestFile = async () => {
+  const dialogOptions = {
+    filters: [{ name: 'Blockchain Query Language', extensions: ['bcql'] }],
+  };
+  const result = await dialog.showOpenDialog(dialogOptions);
+  const { canceled, filePaths } = result;
+  const filePath = filePaths[0];
+
+  let messageOptions;
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf8', (err: Error, data: string | Buffer) => {
+      if (err) {
+        messageOptions = {
+          buttons: ['Close'],
+          title: 'Error',
+          type: 'error',
+          message: err.name || 'Read Error',
+          detail: err.toString(),
+        };
+        dialog.showMessageBox(messageOptions);
+        return reject(err);
+      }
+      messageOptions = {
+        buttons: ['Close'],
+        title: 'Success',
+        type: 'info',
+        message: `Successfully opened file ${filePath}`,
+      };
+      dialog.showMessageBox(messageOptions);
+      const fileData = { filePath, data };
+
+      return resolve(fileData);
+    });
+  });
+};
 
 module.exports = {
   saveManifestFile: ipcMain.handle(
@@ -45,11 +78,8 @@ module.exports = {
       return saveManifestFile(content);
     }
   ),
-  openManifestFile: ipcMain.handle(
-    'open-manifest-file',
-    async (_event, filename) => {
-      console.log('Opening manifest file ', filename);
-      return openManifestFile(filename);
-    }
-  ),
+  openManifestFile: ipcMain.handle('open-manifest-file', async (_event) => {
+    console.log('Attempting to open manifest file ');
+    return openManifestFile();
+  }),
 };

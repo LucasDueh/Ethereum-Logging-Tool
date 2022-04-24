@@ -1,6 +1,6 @@
 import { Stack, Box, Grid, Button, Typography } from '@mui/material';
 
-import FileListSidebar from 'renderer/components/manifest-list/FileListSidebar';
+import FileListSidebar from 'renderer/components/manifest-extraction/FileListSidebar';
 
 function ManifestList() {
   const labelSpace = 2;

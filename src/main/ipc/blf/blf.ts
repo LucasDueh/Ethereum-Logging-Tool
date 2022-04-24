@@ -11,10 +11,8 @@ const BLFBinary = path.join(
   'java/Blockchain-Logging-Framework/target/blf-cmd.jar'
 );
 
-const spawnBLFProcess = (mode: string, folder: string, filename: string) => {
-  const manifestFile = path.join(app.getPath('userData'), folder, filename);
-
-  const BLF = spawn('/usr/bin/java', ['-jar', BLFBinary, mode, manifestFile], {
+const spawnBLFProcess = (mode: string, filePath: string) => {
+  const BLF = spawn('/usr/bin/java', ['-jar', BLFBinary, mode, filePath], {
     cwd: path.join(
       process.cwd(),
       'assets/java/Blockchain-Logging-Framework/target'
@@ -42,7 +40,12 @@ const spawnBLFProcess = (mode: string, folder: string, filename: string) => {
 const validateTempManifest = async (content: string) => {
   await writeTempManifest(content)
     .then((fileName: string) => {
-      spawnBLFProcess('validate', dailyTempFolderUri(), fileName);
+      const filePath = path.join(
+        app.getPath('userData'),
+        dailyTempFolderUri(),
+        fileName
+      );
+      spawnBLFProcess('validate', filePath);
       return null;
     })
     .catch((err) => {
@@ -60,16 +63,13 @@ module.exports = {
   ),
   validateManifest: ipcMain.handle(
     'validate-manifest',
-    async (_event, filename) => {
-      console.log('Validating manifest ', filename);
-      spawnBLFProcess('validate', 'manifests', filename);
+    async (_event, filePath) => {
+      console.log('Validating manifest ', filePath);
+      spawnBLFProcess('validate', filePath);
     }
   ),
-  extractManifest: ipcMain.handle(
-    'extract-manifest',
-    async (_event, filename) => {
-      console.log('Extracting manifest ', filename);
-      spawnBLFProcess('extract', 'manifests', filename);
-    }
-  ),
+  extract: ipcMain.handle('extract', async (_event, filePath) => {
+    console.log('Extracting with manifest ', filePath);
+    spawnBLFProcess('extract', filePath);
+  }),
 };
