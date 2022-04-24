@@ -27,7 +27,7 @@ function ManifestList() {
           <Box sx={{ fontWeight: 'bold' }}>Output Folder</Box>
         </Grid>
         <Grid item xs={12 - labelSpace}>
-          ./test_output
+          ./output
         </Grid>
         <Grid item xs={labelSpace}>
           <Box sx={{ fontWeight: 'bold' }}>Abort on Exception</Box>
