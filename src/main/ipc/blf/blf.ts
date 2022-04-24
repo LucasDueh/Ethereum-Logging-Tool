@@ -15,7 +15,7 @@ const javaPath = '/usr/bin/java';
 
 const spawnBLFProcess = (mode: string, filePath: string) => {
   const BLF = spawn(javaPath, ['-jar', blfBinary, mode, filePath], {
-    cwd: path.join(process.cwd(), 'assets/blf/output'),
+    cwd: path.join(process.cwd(), 'assets/blf'),
   });
 
   BLF.stdout.setEncoding('utf-8');
@@ -24,11 +24,13 @@ const spawnBLFProcess = (mode: string, filePath: string) => {
   BLF.stdout.on('data', (data) => {
     const mainWindow = BrowserWindow.getFocusedWindow();
     mainWindow?.webContents.send('blf-stdout', data.toString());
+    console.log('stdout:', data.toString());
   });
 
   BLF.stderr.on('data', (data) => {
     const mainWindow = BrowserWindow.getFocusedWindow();
     mainWindow?.webContents.send('blf-stderr', data.toString());
+    console.log('stderr:', data.toString());
   });
 
   BLF.on('close', (code) => {
