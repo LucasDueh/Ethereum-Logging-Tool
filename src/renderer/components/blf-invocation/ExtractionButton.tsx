@@ -27,7 +27,7 @@ function ExtractionButton(props: any) {
   });
 
   window.electron.ipcRenderer.on('blf-stderr', (out: string) => {
-    const msg = 'The extraction was interrupted due to the following errors:';
+    // const msg = 'The extraction was interrupted due to the following errors:';
     setStderr(out);
   });
 
