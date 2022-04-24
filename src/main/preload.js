@@ -10,11 +10,11 @@ contextBridge.exposeInMainWorld('electron', {
     validateTempManifest(content) {
       ipcRenderer.invoke('validate-temp-manifest', content);
     },
-    validateManifest(filename) {
-      ipcRenderer.invoke('validate-manifest', filename);
+    validateManifest(filePath) {
+      ipcRenderer.invoke('validate-manifest', filePath);
     },
-    extractManifest(filename) {
-      ipcRenderer.invoke('extract-manifest', filename);
+    extract(filePath) {
+      ipcRenderer.invoke('extract', filePath);
     },
     reduceAbi: async (input) => {
       return ipcRenderer.invoke('reduce-abi', input);
@@ -25,8 +25,8 @@ contextBridge.exposeInMainWorld('electron', {
     saveManifestFile: (content) => {
       return ipcRenderer.invoke('save-manifest-file', content);
     },
-    openManifestFile: (filename) => {
-      return ipcRenderer.invoke('open-manifest-file', filename);
+    openManifestFile: () => {
+      return ipcRenderer.invoke('open-manifest-file');
     },
     on(channel, func) {
       const validChannels = ['blf-stdout', 'blf-stderr'];

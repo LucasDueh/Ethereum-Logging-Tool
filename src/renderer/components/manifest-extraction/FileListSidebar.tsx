@@ -13,7 +13,7 @@ import { Article, Folder } from '@mui/icons-material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-import Sidebar from 'renderer/components/general/Sidebar';
+import Sidebar from 'renderer/components/general/sidebar/Sidebar';
 
 const drawerWidth = 320;
 

@@ -8,7 +8,7 @@ import {
 import { Home, Subject, NoteAdd } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
-import Sidebar from './general/Sidebar';
+import Sidebar from './general/sidebar/Sidebar';
 
 function NavSidebar() {
   const NavLinks = () => {

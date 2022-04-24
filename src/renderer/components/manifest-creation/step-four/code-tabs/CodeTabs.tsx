@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab } from '@mui/material';
 import { IContract } from 'types/types';
 
-import TabPanel from '../../../general/TabPanel';
+import TabPanel from '../../../general/tab-panel/TabPanel';
 import CodeSuggestions from './CodeSuggestions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
