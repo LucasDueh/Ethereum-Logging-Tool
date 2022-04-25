@@ -21,7 +21,7 @@ function ExtractionInvocation(props: any) {
       <ReactSplit
         direction={SplitDirection.Vertical}
         initialSizes={[50, 50]}
-        minHeights={[50, 50]}
+        minHeights={[50, 140]}
         gutterClassName="custom-splitter-vertical"
       >
         <Paper

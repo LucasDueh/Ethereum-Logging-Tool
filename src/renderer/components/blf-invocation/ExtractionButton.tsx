@@ -57,7 +57,7 @@ function ExtractionButton(props: any) {
       sx={{ height: '100%', overflowY: 'auto' }}
     >
       <Paper
-        sx={{ py: 0.5, overflowY: 'hidden', width: '100%' }}
+        sx={{ py: 0.5, overflowY: 'hidden', height: '100%', width: '100%' }}
         variant="outlined"
         square
       >
