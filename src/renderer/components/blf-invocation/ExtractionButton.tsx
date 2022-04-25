@@ -54,33 +54,35 @@ function ExtractionButton(props: any) {
       direction="column"
       justifyContent="flex-start"
       alignItems="center"
-      sx={{ height: '100%', overflowY: 'auto' }}
+      sx={{ height: '100%' }}
     >
       <Paper
-        sx={{ py: 0.5, overflowY: 'hidden', height: '100%', width: '100%' }}
+        sx={{ py: 0.5, height: '100%', width: '100%', overflowY: 'auto' }}
         variant="outlined"
         square
       >
-        <Typography sx={{ px: 1 }} variant="body2">
-          TERMINAL
-        </Typography>
-        <Divider />
-        <Box
-          ref={terminal}
-          sx={{
-            p: 1,
-            height: '100%',
-            overflowY: 'auto',
-          }}
-        >
-          {stderr.map((out: string, index: number) => {
-            return (
-              <Typography key={[out, index].join('')} fontSize={12}>
-                {out}
-              </Typography>
-            );
-          })}
-        </Box>
+        <Stack sx={{ height: '100%' }}>
+          <Typography sx={{ px: 1 }} variant="body2">
+            TERMINAL
+          </Typography>
+          <Divider />
+          <Box
+            ref={terminal}
+            sx={{
+              p: 1,
+              height: '100%',
+              overflowY: 'auto',
+            }}
+          >
+            {stderr.map((out: string, index: number) => {
+              return (
+                <Typography key={[out, index].join('')} fontSize={12}>
+                  {out}
+                </Typography>
+              );
+            })}
+          </Box>
+        </Stack>
       </Paper>
 
       <Box
