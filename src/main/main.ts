@@ -17,7 +17,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
-require('./ipc/blf/blf'); // why require??
+require('./ipc/blf/blf');
 require('./ipc/abi/abi');
 require('./ipc/file-io/file-io');
 
