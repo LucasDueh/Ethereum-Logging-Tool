@@ -1,0 +1,32 @@
+Apr 25, 2022 5:32:44 PM blf.core.exceptions.ExceptionHandler handleException
+SEVERE: Request with id 1442 timed out
+java.io.IOException: Request with id 1442 timed out
+	at org.web3j.protocol.websocket.WebSocketService.lambda$setRequestTimeout$0(WebSocketService.java:182)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+Apr 25, 2022 5:32:44 PM blf.core.exceptions.ExceptionHandler handleException
+SEVERE: Error when retrieving the current block number.
+java.lang.NullPointerException: Cannot invoke "blf.blockchains.ethereum.reader.EthereumBlock.getNumber()" because the return value of "blf.blockchains.ethereum.reader.EthereumDataReader.getCurrentBlock()" is null
+	at blf.blockchains.ethereum.variables.EthereumVariables.lambda$currentBlockNumberAccessor$0(EthereumVariables.java:23)
+	at blf.core.instructions.BlockInstruction.executeNestedInstructions(BlockInstruction.java:20)
+	at blf.blockchains.ethereum.instructions.EthereumBlockFilterInstruction.execute(EthereumBlockFilterInstruction.java:66)
+	at blf.core.Program.execute(Program.java:31)
+	at blf.Extractor.extractData(Extractor.java:40)
+	at blf.BlfApp.extract(BlfApp.java:78)
+	at blf.BlfApp.main(BlfApp.java:46)
+
+Apr 25, 2022 5:32:44 PM blf.core.exceptions.ExceptionHandler handleException
+SEVERE: Current block number is null.
+java.lang.NullPointerException
+	at blf.core.instructions.BlockInstruction.executeNestedInstructions(BlockInstruction.java:23)
+	at blf.blockchains.ethereum.instructions.EthereumBlockFilterInstruction.execute(EthereumBlockFilterInstruction.java:66)
+	at blf.core.Program.execute(Program.java:31)
+	at blf.Extractor.extractData(Extractor.java:40)
+	at blf.BlfApp.extract(BlfApp.java:78)
+	at blf.BlfApp.main(BlfApp.java:46)
+

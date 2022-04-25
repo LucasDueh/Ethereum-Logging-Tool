@@ -18,8 +18,8 @@ import '../general/splitter/custom-splitter.css';
 function ExtractionButton(props: any) {
   const { filePath } = props;
 
-  const [stdout, setStdout] = React.useState('');
-  const [stderr, setStderr] = React.useState('');
+  const [stdout, setStdout] = React.useState('No output');
+  const [stderr, setStderr] = React.useState<Array<string>>([]);
   const [loading, setLoading] = React.useState(false);
 
   window.electron.ipcRenderer.on('blf-stdout', (out: string) => {
@@ -27,8 +27,7 @@ function ExtractionButton(props: any) {
   });
 
   window.electron.ipcRenderer.on('blf-stderr', (out: string) => {
-    // const msg = 'The extraction was interrupted due to the following errors:';
-    setStderr(out);
+    setStderr([...stderr, `${out}`]);
   });
 
   const handleButtonClick = async () => {
@@ -47,8 +46,7 @@ function ExtractionButton(props: any) {
     >
       <ReactSplit
         direction={SplitDirection.Horizontal}
-        initialSizes={[50, 50]}
-        minHeights={[50, 50]}
+        initialSizes={[10, 90]}
         gutterClassName="custom-splitter-horizontal"
       >
         <Paper
@@ -62,7 +60,7 @@ function ExtractionButton(props: any) {
         >
           <Typography variant="body2">Stdout</Typography>
           <Divider />
-          <Typography>{stdout}</Typography>
+          <Typography fontSize={12}>{stdout}</Typography>
         </Paper>
 
         <Paper
@@ -76,7 +74,13 @@ function ExtractionButton(props: any) {
         >
           <Typography variant="body2">Stderr</Typography>
           <Divider />
-          <Typography>{stderr}</Typography>
+          {stderr.map((out: string, index: number) => {
+            return (
+              <Typography key={[out, index].join('')} fontSize={12}>
+                {out}
+              </Typography>
+            );
+          })}
         </Paper>
       </ReactSplit>
 

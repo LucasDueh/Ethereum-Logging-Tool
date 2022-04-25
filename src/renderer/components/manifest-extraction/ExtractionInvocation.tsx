@@ -35,7 +35,6 @@ function ExtractionInvocation(props: any) {
           }}
         >
           <CodeEditor
-            readOnly
             value={manifestCode}
             minLines={80}
             highlightActiveLine={false}
