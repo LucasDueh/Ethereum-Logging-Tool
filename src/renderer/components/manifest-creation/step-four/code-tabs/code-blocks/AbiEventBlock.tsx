@@ -7,9 +7,9 @@ function AbiEventBlock(props: any) {
   const { contractAddress, name, inputs, activityName } = props;
 
   const code = () => {
-    const inputParameters = paramsToString(inputs);
+    const inputParameters = paramsToString(inputs, '\t');
 
-    return `LOG ENTRIES (${contractAddress})\n\t(${name}(${inputParameters})) {\n\t// Enter your extraction code here\n}`;
+    return `LOG ENTRIES (${contractAddress}) (\n\t${name}(\n\t\t${inputParameters}\n\t)\n){\n\t// Enter your extraction code here\n}`;
   };
 
   return (
