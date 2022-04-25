@@ -23,17 +23,34 @@ const spawnBLFProcess = (mode: string, filePath: string) => {
 
   BLF.stdout.on('data', (data) => {
     const mainWindow = BrowserWindow.getFocusedWindow();
-    mainWindow?.webContents.send('blf-stdout', data.toString());
+    if (mode === 'extract') {
+      mainWindow?.webContents.send('blf-extraction-stdout', data.toString());
+    } else {
+      mainWindow?.webContents.send('blf-validation-stdout', data.toString());
+    }
+
     console.log('stdout:', data.toString());
   });
 
   BLF.stderr.on('data', (data) => {
     const mainWindow = BrowserWindow.getFocusedWindow();
-    mainWindow?.webContents.send('blf-stderr', data.toString());
+    if (mode === 'extract') {
+      mainWindow?.webContents.send('blf-extraction-stderr', data.toString());
+    } else {
+      mainWindow?.webContents.send('blf-validation-stderr', data.toString());
+    }
+
     console.log('stderr:', data.toString());
   });
 
-  BLF.on('close', (code) => {
+  BLF.on('close', (code: number) => {
+    const mainWindow = BrowserWindow.getFocusedWindow();
+    if (mode === 'extract') {
+      mainWindow?.webContents.send('blf-extraction-closed', code);
+    } else {
+      mainWindow?.webContents.send('blf-validation-closed', code);
+    }
+
     console.log(`child process exited with code ${code}`);
   });
 };

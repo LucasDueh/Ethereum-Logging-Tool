@@ -38,6 +38,7 @@ function ExtractionInvocation(props: any) {
             value={manifestCode}
             minLines={80}
             highlightActiveLine={false}
+            readOnly
           />
         </Paper>
 

@@ -26,15 +26,33 @@ contextBridge.exposeInMainWorld('electron', {
       return ipcRenderer.invoke('open-manifest-file');
     },
     on(channel, func) {
-      const validChannels = ['blf-stdout', 'blf-stderr'];
+      const validChannels = ['blf-extraction-stdout', 'blf-extraction-stderr'];
       if (validChannels.includes(channel)) {
         ipcRenderer.on(channel, (event, ...args) => func(...args));
       }
     },
     once(channel, func) {
-      const validChannels = ['blf-stdout', 'blf-stderr'];
+      const validChannels = [
+        'blf-validation-stdout',
+        'blf-validation-stderr',
+        'blf-validation-closed',
+        'blf-extraction-closed',
+      ];
       if (validChannels.includes(channel)) {
         ipcRenderer.once(channel, (event, ...args) => func(...args));
+      }
+    },
+    removeAllListeners(channel) {
+      const validChannels = [
+        'blf-validation-stdout',
+        'blf-validation-stderr',
+        'blf-validation-closed',
+        'blf-extraction-stdout',
+        'blf-extraction-stderr',
+        'blf-extraction-closed',
+      ];
+      if (validChannels.includes(channel)) {
+        ipcRenderer.removeAllListeners(channel);
       }
     },
   },

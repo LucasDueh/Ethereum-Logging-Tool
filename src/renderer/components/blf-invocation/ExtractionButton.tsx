@@ -18,22 +18,41 @@ import '../general/splitter/custom-splitter.css';
 function ExtractionButton(props: any) {
   const { filePath } = props;
 
-  const [stdout, setStdout] = React.useState('No output');
+  const [stdout, setStdout] = React.useState<Array<string>>(['-']);
   const [stderr, setStderr] = React.useState<Array<string>>([]);
-  const [loading, setLoading] = React.useState(false);
+  const [processing, setProcessing] = React.useState(false);
+  const [extractionCompleted, setExtractionCompleted] = React.useState(false);
 
-  window.electron.ipcRenderer.on('blf-stdout', (out: string) => {
-    setStdout(out);
-  });
+  React.useEffect(() => {
+    window.electron.ipcRenderer.on('blf-extraction-stdout', (out: string) => {
+      setStdout([...stdout, out]);
+    });
+    return () => {
+      window.electron.ipcRenderer.removeAllListeners('blf-extraction-stdout');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stdout]);
 
-  window.electron.ipcRenderer.on('blf-stderr', (out: string) => {
-    setStderr([...stderr, `${out}`]);
+  React.useEffect(() => {
+    window.electron.ipcRenderer.on('blf-extraction-stderr', (out: string) => {
+      setStderr([...stderr, out]);
+    });
+    return () => {
+      window.electron.ipcRenderer.removeAllListeners('blf-extraction-stderr');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stderr]);
+
+  window.electron.ipcRenderer.once('blf-extraction-closed', (code: number) => {
+    console.log('Exited with code ', code);
+    setProcessing(false);
+    setExtractionCompleted(true);
   });
 
   const handleButtonClick = async () => {
-    if (!loading) {
+    if (!processing) {
       window.electron.ipcRenderer.extract(filePath);
-      setLoading(true);
+      setProcessing(true);
     }
   };
 
@@ -60,7 +79,13 @@ function ExtractionButton(props: any) {
         >
           <Typography variant="body2">Stdout</Typography>
           <Divider />
-          <Typography fontSize={12}>{stdout}</Typography>
+          {stdout.map((out: string, index: number) => {
+            return (
+              <Typography key={[out, index].join('')} fontSize={12}>
+                {out}
+              </Typography>
+            );
+          })}
         </Paper>
 
         <Paper
@@ -93,26 +118,32 @@ function ExtractionButton(props: any) {
           justifyContent: 'center',
         }}
       >
-        <Button
-          sx={{ color: 'white', boxShadow: 0, minWidth: '30%' }}
-          startIcon={<GradingIcon />}
-          variant="contained"
-          onClick={handleButtonClick}
-          disabled={loading}
-        >
-          Initiate Extraction
-        </Button>
-        {loading && (
-          <CircularProgress
-            size={24}
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              marginTop: '-12px',
-              marginLeft: '-12px',
-            }}
-          />
+        {extractionCompleted ? (
+          <Typography>Extraction process completed.</Typography>
+        ) : (
+          <>
+            <Button
+              sx={{ color: 'white', boxShadow: 0, minWidth: '30%' }}
+              startIcon={<GradingIcon />}
+              variant="contained"
+              onClick={handleButtonClick}
+              disabled={processing}
+            >
+              Initiate Extraction
+            </Button>
+            {processing && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  marginTop: '-12px',
+                  marginLeft: '-12px',
+                }}
+              />
+            )}
+          </>
         )}
       </Box>
     </Stack>
