@@ -30,6 +30,8 @@ function CodeEditor(props: any) {
     const { editor } = aceEditor.current as AceEditor;
     if (editor != null) {
       const customMode = new BcqlMode();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       editor.getSession().setMode(customMode);
 
       editor.setOptions({

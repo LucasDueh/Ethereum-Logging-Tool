@@ -54,11 +54,11 @@ export class BcqlHighlightRules extends window.ace.acequire(
     const buildinConstants = 'null|EARLIEST|CURRENT|CONTINUOUS|ANY';
 
     const methods =
-      'add|multiply|subtract|divide|' +
-      'contains|remove|mapValue|mapBits|' +
-      'get|clear|reduceToSum|reduceToProduct|reduceToString|' +
-      'split|length|match|replaceFirst|replaceAll|readIn' +
-      'newBoolArray|newIntArray|newStringArray|newAddressArray|newByteArray';
+      'add(x, y)|multiply(x, y)|subtract(x, y)|divide(x, y)|' +
+      'contains(X, x)|remove(X, x)|mapValue(x, y, X, Y)|mapBits(x, y, z, X)|' +
+      'get(X, x)|clear(X)|reduceToSum(X)|reduceToProduct(X)|reduceToString(X)|' +
+      'split(X, y)|length(X)|match(X, regx)|replaceFirst(X, y, z)|replaceAll(X, y, z)|readIn(filePath)' +
+      'newBoolArray()|newIntArray()|newStringArray()|newAddressArray()|newByteArray()';
 
     const keywordMapper = this.createKeywordMapper(
       {
