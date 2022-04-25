@@ -4,9 +4,6 @@ window.require = require;
 
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
-    myPing() {
-      ipcRenderer.send('ipc-example', 'ping');
-    },
     validateTempManifest(content) {
       ipcRenderer.invoke('validate-temp-manifest', content);
     },
