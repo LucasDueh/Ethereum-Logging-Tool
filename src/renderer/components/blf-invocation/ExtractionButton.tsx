@@ -9,33 +9,26 @@ import {
   Typography,
   Paper,
 } from '@mui/material';
-import GradingIcon from '@mui/icons-material/Grading';
-
-import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
-import '../general/splitter/custom-splitter.css';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ExtractionButton(props: any) {
   const { filePath } = props;
 
-  const [stdout, setStdout] = React.useState<Array<string>>(['-']);
   const [stderr, setStderr] = React.useState<Array<string>>([]);
   const [processing, setProcessing] = React.useState(false);
   const [extractionCompleted, setExtractionCompleted] = React.useState(false);
 
-  React.useEffect(() => {
-    window.electron.ipcRenderer.on('blf-extraction-stdout', (out: string) => {
-      setStdout([...stdout, out]);
-    });
-    return () => {
-      window.electron.ipcRenderer.removeAllListeners('blf-extraction-stdout');
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stdout]);
+  const terminal = React.useRef<typeof Box>(null);
 
   React.useEffect(() => {
     window.electron.ipcRenderer.on('blf-extraction-stderr', (out: string) => {
       setStderr([...stderr, out]);
+      if (terminal.current) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        terminal.current.scrollTop = terminal.current.scrollHeight;
+      }
     });
     return () => {
       window.electron.ipcRenderer.removeAllListeners('blf-extraction-stderr');
@@ -61,44 +54,25 @@ function ExtractionButton(props: any) {
       direction="column"
       justifyContent="flex-start"
       alignItems="center"
-      sx={{ height: '100%' }}
+      sx={{ height: '100%', overflowY: 'auto' }}
     >
-      <ReactSplit
-        direction={SplitDirection.Horizontal}
-        initialSizes={[10, 90]}
-        gutterClassName="custom-splitter-horizontal"
+      <Paper
+        sx={{ py: 0.5, overflowY: 'hidden', width: '100%' }}
+        variant="outlined"
+        square
       >
-        <Paper
-          variant="outlined"
-          square
+        <Typography sx={{ px: 1 }} variant="body2">
+          TERMINAL
+        </Typography>
+        <Divider />
+        <Box
+          ref={terminal}
           sx={{
             p: 1,
             height: '100%',
             overflowY: 'auto',
           }}
         >
-          <Typography variant="body2">Stdout</Typography>
-          <Divider />
-          {stdout.map((out: string, index: number) => {
-            return (
-              <Typography key={[out, index].join('')} fontSize={12}>
-                {out}
-              </Typography>
-            );
-          })}
-        </Paper>
-
-        <Paper
-          variant="outlined"
-          square
-          sx={{
-            p: 1,
-            height: '100%',
-            overflowY: 'auto',
-          }}
-        >
-          <Typography variant="body2">Stderr</Typography>
-          <Divider />
           {stderr.map((out: string, index: number) => {
             return (
               <Typography key={[out, index].join('')} fontSize={12}>
@@ -106,8 +80,8 @@ function ExtractionButton(props: any) {
               </Typography>
             );
           })}
-        </Paper>
-      </ReactSplit>
+        </Box>
+      </Paper>
 
       <Box
         sx={{
@@ -124,7 +98,7 @@ function ExtractionButton(props: any) {
           <>
             <Button
               sx={{ color: 'white', boxShadow: 0, minWidth: '30%' }}
-              startIcon={<GradingIcon />}
+              startIcon={<ArrowForwardIcon />}
               variant="contained"
               onClick={handleButtonClick}
               disabled={processing}
