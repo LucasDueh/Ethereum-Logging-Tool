@@ -26,9 +26,6 @@ function ExtractionButton(props: any) {
     window.electron.ipcRenderer.on('blf-extraction-stderr', (out: string) => {
       setStderr([...stderr, out]);
       if (console.current) {
-        console.current.on('scroll', () => {
-          const scrolled = true;
-        });
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         console.current.scrollTop = console.current.scrollHeight;
