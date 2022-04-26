@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IAbiEntry } from 'types/types';
 import { AbiTypes } from './abi-types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const _ = require('lodash');
 
-const reduce = (entry: IAbiEntry) => {
+const reduce = (entry: any) => {
   if (entry.type !== AbiTypes.Function && entry.type !== AbiTypes.Event)
     return null;
 
@@ -22,8 +23,8 @@ const reduce = (entry: IAbiEntry) => {
     ? entry.stateMutability
     : '';
 
-  entry.inputs.forEach((element) => {
-    if ('indexed' in element) {
+  entry.inputs.forEach((element: any) => {
+    if (element.indexed != null && element.indexed) {
       out.inputs.push({
         type: element.type,
         name: element.name,
@@ -38,7 +39,7 @@ const reduce = (entry: IAbiEntry) => {
   });
 
   if (_.has(entry, 'outputs') && entry.outputs.length > 0) {
-    entry.outputs.forEach((element) => {
+    entry.outputs.forEach((element: any) => {
       out.outputs.push({ type: element.type, name: element.name });
     });
   }
