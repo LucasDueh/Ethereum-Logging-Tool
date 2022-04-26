@@ -21,10 +21,19 @@ function ExtractionButton(props: any) {
   const [outputFolderPath, setOutputFolderPath] = React.useState('');
 
   const console = React.useRef<typeof Box>(null);
+  const consoleMaxLines = 100;
 
   React.useEffect(() => {
     window.electron.ipcRenderer.on('blf-extraction-stderr', (out: string) => {
-      setStderr([...stderr, out]);
+      setStderr(
+        stderr.length >= consoleMaxLines
+          ? [
+              ...stderr.slice(stderr.length - consoleMaxLines, stderr.length),
+              out,
+            ]
+          : [...stderr, out]
+      );
+
       if (console.current) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
