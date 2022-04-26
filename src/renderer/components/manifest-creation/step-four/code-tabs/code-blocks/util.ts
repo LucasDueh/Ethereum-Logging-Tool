@@ -2,7 +2,7 @@ import { ISolidityEventParam, ISolidityFunctionParam } from 'types/types';
 
 const inputName = (name: string, index: number) => {
   if (name === null || name === '') {
-    return `outputVariable${index}`;
+    return `output${index}`;
   }
   return name;
 };
