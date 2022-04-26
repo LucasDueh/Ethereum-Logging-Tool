@@ -6,10 +6,14 @@ export interface ISolidityFunctionParam {
   name: string;
 }
 
+export interface ISolidityEventParam extends ISolidityFunctionParam {
+  indexed: boolean;
+}
+
 export interface IAbiEntry {
   type: string;
   name: string;
-  inputs: Array<ISolidityFunctionParam>;
+  inputs: Array<ISolidityFunctionParam | ISolidityEventParam>;
   outputs: Array<ISolidityFunctionParam>;
   stateMutability: string;
 }

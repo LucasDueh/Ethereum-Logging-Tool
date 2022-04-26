@@ -23,7 +23,18 @@ const reduce = (entry: IAbiEntry) => {
     : '';
 
   entry.inputs.forEach((element) => {
-    out.inputs.push({ type: element.type, name: element.name });
+    if ('indexed' in element) {
+      out.inputs.push({
+        type: element.type,
+        name: element.name,
+        indexed: element.indexed,
+      });
+    } else {
+      out.inputs.push({
+        type: element.type,
+        name: element.name,
+      });
+    }
   });
 
   if (_.has(entry, 'outputs') && entry.outputs.length > 0) {

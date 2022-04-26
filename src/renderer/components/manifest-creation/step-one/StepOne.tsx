@@ -81,6 +81,7 @@ function StepOne(props: any) {
 
 StepOne.propTypes = {
   formId: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   contracts: PropTypes.arrayOf(PropTypes.object).isRequired,
   addContract: PropTypes.func.isRequired,
   deleteContract: PropTypes.func.isRequired,

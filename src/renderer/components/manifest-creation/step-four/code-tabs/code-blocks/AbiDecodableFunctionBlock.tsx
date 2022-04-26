@@ -31,6 +31,7 @@ AbiDecodableFunctionBlock.propTypes = {
   contractAddress: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   hash: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
   inputs: PropTypes.arrayOf(PropTypes.object).isRequired,
   activityName: PropTypes.string.isRequired,
 };

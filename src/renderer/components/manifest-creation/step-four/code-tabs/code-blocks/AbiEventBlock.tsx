@@ -25,6 +25,7 @@ function AbiEventBlock(props: any) {
 AbiEventBlock.propTypes = {
   contractAddress: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   inputs: PropTypes.arrayOf(PropTypes.object).isRequired,
   activityName: PropTypes.string.isRequired,
 };
