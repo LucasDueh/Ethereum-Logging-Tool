@@ -130,10 +130,13 @@ function ExtractionButton(props: any) {
             }}
           >
             <Typography align="center">
-              Extraction process completed.
+              Extraction process has terminated.
             </Typography>
             <Typography align="center">
-              Output stored in ${outputFolderPath}.
+              If successful, output can be found in
+            </Typography>
+            <Typography align="center" color="primary">
+              {outputFolderPath}
             </Typography>
           </Box>
         ) : (
