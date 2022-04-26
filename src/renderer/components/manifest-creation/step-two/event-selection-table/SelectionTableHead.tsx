@@ -61,6 +61,7 @@ function SelectionTableHead(props: any) {
 }
 
 SelectionTableHead.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   headCells: PropTypes.arrayOf(PropTypes.object).isRequired,
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,

@@ -73,6 +73,7 @@ function CodeSuggestions(props: any) {
 
 CodeSuggestions.propTypes = {
   contractAddress: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   contractActivities: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import {
   Typography,
   Accordion,

@@ -91,6 +91,7 @@ StepFour.propTypes = {
   settingsCode: PropTypes.string.isRequired,
   extractionCode: PropTypes.string.isRequired,
   setExtractionCode: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   contracts: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
