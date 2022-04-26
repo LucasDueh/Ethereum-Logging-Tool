@@ -20,15 +20,18 @@ function ExtractionButton(props: any) {
   const [extractionCompleted, setExtractionCompleted] = React.useState(false);
   const [outputFolderPath, setOutputFolderPath] = React.useState('');
 
-  const terminal = React.useRef<typeof Box>(null);
+  const console = React.useRef<typeof Box>(null);
 
   React.useEffect(() => {
     window.electron.ipcRenderer.on('blf-extraction-stderr', (out: string) => {
       setStderr([...stderr, out]);
-      if (terminal.current) {
+      if (console.current) {
+        console.current.on('scroll', () => {
+          const scrolled = true;
+        });
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        terminal.current.scrollTop = terminal.current.scrollHeight;
+        console.current.scrollTop = console.current.scrollHeight;
       }
     });
     return () => {
@@ -81,11 +84,11 @@ function ExtractionButton(props: any) {
       >
         <Stack sx={{ height: '100%' }}>
           <Typography sx={{ px: 1 }} variant="body2">
-            TERMINAL
+            CONSOLE
           </Typography>
           <Divider />
           <Box
-            ref={terminal}
+            ref={console}
             sx={{
               p: 1,
               height: '100%',
