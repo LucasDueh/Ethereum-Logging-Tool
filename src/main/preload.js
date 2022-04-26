@@ -13,6 +13,9 @@ contextBridge.exposeInMainWorld('electron', {
     extract(filePath) {
       ipcRenderer.invoke('extract', filePath);
     },
+    cancelExtraction() {
+      ipcRenderer.invoke('cancel-extraction');
+    },
     getOutputFolderPath: async () => {
       return ipcRenderer.invoke('get-output-folder-path');
     },

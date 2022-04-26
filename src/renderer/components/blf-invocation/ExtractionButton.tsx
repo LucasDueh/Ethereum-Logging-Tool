@@ -38,25 +38,32 @@ function ExtractionButton(props: any) {
   }, [stderr]);
 
   React.useEffect(() => {
-    const fetchPath = async () => {
+    const fetchOutputFolderPath = async () => {
       const path = await window.electron.ipcRenderer.getOutputFolderPath();
       setOutputFolderPath(path);
     };
 
-    fetchPath();
+    fetchOutputFolderPath();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   window.electron.ipcRenderer.once('blf-extraction-closed', (code: number) => {
-    // console.log('Exited with code ', code);
     setProcessing(false);
-    setExtractionCompleted(true);
+    if (code === 0) {
+      setExtractionCompleted(true);
+    }
   });
 
-  const handleButtonClick = async () => {
+  const handleExtractionInit = async () => {
     if (!processing) {
       window.electron.ipcRenderer.extract(filePath);
       setProcessing(true);
+    }
+  };
+
+  const handleExtractionCancel = async () => {
+    if (processing) {
+      window.electron.ipcRenderer.cancelExtraction();
     }
   };
 
@@ -121,29 +128,44 @@ function ExtractionButton(props: any) {
             </Typography>
           </Box>
         ) : (
-          <>
-            <Button
-              sx={{ color: 'white', boxShadow: 0, minWidth: '30%' }}
-              startIcon={<ArrowForwardIcon />}
-              variant="contained"
-              onClick={handleButtonClick}
-              disabled={processing}
+          <Stack direction="row" justifyContent="center" sx={{ p: 1 }}>
+            <Box
+              sx={{
+                position: 'relative',
+              }}
             >
-              Initiate Extraction
+              <Button
+                sx={{ color: 'white', boxShadow: 0, minWidth: '30%', mr: 1 }}
+                startIcon={<ArrowForwardIcon />}
+                variant="contained"
+                onClick={handleExtractionInit}
+                disabled={processing}
+              >
+                Initiate Extraction
+              </Button>
+              {processing && (
+                <CircularProgress
+                  size={24}
+                  sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    marginTop: '-12px',
+                    marginLeft: '-12px',
+                  }}
+                />
+              )}
+            </Box>
+
+            <Button
+              sx={{ color: 'white', boxShadow: 0 }}
+              onClick={handleExtractionCancel}
+              variant="contained"
+              disabled={!processing}
+            >
+              Cancel
             </Button>
-            {processing && (
-              <CircularProgress
-                size={24}
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  marginTop: '-12px',
-                  marginLeft: '-12px',
-                }}
-              />
-            )}
-          </>
+          </Stack>
         )}
       </Box>
     </Stack>

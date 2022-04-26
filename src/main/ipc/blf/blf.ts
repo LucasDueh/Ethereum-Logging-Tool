@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { app, ipcMain, BrowserWindow } from 'electron';
 import path from 'path';
-import { spawn } from 'child_process';
+import { ChildProcess, spawn } from 'child_process';
 
 import { writeTempManifest, dailyTempFolderUri } from './temp-files';
 
@@ -13,10 +13,14 @@ const blfBinary = path.join(
 
 const javaPath = '/usr/bin/java';
 
+let runningProcess: ChildProcess | null = null;
+
 const spawnBLFProcess = (mode: string, filePath: string) => {
   const BLF = spawn(javaPath, ['-jar', blfBinary, mode, filePath], {
     cwd: app.getPath('userData'),
   });
+
+  runningProcess = BLF;
 
   BLF.stdout.setEncoding('utf-8');
   BLF.stderr.setEncoding('utf-8');
@@ -54,6 +58,10 @@ const spawnBLFProcess = (mode: string, filePath: string) => {
   });
 };
 
+const cancelExtraction = () => {
+  runningProcess?.kill();
+};
+
 const validateTempManifest = async (content: string) => {
   await writeTempManifest(content)
     .then((fileName: string) => {
@@ -88,6 +96,10 @@ module.exports = {
   extract: ipcMain.handle('extract', async (_event, filePath) => {
     console.log('Extracting with manifest ', filePath);
     spawnBLFProcess('extract', filePath);
+  }),
+  cancelExtraction: ipcMain.handle('cancel-extraction', async () => {
+    console.log('Cenceling extraction process ');
+    cancelExtraction();
   }),
   getOutputFolderPath: ipcMain.handle('get-output-folder-path', async () => {
     return app.getPath('userData');
