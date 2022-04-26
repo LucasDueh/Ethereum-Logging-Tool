@@ -13,6 +13,9 @@ contextBridge.exposeInMainWorld('electron', {
     extract(filePath) {
       ipcRenderer.invoke('extract', filePath);
     },
+    getOutputFolderPath: async () => {
+      return ipcRenderer.invoke('get-output-folder-path');
+    },
     reduceAbi: async (input) => {
       return ipcRenderer.invoke('reduce-abi', input);
     },

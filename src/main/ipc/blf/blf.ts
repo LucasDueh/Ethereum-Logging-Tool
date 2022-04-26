@@ -15,14 +15,15 @@ const javaPath = '/usr/bin/java';
 
 const spawnBLFProcess = (mode: string, filePath: string) => {
   const BLF = spawn(javaPath, ['-jar', blfBinary, mode, filePath], {
-    cwd: path.join(process.cwd(), 'assets/blf'),
+    cwd: app.getPath('userData'),
   });
 
   BLF.stdout.setEncoding('utf-8');
   BLF.stderr.setEncoding('utf-8');
 
+  const mainWindow = BrowserWindow.getFocusedWindow();
+
   BLF.stdout.on('data', (data) => {
-    const mainWindow = BrowserWindow.getFocusedWindow();
     if (mode === 'extract') {
       mainWindow?.webContents.send('blf-extraction-stdout', data.toString());
     } else {
@@ -33,7 +34,6 @@ const spawnBLFProcess = (mode: string, filePath: string) => {
   });
 
   BLF.stderr.on('data', (data) => {
-    const mainWindow = BrowserWindow.getFocusedWindow();
     if (mode === 'extract') {
       mainWindow?.webContents.send('blf-extraction-stderr', data.toString());
     } else {
@@ -44,7 +44,6 @@ const spawnBLFProcess = (mode: string, filePath: string) => {
   });
 
   BLF.on('close', (code: number) => {
-    const mainWindow = BrowserWindow.getFocusedWindow();
     if (mode === 'extract') {
       mainWindow?.webContents.send('blf-extraction-closed', code);
     } else {
@@ -89,5 +88,8 @@ module.exports = {
   extract: ipcMain.handle('extract', async (_event, filePath) => {
     console.log('Extracting with manifest ', filePath);
     spawnBLFProcess('extract', filePath);
+  }),
+  getOutputFolderPath: ipcMain.handle('get-output-folder-path', async () => {
+    return app.getPath('userData');
   }),
 };

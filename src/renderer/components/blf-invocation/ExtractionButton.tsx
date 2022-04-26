@@ -18,6 +18,7 @@ function ExtractionButton(props: any) {
   const [stderr, setStderr] = React.useState<Array<string>>([]);
   const [processing, setProcessing] = React.useState(false);
   const [extractionCompleted, setExtractionCompleted] = React.useState(false);
+  const [outputFolderPath, setOutputFolderPath] = React.useState('');
 
   const terminal = React.useRef<typeof Box>(null);
 
@@ -36,8 +37,18 @@ function ExtractionButton(props: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stderr]);
 
+  React.useEffect(() => {
+    const fetchPath = async () => {
+      const path = await window.electron.ipcRenderer.getOutputFolderPath();
+      setOutputFolderPath(path);
+    };
+
+    fetchPath();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   window.electron.ipcRenderer.once('blf-extraction-closed', (code: number) => {
-    console.log('Exited with code ', code);
+    // console.log('Exited with code ', code);
     setProcessing(false);
     setExtractionCompleted(true);
   });
@@ -95,7 +106,20 @@ function ExtractionButton(props: any) {
         }}
       >
         {extractionCompleted ? (
-          <Typography>Extraction process completed.</Typography>
+          <Box
+            sx={{
+              p: 1,
+              border: 1,
+              borderRadius: 1,
+            }}
+          >
+            <Typography align="center">
+              Extraction process completed.
+            </Typography>
+            <Typography align="center">
+              Output stored in ${outputFolderPath}.
+            </Typography>
+          </Box>
         ) : (
           <>
             <Button

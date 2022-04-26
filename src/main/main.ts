@@ -14,6 +14,8 @@ import path from 'path';
 import { app, BrowserWindow, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import { mkdir, access } from 'fs/promises';
+import { constants } from 'fs';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -59,6 +61,16 @@ const installExtensions = async () => {
     .catch(console.log);
 };
 
+const createOutputFolder = async () => {
+  const outputFolderPath = path.join(app.getPath('userData'), 'output');
+
+  try {
+    await access(outputFolderPath, constants.F_OK);
+  } catch {
+    await mkdir(outputFolderPath);
+  }
+};
+
 /**
  * Creates window of specified size
  */
@@ -66,6 +78,8 @@ const createWindow = async () => {
   if (isDevelopment) {
     await installExtensions();
   }
+
+  await createOutputFolder();
 
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'assets')
