@@ -133,7 +133,7 @@ function ExtractionButton(props: any) {
               Extraction process has terminated.
             </Typography>
             <Typography align="center">
-              If successful, output can be found in
+              If successful, the output is located in
             </Typography>
             <Typography align="center" color="primary">
               {outputFolderPath}
