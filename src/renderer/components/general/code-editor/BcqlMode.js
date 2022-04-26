@@ -1,5 +1,14 @@
 // eslint-disable-next-line max-classes-per-file
 import 'ace-builds/src-noconflict/mode-java';
+
+const { MatchingBraceOutdent } = window.ace.acequire(
+  'ace/mode/matching_brace_outdent'
+);
+const BcqlFoldMode = window.ace.acequire('ace/mode/folding/cstyle').FoldMode;
+const BcqlBehaviour = window.ace.acequire(
+  'ace/mode/behaviour/cstyle'
+).CstyleBehaviour;
+
 /**
  * The syntax highlighting rules are based on
  * Blockchain-Logging-Framework/src/main/antlr4/blf/grammar/*,
@@ -141,5 +150,8 @@ export default class BcqlMode extends window.ace.acequire('ace/mode/text')
   constructor() {
     super();
     this.HighlightRules = BcqlHighlightRules;
+    this.$behaviour = new BcqlBehaviour();
+    this.$outdent = new MatchingBraceOutdent();
+    this.foldingRules = new BcqlFoldMode();
   }
 }
