@@ -29,6 +29,7 @@ function CodeEditor(props: any) {
   React.useEffect(() => {
     const { editor } = aceEditor.current as AceEditor;
     if (editor != null) {
+      editor.setShowPrintMargin(false);
       const customMode = new BcqlMode();
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
