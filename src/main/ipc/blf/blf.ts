@@ -5,11 +5,13 @@ import { ChildProcess, spawn } from 'child_process';
 
 import { writeTempManifest, dailyTempFolderUri } from './temp-files';
 
-const blfBinary = path.join(
-  __dirname,
-  '../../../../assets',
-  'blf/jar/blf-cmd.jar'
-);
+let blfBinary: string;
+
+if (process.env.NODE_ENV === 'production') {
+  blfBinary = path.join(process.resourcesPath, 'assets/blf/jar/blf-cmd.jar');
+} else {
+  blfBinary = path.join(__dirname, '../../../../assets', 'blf/jar/blf-cmd.jar');
+}
 
 let runningProcess: ChildProcess | null = null;
 
