@@ -11,12 +11,10 @@ const blfBinary = path.join(
   'blf/jar/blf-cmd.jar'
 );
 
-const javaPath = '/usr/bin/java';
-
 let runningProcess: ChildProcess | null = null;
 
 const spawnBLFProcess = (mode: string, filePath: string) => {
-  const BLF = spawn(javaPath, ['-jar', blfBinary, mode, filePath], {
+  const BLF = spawn('java', ['-jar', blfBinary, mode, filePath], {
     cwd: app.getPath('userData'),
   });
 
