@@ -4,7 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import { Box, Toolbar } from '@mui/material';
 import routes from './routes';
-import Header from './components/Header';
+import Header from './components/manifest-creation/header/Header';
 import AppTheme from './theming/themetypes';
 import AppThemeOptions from './theming/themes';
 

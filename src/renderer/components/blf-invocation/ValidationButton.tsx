@@ -23,14 +23,14 @@ function ValidationButton(props: any) {
     'warning'
   );
 
-  window.electron.ipcRenderer.on('blf-stdout', (out: string) => {
+  window.electron.ipcRenderer.once('blf-validation-stdout', (out: string) => {
     setValidated(false);
     setColor('error');
     setStdout(out);
     setLoading(false);
   });
 
-  window.electron.ipcRenderer.on('blf-stderr', (out: string) => {
+  window.electron.ipcRenderer.once('blf-validation-stderr', (out: string) => {
     let msg = 'The validation did not find errors.';
     if (out.includes(msg)) {
       setValidated(true);

@@ -9,32 +9,70 @@ import {
   Typography,
   Paper,
 } from '@mui/material';
-import GradingIcon from '@mui/icons-material/Grading';
-
-import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
-import '../general/splitter/custom-splitter.css';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ExtractionButton(props: any) {
   const { filePath } = props;
 
-  const [stdout, setStdout] = React.useState('');
-  const [stderr, setStderr] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
+  const [stderr, setStderr] = React.useState<Array<string>>([]);
+  const [processing, setProcessing] = React.useState(false);
+  const [extractionCompleted, setExtractionCompleted] = React.useState(false);
+  const [outputFolderPath, setOutputFolderPath] = React.useState('');
 
-  window.electron.ipcRenderer.on('blf-stdout', (out: string) => {
-    setStdout(out);
+  const console = React.useRef<typeof Box>(null);
+  const consoleMaxLines = 100;
+
+  React.useEffect(() => {
+    window.electron.ipcRenderer.on('blf-extraction-stderr', (out: string) => {
+      setStderr(
+        stderr.length >= consoleMaxLines
+          ? [
+              ...stderr.slice(stderr.length - consoleMaxLines, stderr.length),
+              out,
+            ]
+          : [...stderr, out]
+      );
+
+      if (console.current) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        console.current.scrollTop = console.current.scrollHeight;
+      }
+    });
+    return () => {
+      window.electron.ipcRenderer.removeAllListeners('blf-extraction-stderr');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stderr]);
+
+  React.useEffect(() => {
+    const fetchOutputFolderPath = async () => {
+      const path = await window.electron.ipcRenderer.getOutputFolderPath();
+      setOutputFolderPath(path);
+    };
+
+    fetchOutputFolderPath();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  window.electron.ipcRenderer.once('blf-extraction-closed', (code: number) => {
+    setProcessing(false);
+    if (code === 0) {
+      setExtractionCompleted(true);
+    }
   });
 
-  window.electron.ipcRenderer.on('blf-stderr', (out: string) => {
-    const msg = 'The extraction was interrupted due to the following errors:';
-    setStderr(out);
-  });
-
-  const handleButtonClick = async () => {
-    if (!loading) {
+  const handleExtractionInit = async () => {
+    if (!processing) {
       window.electron.ipcRenderer.extract(filePath);
-      setLoading(true);
+      setProcessing(true);
+    }
+  };
+
+  const handleExtractionCancel = async () => {
+    if (processing) {
+      window.electron.ipcRenderer.cancelExtraction();
     }
   };
 
@@ -45,40 +83,34 @@ function ExtractionButton(props: any) {
       alignItems="center"
       sx={{ height: '100%' }}
     >
-      <ReactSplit
-        direction={SplitDirection.Horizontal}
-        initialSizes={[50, 50]}
-        minHeights={[50, 50]}
-        gutterClassName="custom-splitter-horizontal"
+      <Paper
+        sx={{ py: 0.5, height: '100%', width: '100%', overflowY: 'auto' }}
+        variant="outlined"
+        square
       >
-        <Paper
-          variant="outlined"
-          square
-          sx={{
-            p: 1,
-            height: '100%',
-            overflowY: 'auto',
-          }}
-        >
-          <Typography variant="body2">Stdout</Typography>
+        <Stack sx={{ height: '100%' }}>
+          <Typography sx={{ px: 1 }} variant="body2">
+            CONSOLE
+          </Typography>
           <Divider />
-          <Typography>{stdout}</Typography>
-        </Paper>
-
-        <Paper
-          variant="outlined"
-          square
-          sx={{
-            p: 1,
-            height: '100%',
-            overflowY: 'auto',
-          }}
-        >
-          <Typography variant="body2">Stderr</Typography>
-          <Divider />
-          <Typography>{stderr}</Typography>
-        </Paper>
-      </ReactSplit>
+          <Box
+            ref={console}
+            sx={{
+              p: 1,
+              height: '100%',
+              overflowY: 'auto',
+            }}
+          >
+            {stderr.map((out: string, index: number) => {
+              return (
+                <Typography key={[out, index].join('')} fontSize={12}>
+                  {out}
+                </Typography>
+              );
+            })}
+          </Box>
+        </Stack>
+      </Paper>
 
       <Box
         sx={{
@@ -89,26 +121,63 @@ function ExtractionButton(props: any) {
           justifyContent: 'center',
         }}
       >
-        <Button
-          sx={{ color: 'white', boxShadow: 0, minWidth: '30%' }}
-          startIcon={<GradingIcon />}
-          variant="contained"
-          onClick={handleButtonClick}
-          disabled={loading}
-        >
-          Initiate Extraction
-        </Button>
-        {loading && (
-          <CircularProgress
-            size={24}
+        {extractionCompleted ? (
+          <Box
             sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              marginTop: '-12px',
-              marginLeft: '-12px',
+              p: 1,
+              border: 1,
+              borderRadius: 1,
             }}
-          />
+          >
+            <Typography align="center">
+              Extraction process has terminated.
+            </Typography>
+            <Typography align="center">
+              If successful, the output is located in
+            </Typography>
+            <Typography align="center" color="primary">
+              {outputFolderPath}
+            </Typography>
+          </Box>
+        ) : (
+          <Stack direction="row" justifyContent="center" sx={{ p: 1 }}>
+            <Box
+              sx={{
+                position: 'relative',
+              }}
+            >
+              <Button
+                sx={{ color: 'white', boxShadow: 0, minWidth: '30%', mr: 1 }}
+                startIcon={<ArrowForwardIcon />}
+                variant="contained"
+                onClick={handleExtractionInit}
+                disabled={processing}
+              >
+                Initiate Extraction
+              </Button>
+              {processing && (
+                <CircularProgress
+                  size={24}
+                  sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    marginTop: '-12px',
+                    marginLeft: '-12px',
+                  }}
+                />
+              )}
+            </Box>
+
+            <Button
+              sx={{ color: 'white', boxShadow: 0 }}
+              onClick={handleExtractionCancel}
+              variant="contained"
+              disabled={!processing}
+            >
+              Cancel
+            </Button>
+          </Stack>
         )}
       </Box>
     </Stack>

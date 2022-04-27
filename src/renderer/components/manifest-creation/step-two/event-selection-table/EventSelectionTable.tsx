@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
@@ -34,6 +35,11 @@ function EventSelectionTable(props: any) {
       id: 'type',
       numeric: false,
       label: 'Type',
+    },
+    {
+      id: 'stateMutability',
+      numeric: false,
+      label: 'State Mutability',
     },
     {
       id: 'inputs',
@@ -110,7 +116,7 @@ function EventSelectionTable(props: any) {
               {rows
                 .slice()
                 .sort(getComparator(order, orderBy))
-                .map((row: IAbiEntry) => {
+                .map((row: IAbiEntry, index: number) => {
                   const isItemSelected = isSelected(row);
 
                   return (
@@ -119,7 +125,7 @@ function EventSelectionTable(props: any) {
                       onClick={(event) => handleClick(event, row)}
                       role="checkbox"
                       tabIndex={-1}
-                      key={row.name}
+                      key={[row.name, index].join()}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -128,6 +134,7 @@ function EventSelectionTable(props: any) {
 
                       <SelectionTableCell data={row.name} />
                       <SelectionTableCell data={row.type} />
+                      <SelectionTableCell data={row.stateMutability} />
                       <SelectionTableCell data={row.inputs} />
                       <SelectionTableCell data={row.outputs} />
                     </TableRow>

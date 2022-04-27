@@ -4,9 +4,6 @@ window.require = require;
 
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
-    myPing() {
-      ipcRenderer.send('ipc-example', 'ping');
-    },
     validateTempManifest(content) {
       ipcRenderer.invoke('validate-temp-manifest', content);
     },
@@ -15,6 +12,12 @@ contextBridge.exposeInMainWorld('electron', {
     },
     extract(filePath) {
       ipcRenderer.invoke('extract', filePath);
+    },
+    cancelExtraction() {
+      ipcRenderer.invoke('cancel-extraction');
+    },
+    getOutputFolderPath: async () => {
+      return ipcRenderer.invoke('get-output-folder-path');
     },
     reduceAbi: async (input) => {
       return ipcRenderer.invoke('reduce-abi', input);
@@ -29,15 +32,33 @@ contextBridge.exposeInMainWorld('electron', {
       return ipcRenderer.invoke('open-manifest-file');
     },
     on(channel, func) {
-      const validChannels = ['blf-stdout', 'blf-stderr'];
+      const validChannels = ['blf-extraction-stdout', 'blf-extraction-stderr'];
       if (validChannels.includes(channel)) {
         ipcRenderer.on(channel, (event, ...args) => func(...args));
       }
     },
     once(channel, func) {
-      const validChannels = ['blf-stdout', 'blf-stderr'];
+      const validChannels = [
+        'blf-validation-stdout',
+        'blf-validation-stderr',
+        'blf-validation-closed',
+        'blf-extraction-closed',
+      ];
       if (validChannels.includes(channel)) {
         ipcRenderer.once(channel, (event, ...args) => func(...args));
+      }
+    },
+    removeAllListeners(channel) {
+      const validChannels = [
+        'blf-validation-stdout',
+        'blf-validation-stderr',
+        'blf-validation-closed',
+        'blf-extraction-stdout',
+        'blf-extraction-stderr',
+        'blf-extraction-closed',
+      ];
+      if (validChannels.includes(channel)) {
+        ipcRenderer.removeAllListeners(channel);
       }
     },
   },

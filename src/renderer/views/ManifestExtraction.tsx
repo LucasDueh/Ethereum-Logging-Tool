@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 
 import OpenFileButton from '../components/manifest-extraction/OpenFileButton';
-import ExtractionInvokation from '../components/manifest-extraction/ExtractionInvokation';
+import ExtractionInvocation from '../components/manifest-extraction/ExtractionInvocation';
 
 function ManifestExtraction() {
   const [manifestCode, setManifestCode] = React.useState('');
@@ -37,7 +37,7 @@ function ManifestExtraction() {
           updateFileOpened={updateFileOpened}
         />
       ) : (
-        <ExtractionInvokation manifestCode={manifestCode} filePath={filePath} />
+        <ExtractionInvocation manifestCode={manifestCode} filePath={filePath} />
       )}
     </Box>
   );

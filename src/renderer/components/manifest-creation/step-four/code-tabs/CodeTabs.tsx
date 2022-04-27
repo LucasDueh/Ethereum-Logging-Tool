@@ -53,6 +53,7 @@ function CodeTabs(props: any) {
 }
 
 CodeTabs.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   contracts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

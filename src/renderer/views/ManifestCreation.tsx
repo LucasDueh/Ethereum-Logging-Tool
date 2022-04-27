@@ -65,7 +65,7 @@ function ManifestCreation(props: any) {
   ]);
   const [settings, setSettings] = React.useState<IExtractionSettings>({
     blockchain: Blockchain.Ethereum,
-    outputFolder: 'test_output',
+    outputFolder: 'output',
     abortOnException: false,
     emissionMode: EmissionMode.DefaultBatching,
     connectionMode: ConnectionMode.WebSocket,

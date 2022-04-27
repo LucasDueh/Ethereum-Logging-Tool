@@ -24,7 +24,7 @@ const transformAbiToActivities = (abiEntries: Array<IAbiEntry>) => {
     if (
       entry.type === AbiTypes.Function &&
       entry.inputs.length > 0 &&
-      _.includes(['view', 'pure'], entry.stateMutability)
+      !_.includes(['view', 'pure'], entry.stateMutability)
     ) {
       const keccak256Hash = hashFunction(entry);
 

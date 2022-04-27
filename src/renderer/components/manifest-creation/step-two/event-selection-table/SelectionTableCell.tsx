@@ -11,9 +11,9 @@ function SelectionTableCell(props: any) {
       {!Array.isArray(data)
         ? data
         : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          data.map((element: any) => {
+          data.map((element: any, index: number) => {
             return (
-              <Box key={element.name}>
+              <Box key={[element.name, index].join()}>
                 {element.name}: {element.type}
               </Box>
             );
