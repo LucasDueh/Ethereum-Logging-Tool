@@ -7,7 +7,7 @@ The extraction capabilities are provided by the <a href="https://github.com/TU-A
 
 License: MIT Licence Agreement. Details can be found [LICENSE.md](https://github.com/TU-ADSP/Blockchain-Logging-Framework)
 
-This tool deploys an <a href="https://github.com/LucasDueh/Blockchain-Logging-Framework">extension of the Blockchain Logging Framework</a> that supports the extraction of decoded transaction input data. It also allows the invocation of public member queries for arbitrary block numbers, in particular, for `currentBlockNumber-1`, to access the state previous to the currently examined block.
+The Ethereum Logging Tool deploys an <a href="https://github.com/LucasDueh/Blockchain-Logging-Framework">extension of the Blockchain Logging Framework</a> that additionally supports the extraction of decoded transaction input data. It also allows the invocation of public member queries for arbitrary block numbers, in particular, for `currentBlockNumber-1`, to access the state previous to the currently examined block.
 </p>
 
 ## Electron React Boilerplate
@@ -33,18 +33,18 @@ This process is divided into four steps.
 1. Specify contracts by entering contract addresses and contracs ABIs.
 2. Select functions and events which are used for the extraction process.
 3. Change settings (e.g., specify connection to Ethereum node).
-4. Write the manifest file. The proposed code blocks on the right-hand side facilitate this process. Make sure to validate the written manifest. Only validated files can be used for the following extraction process. 
+4. Write the manifest file. The proposed code blocks on the right-hand side facilitate this step. Make sure to validate the written manifest. Only validated files can be used for the following extraction process. 
 
 ### Extracting data from the Ethereum blockchain
 
 1. Open a manifest file.
 2. Press the button at the bottom to initiate the extraction process.
-3. Once the process is done, the written output is saved to the user data folder
+3. Once the process is done, the written output is saved to the user data folder (platform-dependent).
 
 ## TODO
 
-- feature to edit a manifest file after creation
-- more comprehensive guidance and instructions for writing the manifest file
-- stability
+- Feature to edit a manifest file after creation
+- Comprehensive guidance and instructions for writing the manifest file
+- Stability improvements
 - UI improvements
-- code refactoring
+- Code refactoring
