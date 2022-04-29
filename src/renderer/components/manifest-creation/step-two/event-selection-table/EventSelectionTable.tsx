@@ -87,6 +87,7 @@ function EventSelectionTable(props: any) {
         selected.slice(selectedIndex + 1)
       );
     }
+    console.log(row);
 
     handleSelectionChange(newSelected, id);
   };

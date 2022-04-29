@@ -74,6 +74,7 @@ function StepTwo(props: any) {
 
 StepTwo.propTypes = {
   formId: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   contracts: PropTypes.arrayOf(PropTypes.object).isRequired,
   setActivities: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
