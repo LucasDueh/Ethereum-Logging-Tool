@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
-import CodeEditor from '../../../../general/code-editor/CodeEditor';
+import CodeEditor from '../../../../../general/code-editor/CodeEditor';
 import paramsToString from './util';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

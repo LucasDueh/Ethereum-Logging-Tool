@@ -4,7 +4,7 @@ import { Tabs, Tab } from '@mui/material';
 import { IContract } from 'types/types';
 
 import TabPanel from '../../../general/tab-panel/TabPanel';
-import CodeSuggestions from './CodeSuggestions';
+import CodeSuggestions from './code-suggestions/CodeSuggestions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function CodeTabs(props: any) {
