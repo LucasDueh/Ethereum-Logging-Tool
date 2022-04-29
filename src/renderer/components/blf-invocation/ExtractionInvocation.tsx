@@ -137,7 +137,7 @@ function ExtractionInvocation(props: any) {
             ></ProgressButton>
 
             <Button
-              sx={{ color: 'white', boxShadow: 0 }}
+              sx={{ color: 'white', boxShadow: 0, ml: 1 }}
               onClick={handleExtractionCancel}
               variant="contained"
               disabled={!processing}

@@ -13,10 +13,11 @@ function ProgessButton(props: any) {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <Button
-        sx={{ color: 'white', boxShadow: 0, minWidth: '30%', mr: 1 }}
+        sx={{ color: 'white', boxShadow: 0 }}
         startIcon={icon}
         variant="contained"
         onClick={onClick}

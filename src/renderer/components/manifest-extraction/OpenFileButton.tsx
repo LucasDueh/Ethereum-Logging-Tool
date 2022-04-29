@@ -35,24 +35,14 @@ function OpenFileButton(props: any) {
   };
 
   return (
-    <Box
-      sx={{
-        m: 0,
-        p: 2,
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+
       <ProgessButton
         value={'Open Manifest File'}
         icon={<FileOpenIcon />}
         onClick={handleButtonClick}
         loading={loading}
       ></ProgessButton>
-    </Box>
+
   );
 }
 

@@ -4,7 +4,7 @@ import { Box, Paper } from '@mui/material';
 import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
 import '../general/splitter/custom-splitter.css';
 import CodeEditor from '../general/code-editor/CodeEditor';
-import ExtractionButton from '../blf-invocation/ExtractionInvocation';
+import ExtractionInvocation from '../blf-invocation/ExtractionInvocation';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ExtractionWithEditor(props: any) {
@@ -42,7 +42,7 @@ function ExtractionWithEditor(props: any) {
           />
         </Paper>
 
-        <ExtractionButton filePath={filePath} />
+        <ExtractionInvocation filePath={filePath} />
       </ReactSplit>
     </Box>
   );
