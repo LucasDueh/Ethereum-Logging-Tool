@@ -1,10 +1,10 @@
 import ManifestCreation from './views/ManifestCreation';
-import ManifestExtraction from './views/DataExtraction';
+import DataExtraction from './views/DataExtraction';
 
 const routes = [
   {
     path: '/',
-    element: <ManifestExtraction />,
+    element: <DataExtraction />,
     exact: true,
   },
   {

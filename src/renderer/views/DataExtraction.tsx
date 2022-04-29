@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import OpenFileButton from '../components/manifest-extraction/OpenFileButton';
 import ExtractionWithEditor from '../components/manifest-extraction/ExtractionWithEditor';
 
-function ManifestExtraction() {
+function DataExtraction() {
   const [manifestCode, setManifestCode] = React.useState('');
   const [filePath, setFilePath] = React.useState('');
   const [fileOpened, setFileOpened] = React.useState(false);
@@ -43,6 +43,4 @@ function ManifestExtraction() {
   );
 }
 
-ManifestExtraction.propTypes = {};
-
-export default ManifestExtraction;
+export default DataExtraction;

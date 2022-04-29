@@ -25,7 +25,7 @@ function Terminal(props: any) {
     >
       <Stack sx={{ height: '100%' }}>
         <Typography sx={{ px: 1 }} variant="body2">
-          TERMINAL (${name})
+          TERMINAL ({name})
         </Typography>
         <Divider />
         <Box
