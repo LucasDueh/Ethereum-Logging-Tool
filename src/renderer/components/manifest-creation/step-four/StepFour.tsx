@@ -6,7 +6,7 @@ import '../../general/splitter/custom-splitter.css';
 
 import CodeEditor from '../../general/code-editor/CodeEditor';
 import CodeTabs from './code-tabs/CodeTabs';
-import ValidationButton from '../../blf-invocation/ValidationButton';
+import ValidationInvocation from '../../blf-invocation/ValidationInvocation';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StepFour(props: any) {
@@ -79,7 +79,7 @@ function StepFour(props: any) {
               <CodeTabs contracts={contracts} />
             </Paper>
           </ReactSplit>
-          <ValidationButton code={[settingsCode, extractionCode].join('')} />
+          <ValidationInvocation code={[settingsCode, extractionCode].join('')} />
         </ReactSplit>
       </Box>
     </form>

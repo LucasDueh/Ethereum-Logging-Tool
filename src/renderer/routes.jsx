@@ -1,5 +1,5 @@
 import ManifestCreation from './views/ManifestCreation';
-import ManifestExtraction from './views/ManifestExtraction';
+import ManifestExtraction from './views/DataExtraction';
 
 const routes = [
   {

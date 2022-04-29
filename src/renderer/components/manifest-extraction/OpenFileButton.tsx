@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 
 import FileOpenIcon from '@mui/icons-material/FileOpen';
+
+import ProgessButton from '../general/buttons/ProgressButton';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function OpenFileButton(props: any) {
@@ -44,27 +46,12 @@ function OpenFileButton(props: any) {
         alignItems: 'center',
       }}
     >
-      <Button
-        sx={{ color: 'white', boxShadow: 0, minWidth: '30%' }}
-        startIcon={<FileOpenIcon />}
-        variant="contained"
+      <ProgessButton
+        value={'Open Manifest File'}
+        icon={<FileOpenIcon />}
         onClick={handleButtonClick}
-        disabled={loading}
-      >
-        Open Manifest File
-      </Button>
-      {loading && (
-        <CircularProgress
-          size={24}
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            marginTop: '-12px',
-            marginLeft: '-12px',
-          }}
-        />
-      )}
+        loading={loading}
+      ></ProgessButton>
     </Box>
   );
 }
