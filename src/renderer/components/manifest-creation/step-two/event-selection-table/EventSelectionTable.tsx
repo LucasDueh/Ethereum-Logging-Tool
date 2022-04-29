@@ -72,7 +72,10 @@ function EventSelectionTable(props: any) {
   };
 
   const handleClick = (_event: React.MouseEvent, row: IAbiEntry) => {
-    const selectedIndex = selected.indexOf(row);
+    const selectedIndex = selected.findIndex(
+      (entry: IAbiEntry | IActivity) =>
+        entry.name === row.name && entry.type === row.type
+    );
     let newSelected: IAbiEntry[] = [];
 
     if (selectedIndex === -1) {
@@ -87,7 +90,6 @@ function EventSelectionTable(props: any) {
         selected.slice(selectedIndex + 1)
       );
     }
-    console.log(row);
 
     handleSelectionChange(newSelected, id);
   };
@@ -119,6 +121,7 @@ function EventSelectionTable(props: any) {
                 .sort(getComparator(order, orderBy))
                 .map((row: IAbiEntry, index: number) => {
                   const isItemSelected = isSelected(row);
+                  console.log(selected);
 
                   return (
                     <TableRow
