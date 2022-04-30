@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@mui/material';
 
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 
@@ -35,14 +34,12 @@ function OpenFileButton(props: any) {
   };
 
   return (
-
-      <ProgessButton
-        value={'Open Manifest File'}
-        icon={<FileOpenIcon />}
-        onClick={handleButtonClick}
-        loading={loading}
-      ></ProgessButton>
-
+    <ProgessButton
+      value="Open Manifest File"
+      icon={<FileOpenIcon />}
+      onClick={handleButtonClick}
+      loading={loading}
+    />
   );
 }
 

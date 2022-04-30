@@ -79,7 +79,9 @@ function StepFour(props: any) {
               <CodeTabs contracts={contracts} />
             </Paper>
           </ReactSplit>
-          <ValidationInvocation code={[settingsCode, extractionCode].join('')} />
+          <ValidationInvocation
+            code={[settingsCode, extractionCode].join('')}
+          />
         </ReactSplit>
       </Box>
     </form>
