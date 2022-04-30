@@ -8,10 +8,10 @@ function AbiDecodableFunctionBlock(props: any) {
   const { contractAddress, name, hash, inputs, activityName } = props;
 
   const code = () => {
-    const inputParameters = paramsToString(inputs, '\t');
+    const inputParameters = paramsToString(inputs);
     const functionIdentifier = hash.substring(0, 10);
 
-    return `TRANSACTIONS () (${contractAddress}) {\n\tTRANSACTION INPUT (${functionIdentifier}) (\n\t\t${inputParameters}\n\t){\n\t\t// Enter your extraction code here\n\t}\n}`;
+    return `TRANSACTION INPUT (${contractAddress}) (${functionIdentifier}) (\n\t${inputParameters}\n\t){\n\t// Enter your extraction code here\n}`;
   };
 
   return (
