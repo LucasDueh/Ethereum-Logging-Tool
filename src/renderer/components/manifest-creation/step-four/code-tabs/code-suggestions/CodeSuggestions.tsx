@@ -21,7 +21,7 @@ function CodeSuggestions(props: any) {
             return (
               <CodeBlockAccordion
                 key={[activity.name, index].join('')}
-                type="Solidity Event Log"
+                type="Event Log Entry"
                 name={activity.name}
               >
                 <AbiEventBlock
@@ -63,7 +63,7 @@ function CodeSuggestions(props: any) {
             return (
               <CodeBlockAccordion
                 key={[activity.name, index].join('')}
-                type="Transaction Input Decoding"
+                type="Transaction Input"
                 name={activity.name}
               >
                 <AbiDecodableFunctionBlock
