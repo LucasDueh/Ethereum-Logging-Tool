@@ -208,13 +208,13 @@ public class BcqlBaseListener implements BcqlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTransactionInputDecodingFilter(BcqlParser.TransactionInputDecodingFilterContext ctx) { }
+	@Override public void enterTransactionInputFilter(BcqlParser.TransactionInputFilterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTransactionInputDecodingFilter(BcqlParser.TransactionInputDecodingFilterContext ctx) { }
+	@Override public void exitTransactionInputFilter(BcqlParser.TransactionInputFilterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

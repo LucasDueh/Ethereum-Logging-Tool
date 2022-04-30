@@ -168,15 +168,15 @@ public interface BcqlListener extends ParseTreeListener {
 	 */
 	void exitGenericFilter(BcqlParser.GenericFilterContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BcqlParser#transactionInputDecodingFilter}.
+	 * Enter a parse tree produced by {@link BcqlParser#transactionInputFilter}.
 	 * @param ctx the parse tree
 	 */
-	void enterTransactionInputDecodingFilter(BcqlParser.TransactionInputDecodingFilterContext ctx);
+	void enterTransactionInputFilter(BcqlParser.TransactionInputFilterContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BcqlParser#transactionInputDecodingFilter}.
+	 * Exit a parse tree produced by {@link BcqlParser#transactionInputFilter}.
 	 * @param ctx the parse tree
 	 */
-	void exitTransactionInputDecodingFilter(BcqlParser.TransactionInputDecodingFilterContext ctx);
+	void exitTransactionInputFilter(BcqlParser.TransactionInputFilterContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BcqlParser#emitStatement}.
 	 * @param ctx the parse tree

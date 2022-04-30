@@ -107,11 +107,11 @@ public interface BcqlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitGenericFilter(BcqlParser.GenericFilterContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BcqlParser#transactionInputDecodingFilter}.
+	 * Visit a parse tree produced by {@link BcqlParser#transactionInputFilter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTransactionInputDecodingFilter(BcqlParser.TransactionInputDecodingFilterContext ctx);
+	T visitTransactionInputFilter(BcqlParser.TransactionInputFilterContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BcqlParser#emitStatement}.
 	 * @param ctx the parse tree

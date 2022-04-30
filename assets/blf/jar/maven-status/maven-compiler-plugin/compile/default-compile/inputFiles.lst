@@ -32,9 +32,11 @@
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/XesExportSpecification.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/core/values/Variables.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/reader/Web3jBlock.java
+/Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/classes/EthereumTransactionInput.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/template/instructions/TemplateTransactionFilterInstruction.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/parsing/SemanticAnalyzer.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/parsing/ErrorCollector.java
+/Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/TransactionInputFilterSpecification.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/core/Program.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/core/instructions/VariableAssignmentInstruction.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/BcqlProcessingError.java
@@ -59,6 +61,7 @@
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/Generator.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/target/generated-sources/antlr4/blf/grammar/BcqlVisitor.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/BlfApp.java
+/Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/instructions/EthereumTransactionInputFilterInstruction.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/classes/EthereumSmartContractParameter.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/core/readers/DataReader.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/variables/EthereumBlockVariables.java
@@ -123,17 +126,14 @@
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/parsing/BlockNumber.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/variables/EthereumLogEntryVariables.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/target/generated-sources/antlr4/blf/grammar/BcqlUtilVisitor.java
-/Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/TransactionInputDecodingFilterSpecification.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/library/LibraryException.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/BuildException.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/util/ListenerHelper.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/core/instructions/SetOutputFolderInstruction.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/AddressListSpecification.java
-/Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/classes/EthereumTransactionInputDecoding.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/hyperledger/variables/HyperledgerBlockVariables.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/MethodSpecification.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/hyperledger/instructions/HyperledgerSmartContractFilterInstruction.java
-/Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/instructions/EthereumTransactionInputDecodingFilterInstruction.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/GenericFilterPredicateSpecification.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/instructions/EthereumLogEntryFilterInstruction.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/generation/ItemGenerator.java
