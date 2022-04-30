@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Stack, Button, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
 import Terminal from './terminal/Terminal';
 import ProgressButton from '../general/buttons/ProgressButton';
-import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
 import '../general/splitter/custom-splitter.css';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -96,8 +96,8 @@ function ExtractionInvocation(props: any) {
         minWidths={[100, 100]}
         gutterClassName="custom-splitter-horizontal"
       >
-        <Terminal name="stderr" output={stderr}></Terminal>
-        <Terminal name="stdout" output={stdout}></Terminal>
+        <Terminal name="stderr" output={stderr} />
+        <Terminal name="stdout" output={stdout} />
       </ReactSplit>
 
       <Box
@@ -130,11 +130,11 @@ function ExtractionInvocation(props: any) {
         ) : (
           <Stack direction="row" justifyContent="center" sx={{ p: 1 }}>
             <ProgressButton
-              value={'Initiate Extraction'}
+              value="Initiate Extraction"
               onClick={handleExtractionInit}
               icon={<ArrowForwardIcon />}
               loading={processing}
-            ></ProgressButton>
+            />
 
             <Button
               sx={{ color: 'white', boxShadow: 0, ml: 1 }}

@@ -4,6 +4,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Grid,
+  Stack,
 } from '@mui/material';
 
 import PropTypes from 'prop-types';
@@ -14,7 +15,15 @@ function CodeBlockAccordion(props: any) {
   const { type, name, children } = props;
 
   return (
-    <Accordion disableGutters sx={{ backgroundColor: 'rgba(0, 0, 0, .02)' }}>
+    <Accordion
+      disableGutters
+      sx={{
+        backgroundColor: 'rgba(0, 0, 0, .02)',
+        border: '1px solid',
+        borderWidth: '1px 1px 0px 1px',
+        borderColor: 'rgba(0, 0, 0, .10)',
+      }}
+    >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Grid
           container
@@ -36,8 +45,14 @@ function CodeBlockAccordion(props: any) {
           </Grid>
         </Grid>
       </AccordionSummary>
-      <AccordionDetails sx={{ p: 0, position: 'relative' }}>
-        {children}
+      <AccordionDetails
+        sx={{
+          p: 0,
+          position: 'relative',
+          backgroundColor: 'primary',
+        }}
+      >
+        <Stack>{children}</Stack>
       </AccordionDetails>
     </Accordion>
   );

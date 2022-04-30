@@ -121,7 +121,6 @@ function EventSelectionTable(props: any) {
                 .sort(getComparator(order, orderBy))
                 .map((row: IAbiEntry, index: number) => {
                   const isItemSelected = isSelected(row);
-                  console.log(selected);
 
                   return (
                     <TableRow

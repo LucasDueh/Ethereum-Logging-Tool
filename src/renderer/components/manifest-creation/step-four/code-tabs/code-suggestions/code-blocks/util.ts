@@ -7,7 +7,7 @@ const inputName = (name: string, index: number) => {
   return name;
 };
 
-const paramsToString = (
+export const paramsToString = (
   parameters: Array<ISolidityFunctionParam>,
   indent = ''
 ) => {
@@ -27,4 +27,37 @@ const paramsToString = (
   return paramString;
 };
 
-export default paramsToString;
+const solToXesType = (type: string) => {
+  if (type.includes('int')) return 'int';
+
+  switch (type) {
+    case 'bool':
+      return 'boolean';
+    case 'string':
+    case 'address':
+    case 'byte':
+    case 'bytes':
+      return 'string';
+    default:
+      return 'string';
+  }
+  return '';
+};
+
+export const xesEventAttributes = (
+  activityName: string,
+  parameters: Array<ISolidityFunctionParam>,
+  indent = ''
+) => {
+  let attributes = `"${activityName}" as xs:string concept:name,\n\t`;
+  parameters.forEach(
+    (input: ISolidityFunctionParam | ISolidityEventParam, index: number) => {
+      if (index !== 0) attributes += `\t${indent}`;
+      attributes += `${inputName(input.name, index)} as xs:${solToXesType(
+        input.type
+      )} ${inputName(input.name, index)}`;
+      if (index < parameters.length - 1) attributes += ',\n';
+    }
+  );
+  return attributes;
+};

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
+import { Box } from '@mui/material';
 import CodeEditor from '../../../../../general/code-editor/CodeEditor';
-import paramsToString from './util';
+import { paramsToString } from './util';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function AbiDecodableFunctionBlock(props: any) {
@@ -14,12 +15,14 @@ function AbiDecodableFunctionBlock(props: any) {
   };
 
   return (
-    <CodeEditor
-      value={code()}
-      readOnly
-      maxLines={15}
-      highlightActiveLine={false}
-    />
+    <Box sx={{ position: 'relative' }}>
+      <CodeEditor
+        value={code()}
+        readOnly
+        maxLines={15}
+        highlightActiveLine={false}
+      />
+    </Box>
   );
 }
 

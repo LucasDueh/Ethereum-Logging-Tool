@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, Divider } from '@mui/material';
 
 import { IActivity } from 'types/types';
 import AbiEventBlock from './code-blocks/AbiEventBlock';
 import AbiPublicQueryBlock from './code-blocks/AbiPublicQueryBlock';
 import AbiDecodableFunctionBlock from './code-blocks/AbiDecodableFunctionBlock';
+import EmitStatementBlock from './code-blocks/EmitStatementBlock';
 import CodeBlockAccordion from './CodeBlockAccordion';
 import { AccessorTypes } from './abi-types';
 
@@ -29,6 +30,12 @@ function CodeSuggestions(props: any) {
                   inputs={activity.inputs}
                   activityName={activity.activityName}
                 />
+                <Divider />
+                <EmitStatementBlock
+                  name={activity.name}
+                  parameters={activity.inputs}
+                  activityName={activity.activityName}
+                />
               </CodeBlockAccordion>
             );
           case AccessorTypes.PublicMemberQuery:
@@ -45,6 +52,11 @@ function CodeSuggestions(props: any) {
                   outputs={activity.outputs}
                   activityName={activity.activityName}
                 />
+                <EmitStatementBlock
+                  name={activity.name}
+                  parameters={activity.outputs}
+                  activityName={activity.activityName}
+                />
               </CodeBlockAccordion>
             );
           case AccessorTypes.DecodableFunctionInput:
@@ -59,6 +71,11 @@ function CodeSuggestions(props: any) {
                   name={activity.name}
                   hash={activity.hash}
                   inputs={activity.inputs}
+                  activityName={activity.activityName}
+                />
+                <EmitStatementBlock
+                  name={activity.name}
+                  parameters={activity.inputs}
                   activityName={activity.activityName}
                 />
               </CodeBlockAccordion>

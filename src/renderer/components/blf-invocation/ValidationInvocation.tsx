@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Alert, Stack, AlertColor, Divider } from '@mui/material';
 import GradingIcon from '@mui/icons-material/Grading';
 
-import ProgessButton from '../general/buttons/ProgressButton';
+import ProgressButton from '../general/buttons/ProgressButton';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ValidationInvocation(props: any) {
@@ -95,13 +95,13 @@ function ValidationInvocation(props: any) {
           justifyContent: 'center',
         }}
       >
-        <ProgessButton
+        <ProgressButton
           value="validate"
           icon={<GradingIcon />}
           onClick={handleButtonClick}
           loading={loading}
           color={color}
-        ></ProgessButton>
+        />
       </Box>
     </Stack>
   );
