@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { IconButton, Box } from '@mui/material';
+import { Tooltip, IconButton, Box } from '@mui/material';
 import CopyIcon from '@mui/icons-material/ContentCopyRounded';
 
 import AceEditor from 'react-ace';
@@ -82,19 +82,21 @@ function CodeEditor(props: any) {
           zIndex: 1000,
         }}
       >
-        <IconButton
-          sx={{
-            backgroundColor: 'rgba(240, 240, 240, .90)',
-            borderRadius: 2,
-            '&.MuiButtonBase-root:hover': {
-              bgcolor: 'rgba(220, 220, 220, .95)',
-            },
-          }}
-          size="small"
-          onClick={copyCode}
-        >
-          <CopyIcon style={{ fontSize: 20 }} />
-        </IconButton>
+        <Tooltip title="Copy" arrow>
+          <IconButton
+            sx={{
+              backgroundColor: 'rgba(240, 240, 240, .90)',
+              borderRadius: 2,
+              '&.MuiButtonBase-root:hover': {
+                bgcolor: 'rgba(220, 220, 220, .95)',
+              },
+            }}
+            size="small"
+            onClick={copyCode}
+          >
+            <CopyIcon style={{ fontSize: 20 }} />
+          </IconButton>
+        </Tooltip>
       </Box>
       <AceEditor
         ref={aceEditor}
