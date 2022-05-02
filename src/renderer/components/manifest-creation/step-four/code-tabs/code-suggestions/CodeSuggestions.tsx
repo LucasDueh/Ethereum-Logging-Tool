@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { Stack, Box, Divider } from '@mui/material';
 
 import { IActivity } from 'types/types';
-import AbiEventBlock from './code-blocks/AbiEventBlock';
-import AbiPublicQueryBlock from './code-blocks/AbiPublicQueryBlock';
-import AbiDecodableFunctionBlock from './code-blocks/AbiDecodableFunctionBlock';
+import LogEntryBlock from './code-blocks/LogEntryBlock';
+import PublicMemberQueryBlock from './code-blocks/PublicMemberQueryBlock';
+import TransactionInputBlock from './code-blocks/TransactionInputBlock';
 import EmitStatementBlock from './code-blocks/EmitStatementBlock';
 import CodeBlockAccordion from './CodeBlockAccordion';
 import { AccessorTypes } from './abi-types';
@@ -24,7 +24,7 @@ function CodeSuggestions(props: any) {
                 type="Event Log Entry"
                 name={activity.name}
               >
-                <AbiEventBlock
+                <LogEntryBlock
                   contractAddress={contractAddress}
                   name={activity.name}
                   inputs={activity.inputs}
@@ -45,7 +45,7 @@ function CodeSuggestions(props: any) {
                 type="Public Member Query"
                 name={activity.name}
               >
-                <AbiPublicQueryBlock
+                <PublicMemberQueryBlock
                   contractAddress={contractAddress}
                   name={activity.name}
                   inputs={activity.inputs}
@@ -66,10 +66,9 @@ function CodeSuggestions(props: any) {
                 type="Transaction Input"
                 name={activity.name}
               >
-                <AbiDecodableFunctionBlock
+                <TransactionInputBlock
                   contractAddress={contractAddress}
                   name={activity.name}
-                  hash={activity.hash}
                   inputs={activity.inputs}
                   activityName={activity.activityName}
                 />

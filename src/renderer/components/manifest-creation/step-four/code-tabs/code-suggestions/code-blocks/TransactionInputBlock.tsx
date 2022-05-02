@@ -4,13 +4,13 @@ import CodeEditor from '../../../../../general/code-editor/CodeEditor';
 import { paramsToString } from './util';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function AbiEventBlock(props: any) {
+function TransactionInputBlock(props: any) {
   const { contractAddress, name, inputs, activityName } = props;
 
   const code = () => {
-    const inputParameters = paramsToString(inputs, '\t');
+    const inputParameters = paramsToString(inputs);
 
-    return `LOG ENTRIES (${contractAddress}) (\n\t${name}(\n\t\t${inputParameters}\n\t)\n){\n\t// Enter your extraction code here\n}`;
+    return `TRANSACTION INPUT (${contractAddress}) (\n\t${name}(\n\t\t${inputParameters}\n\t)\n){\n\t// Enter your extraction code here\n}`;
   };
 
   return (
@@ -25,7 +25,7 @@ function AbiEventBlock(props: any) {
   );
 }
 
-AbiEventBlock.propTypes = {
+TransactionInputBlock.propTypes = {
   contractAddress: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
@@ -33,4 +33,4 @@ AbiEventBlock.propTypes = {
   activityName: PropTypes.string.isRequired,
 };
 
-export default AbiEventBlock;
+export default TransactionInputBlock;
