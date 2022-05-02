@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
-import { Stack, Box, Divider } from '@mui/material';
+import { Stack, Box, Typography } from '@mui/material';
 
 import { IActivity } from 'types/types';
+import HelperTooltip from '../../../../general/tooltip/HelperTooltip';
 import LogEntryBlock from './code-blocks/LogEntryBlock';
 import PublicMemberQueryBlock from './code-blocks/PublicMemberQueryBlock';
 import TransactionInputBlock from './code-blocks/TransactionInputBlock';
+import TransactionReplayBlock from './code-blocks/TransactionReplayBlock';
 import EmitStatementBlock from './code-blocks/EmitStatementBlock';
 import CodeBlockAccordion from './CodeBlockAccordion';
 import { AccessorTypes } from './abi-types';
@@ -28,11 +30,8 @@ function CodeSuggestions(props: any) {
                   contractAddress={contractAddress}
                   name={activity.name}
                   inputs={activity.inputs}
-                  activityName={activity.activityName}
                 />
-                <Divider />
                 <EmitStatementBlock
-                  name={activity.name}
                   parameters={activity.inputs}
                   activityName={activity.activityName}
                 />
@@ -50,10 +49,8 @@ function CodeSuggestions(props: any) {
                   name={activity.name}
                   inputs={activity.inputs}
                   outputs={activity.outputs}
-                  activityName={activity.activityName}
                 />
                 <EmitStatementBlock
-                  name={activity.name}
                   parameters={activity.outputs}
                   activityName={activity.activityName}
                 />
@@ -70,13 +67,37 @@ function CodeSuggestions(props: any) {
                   contractAddress={contractAddress}
                   name={activity.name}
                   inputs={activity.inputs}
-                  activityName={activity.activityName}
                 />
                 <EmitStatementBlock
-                  name={activity.name}
                   parameters={activity.inputs}
                   activityName={activity.activityName}
                 />
+                {activity.outputs && activity.outputs.length > 0 ? (
+                  <Box>
+                    <Stack
+                      justifyContent="center"
+                      alignItems="center"
+                      direction="row"
+                    >
+                      <Typography
+                        sx={{ fontSize: 14 }}
+                        variant="body2"
+                        align="center"
+                      >
+                        Transaction Output
+                      </Typography>
+                      <HelperTooltip text="The TRANSACTION REPLAY scope is used to capture the output of the function that was executed as part of the transaction. This scope has to be nested inside the TRANSACTION INPUT scope." />
+                    </Stack>
+
+                    <TransactionReplayBlock outputs={activity.outputs} />
+                    <EmitStatementBlock
+                      parameters={activity.outputs}
+                      activityName={activity.activityName}
+                    />
+                  </Box>
+                ) : (
+                  <></>
+                )}
               </CodeBlockAccordion>
             );
           default:

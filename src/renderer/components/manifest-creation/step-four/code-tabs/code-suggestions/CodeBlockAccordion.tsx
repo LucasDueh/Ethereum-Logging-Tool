@@ -21,7 +21,7 @@ function CodeBlockAccordion(props: any) {
         backgroundColor: 'rgba(0, 0, 0, .02)',
         border: '1px solid',
         borderWidth: '1px 1px 0px 1px',
-        borderColor: 'rgba(0, 0, 0, .10)',
+        borderColor: 'rgba(0, 0, 0, .40)',
       }}
     >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -33,13 +33,13 @@ function CodeBlockAccordion(props: any) {
           spacing={1}
         >
           <Grid item xs={5}>
-            <Typography sx={{ fontSize: 13 }} variant="body2">
+            <Typography sx={{ fontSize: 14 }} variant="body2">
               {type}
             </Typography>
           </Grid>
 
           <Grid item xs={7}>
-            <Typography noWrap sx={{ fontSize: 15 }}>
+            <Typography noWrap sx={{ fontSize: 14 }}>
               {name}
             </Typography>
           </Grid>
@@ -48,6 +48,7 @@ function CodeBlockAccordion(props: any) {
       <AccordionDetails
         sx={{
           p: 0,
+          pb: 0.4,
           position: 'relative',
           backgroundColor: 'primary',
         }}

@@ -1,12 +1,11 @@
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
-import { Box } from '@mui/material';
-import CodeEditor from '../../../../../general/code-editor/CodeEditor';
+import BaseBlock from './base-block/BaseBlock';
 import { paramsToString } from './util';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function PublicQueryBlock(props: any) {
-  const { contractAddress, name, inputs, outputs, activityName } = props;
+  const { contractAddress, name, inputs, outputs } = props;
 
   const code = () => {
     const inputParameters = paramsToString(inputs, '\t');
@@ -15,16 +14,7 @@ function PublicQueryBlock(props: any) {
     return `SMART CONTRACT (0) (${contractAddress}) (\n\t${outputParameters} = ${name}(\n\t\t${inputParameters}\n\t)\n){\n\t// Enter your extraction code here\n}`;
   };
 
-  return (
-    <Box sx={{ position: 'relative' }}>
-      <CodeEditor
-        value={code()}
-        readOnly
-        maxLines={15}
-        highlightActiveLine={false}
-      />
-    </Box>
-  );
+  return <BaseBlock code={code()} />;
 }
 
 PublicQueryBlock.propTypes = {
@@ -32,7 +22,6 @@ PublicQueryBlock.propTypes = {
   name: PropTypes.string.isRequired,
   inputs: PropTypes.arrayOf(PropTypes.object).isRequired,
   outputs: PropTypes.arrayOf(PropTypes.object).isRequired,
-  activityName: PropTypes.string.isRequired,
 };
 
 export default PublicQueryBlock;
