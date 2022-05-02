@@ -38,8 +38,12 @@ const transformAbiToActivities = (abiEntries: Array<IAbiEntry>) => {
     }
 
     // An abi entry of type function is seen as a query-able function
-    // only if it has output parameters
-    if (entry.type === AbiTypes.Function && entry.outputs.length > 0) {
+    // only if it has output parameters and pure or view stateMutability
+    if (
+      entry.type === AbiTypes.Function &&
+      entry.outputs.length > 0 &&
+      _.includes(['view', 'pure'], entry.stateMutability)
+    ) {
       const activity: IActivity = {
         ...entry,
         activityName: entry.name,

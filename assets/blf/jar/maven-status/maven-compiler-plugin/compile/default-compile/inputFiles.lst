@@ -50,6 +50,7 @@
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/reader/Web3jTransaction.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/library/types/IntegerOperations.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/reader/EthereumBlock.java
+/Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/instructions/EthereumTransactionReplayInstruction.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/classes/EthereumLogEntrySignature.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/core/writers/CsvWriter.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/samples/ValidatorTest.java
@@ -75,6 +76,7 @@
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/parsing/BcqlInterpreter.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/core/values/Variable.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/core/instructions/GenericFilterInstruction.java
+/Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/classes/EthereumTransactionReplay.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/library/MethodSignature.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/blockchains/ethereum/classes/EthereumPublicMemberQueryEthereum.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/BaseBlockchainListener.java
@@ -160,6 +162,7 @@
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/parsing/SemanticAnalysis.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/library/util/TriFunction.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/ValueAccessorSpecification.java
+/Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/configuration/TransactionReplaySpecification.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/util/TypeUtils.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/parsing/ExpressionStatementAnalyzer.java
 /Users/LucasD/Documents/Studium-München/WS2021/MA/Blockchain-Logging-Framework/src/main/java/blf/generation/SolidityCodeGeneration.java

@@ -2,7 +2,6 @@ export enum AbiTypes {
   Empty = '',
   Event = 'event',
   Function = 'function',
-  DecodableFunction = 'decodable',
 }
 
 export enum AccessorTypes {

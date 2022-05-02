@@ -41,6 +41,7 @@ blf/blockchains/template/TemplateVariables.class
 blf/generation/GeneratorItem.class
 blf/grammar/BcqlParser$EmissionModeContext.class
 blf/core/values/ValueAccessor.class
+blf/grammar/BcqlParser$TransactionReplayContext.class
 blf/grammar/BcqlUtilParser$ValueExpressionContext.class
 blf/grammar/BcqlUtilParser$LiteralContext.class
 blf/grammar/BcqlVisitor.class
@@ -153,6 +154,7 @@ blf/parsing/HyperledgerSmartContractAnalyzer.class
 blf/core/writers/LogWriter.class
 blf/grammar/BcqlUtilParser$ConditionalComparisonExpressionContext.class
 blf/grammar/BcqlParser$SmartContractQueryParameterContext.class
+blf/blockchains/ethereum/instructions/EthereumTransactionReplayInstruction.class
 blf/configuration/TypedValueAccessorSpecification.class
 blf/grammar/BcqlParser$SmartContractFilterContext.class
 blf/configuration/LogEntrySignatureSpecification.class
@@ -209,6 +211,7 @@ blf/blockchains/hyperledger/state/HyperledgerProgramState.class
 blf/util/ListenerHelper.class
 blf/library/util/TriFunction.class
 blf/grammar/BcqlParser$ConditionalComparisonExpressionContext.class
+blf/blockchains/ethereum/classes/EthereumTransactionReplay.class
 blf/blockchains/ethereum/instructions/EthereumTransactionFilterInstruction.class
 blf/blockchains/hyperledger/helpers/HyperledgerQueryParameters.class
 blf/configuration/MethodCallSpecification.class
@@ -262,6 +265,7 @@ blf/parsing/SemanticAnalysis.class
 blf/core/instructions/SetOutputFolderInstruction.class
 blf/grammar/BcqlUtilParser$LogEntrySignatureContext.class
 blf/configuration/TransactionInputFilterSpecification.class
+blf/configuration/TransactionReplaySpecification.class
 blf/configuration/ValueMutatorSpecification.class
 blf/core/interfaces/Method.class
 blf/blockchains/ethereum/state/EthereumProgramState.class

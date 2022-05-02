@@ -220,6 +220,18 @@ public class BcqlBaseListener implements BcqlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTransactionReplay(BcqlParser.TransactionReplayContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTransactionReplay(BcqlParser.TransactionReplayContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterEmitStatement(BcqlParser.EmitStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}

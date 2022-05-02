@@ -136,6 +136,13 @@ public class BcqlBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements B
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitTransactionReplay(BcqlParser.TransactionReplayContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitEmitStatement(BcqlParser.EmitStatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
