@@ -33,7 +33,8 @@ function Terminal(props: any) {
           sx={{
             p: 1,
             height: '100%',
-            overflowY: 'auto',
+            width: '100%',
+            overflow: 'auto',
           }}
         >
           {output.map((out: string, index: number) => {
