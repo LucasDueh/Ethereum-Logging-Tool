@@ -62,13 +62,6 @@ const openManifestFile = async () => {
         dialog.showMessageBox(messageOptions);
         return reject(err);
       }
-      messageOptions = {
-        buttons: ['Close'],
-        title: 'Success',
-        type: 'info',
-        message: `Successfully opened file ${filePath}`,
-      };
-      dialog.showMessageBox(messageOptions);
       const fileData = { filePath, data };
 
       return resolve(fileData);
