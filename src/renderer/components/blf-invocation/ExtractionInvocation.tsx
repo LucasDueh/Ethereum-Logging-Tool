@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Stack, Button, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ReactSplit, { SplitDirection } from '@devbookhq/splitter';
 import Terminal from './terminal/Terminal';
 import ProgressButton from '../general/buttons/ProgressButton';
 import '../general/splitter/custom-splitter.css';
+
+import reduceToMaxLines from './terminal/terminal-output';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ExtractionInvocation(props: any) {
@@ -17,41 +19,47 @@ function ExtractionInvocation(props: any) {
   const [extractionCompleted, setExtractionCompleted] = React.useState(false);
   const [outputFolderPath, setOutputFolderPath] = React.useState('');
 
-  const consoleMaxLines = 100;
-
   React.useEffect(() => {
+    let temp: Array<string> = [];
     window.electron.ipcRenderer.on('blf-extraction-stderr', (out: string) => {
-      setStderr(
-        stderr.length >= consoleMaxLines
-          ? [
-              ...stderr.slice(stderr.length - consoleMaxLines, stderr.length),
-              out,
-            ]
-          : [...stderr, out]
-      );
+      temp.push(out);
+      temp = reduceToMaxLines(temp);
+      setStderr([...temp]);
     });
     return () => {
       window.electron.ipcRenderer.removeAllListeners('blf-extraction-stderr');
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stderr]);
+  }, [processing]);
 
   React.useEffect(() => {
+    let temp: Array<string> = [];
     window.electron.ipcRenderer.on('blf-extraction-stdout', (out: string) => {
-      setStdout(
-        stdout.length >= consoleMaxLines
-          ? [
-              ...stdout.slice(stderr.length - consoleMaxLines, stdout.length),
-              out,
-            ]
-          : [...stdout, out]
-      );
+      temp.push(out);
+      temp = reduceToMaxLines(temp);
+      setStdout([...temp]);
     });
     return () => {
       window.electron.ipcRenderer.removeAllListeners('blf-extraction-stdout');
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stdout]);
+  }, [processing]);
+
+  React.useEffect(() => {
+    window.electron.ipcRenderer.once(
+      'blf-extraction-closed',
+      (code: number) => {
+        setProcessing(false);
+        if (code === 0) {
+          setExtractionCompleted(true);
+        }
+      }
+    );
+    return () => {
+      window.electron.ipcRenderer.removeAllListeners('blf-extraction-closed');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   React.useEffect(() => {
     const fetchOutputFolderPath = async () => {
@@ -63,23 +71,10 @@ function ExtractionInvocation(props: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  window.electron.ipcRenderer.once('blf-extraction-closed', (code: number) => {
-    setProcessing(false);
-    if (code === 0) {
-      setExtractionCompleted(true);
-    }
-  });
-
   const handleExtractionInit = async () => {
     if (!processing) {
       window.electron.ipcRenderer.extract(filePath);
       setProcessing(true);
-    }
-  };
-
-  const handleExtractionCancel = async () => {
-    if (processing) {
-      window.electron.ipcRenderer.cancelExtraction();
     }
   };
 
@@ -88,7 +83,7 @@ function ExtractionInvocation(props: any) {
       direction="column"
       justifyContent="flex-start"
       alignItems="center"
-      sx={{ height: '100%' }}
+      sx={{ height: '100%', overflow: 'hidden' }}
     >
       <ReactSplit
         direction={SplitDirection.Horizontal}
@@ -135,15 +130,6 @@ function ExtractionInvocation(props: any) {
               icon={<ArrowForwardIcon />}
               loading={processing}
             />
-
-            <Button
-              sx={{ color: 'white', boxShadow: 0, ml: 1 }}
-              onClick={handleExtractionCancel}
-              variant="contained"
-              disabled={!processing}
-            >
-              Cancel
-            </Button>
           </Stack>
         )}
       </Box>

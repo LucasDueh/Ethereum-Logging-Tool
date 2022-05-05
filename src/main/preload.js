@@ -13,8 +13,8 @@ contextBridge.exposeInMainWorld('electron', {
     extract(filePath) {
       ipcRenderer.invoke('extract', filePath);
     },
-    cancelExtraction() {
-      ipcRenderer.invoke('cancel-extraction');
+    killRunningProcess() {
+      ipcRenderer.invoke('kill-running-process');
     },
     getOutputFolderPath: async () => {
       return ipcRenderer.invoke('get-output-folder-path');
@@ -31,19 +31,24 @@ contextBridge.exposeInMainWorld('electron', {
     openManifestFile: () => {
       return ipcRenderer.invoke('open-manifest-file');
     },
+    // eslint-disable-next-line consistent-return
     on(channel, func) {
-      const validChannels = ['blf-extraction-stdout', 'blf-extraction-stderr'];
+      const validChannels = [
+        'blf-extraction-stdout',
+        'blf-extraction-stderr',
+        'blf-validation-stdout',
+        'blf-validation-stderr',
+      ];
       if (validChannels.includes(channel)) {
-        ipcRenderer.on(channel, (event, ...args) => func(...args));
+        const subscription = (event, ...args) => func(...args);
+        ipcRenderer.on(channel, subscription);
+        return () => {
+          ipcRenderer.removeListener(channel, subscription);
+        };
       }
     },
     once(channel, func) {
-      const validChannels = [
-        'blf-validation-stdout',
-        'blf-validation-stderr',
-        'blf-validation-closed',
-        'blf-extraction-closed',
-      ];
+      const validChannels = ['blf-validation-closed', 'blf-extraction-closed'];
       if (validChannels.includes(channel)) {
         ipcRenderer.once(channel, (event, ...args) => func(...args));
       }

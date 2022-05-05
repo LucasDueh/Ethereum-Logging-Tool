@@ -15,7 +15,14 @@ if (process.env.NODE_ENV === 'production') {
 
 let runningProcess: ChildProcess | null = null;
 
+const killRunningProcess = () => {
+  runningProcess?.kill();
+  runningProcess = null;
+};
+
 const spawnBLFProcess = (mode: string, filePath: string) => {
+  killRunningProcess();
+
   const BLF = spawn('java', ['-jar', blfBinary, mode, filePath], {
     cwd: app.getPath('userData'),
   });
@@ -58,10 +65,6 @@ const spawnBLFProcess = (mode: string, filePath: string) => {
   });
 };
 
-const cancelExtraction = () => {
-  runningProcess?.kill();
-};
-
 const validateTempManifest = async (content: string) => {
   await writeTempManifest(content)
     .then((fileName: string) => {
@@ -82,24 +85,20 @@ module.exports = {
   validateTempManifest: ipcMain.handle(
     'validate-temp-manifest',
     async (_event, content) => {
-      console.log('Validating temp manifest');
       validateTempManifest(content);
     }
   ),
   validateManifest: ipcMain.handle(
     'validate-manifest',
     async (_event, filePath) => {
-      console.log('Validating manifest ', filePath);
       spawnBLFProcess('validate', filePath);
     }
   ),
   extract: ipcMain.handle('extract', async (_event, filePath) => {
-    console.log('Extracting with manifest ', filePath);
     spawnBLFProcess('extract', filePath);
   }),
-  cancelExtraction: ipcMain.handle('cancel-extraction', async () => {
-    console.log('Cenceling extraction process ');
-    cancelExtraction();
+  killRunningProcess: ipcMain.handle('kill-running-process', async () => {
+    killRunningProcess();
   }),
   getOutputFolderPath: ipcMain.handle('get-output-folder-path', async () => {
     return app.getPath('userData');

@@ -39,14 +39,14 @@ function StepFour(props: any) {
       >
         <ReactSplit
           direction={SplitDirection.Vertical}
-          initialSizes={[85, 15]}
-          minHeights={[500, 50]}
+          initialSizes={[80, 20]}
+          minHeights={[100, 50]}
           gutterClassName="custom-splitter-vertical"
         >
           <ReactSplit
             direction={SplitDirection.Horizontal}
             initialSizes={[70, 30]}
-            minWidths={[500, 16]}
+            minWidths={[100, 16]}
             gutterClassName="custom-splitter-horizontal"
           >
             <Paper

@@ -19,7 +19,7 @@ function Terminal(props: any) {
 
   return (
     <Paper
-      sx={{ py: 0.5, height: '100%', width: '100%', overflowY: 'auto' }}
+      sx={{ py: 0.5, height: '100%', width: '100%', overflow: 'hidden' }}
       variant="outlined"
       square
     >
@@ -39,7 +39,11 @@ function Terminal(props: any) {
         >
           {output.map((out: string, index: number) => {
             return (
-              <Typography key={[out, index].join('')} fontSize={12}>
+              <Typography
+                key={[out, index].join('')}
+                fontSize={12}
+                style={{ whiteSpace: 'pre-line' }}
+              >
                 {out}
               </Typography>
             );

@@ -6,10 +6,14 @@ import {
   Toolbar,
   Container,
 } from '@mui/material';
-import { Cancel, NoteAdd } from '@mui/icons-material';
+import { Cancel } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 
 function Header() {
+  const killRunningProcess = async () => {
+    window.electron.ipcRenderer.killRunningProcess();
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -28,16 +32,15 @@ function Header() {
               Ethereum Logging Tool
             </Typography>
 
-            {useLocation().pathname === '/manifest-creation' ? (
+            {useLocation().pathname !== '/' && (
               <Link style={{ textDecoration: 'none' }} to="/">
-                <Button variant="outlined" color="info" startIcon={<Cancel />}>
+                <Button
+                  variant="outlined"
+                  color="info"
+                  startIcon={<Cancel />}
+                  onClick={killRunningProcess}
+                >
                   Cancel
-                </Button>
-              </Link>
-            ) : (
-              <Link style={{ textDecoration: 'none' }} to="/manifest-creation">
-                <Button variant="outlined" color="info" startIcon={<NoteAdd />}>
-                  New Manifest
                 </Button>
               </Link>
             )}
