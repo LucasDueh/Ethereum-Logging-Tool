@@ -5,6 +5,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Stack,
+  Box,
 } from '@mui/material';
 
 import PropTypes from 'prop-types';
@@ -36,12 +37,18 @@ function EventSelectionAccordion(props: any) {
         </Stack>
       </AccordionSummary>
       <AccordionDetails>
-        <EventSelectionTable
-          id={id}
-          rows={contractAbi}
-          selected={selected}
-          handleSelectionChange={handleSelectionChange}
-        />
+        {contractAbi && contractAbi.length > 0 ? (
+          <EventSelectionTable
+            id={id}
+            rows={contractAbi}
+            selected={selected}
+            handleSelectionChange={handleSelectionChange}
+          />
+        ) : (
+          <Box>
+            <Typography>No entries found.</Typography>
+          </Box>
+        )}
       </AccordionDetails>
     </Accordion>
   );

@@ -14,7 +14,7 @@ function Home() {
     >
       <Link style={{ textDecoration: 'none' }} to="/manifest-creation">
         <Button
-          sx={{ height: '25vh', width: '25vw', fontSize: '20px' }}
+          sx={{ height: '15vh', width: '25vw', fontSize: '20px' }}
           variant="contained"
           startIcon={<NodeAddIcon />}
         >
@@ -23,7 +23,7 @@ function Home() {
       </Link>
       <Link style={{ textDecoration: 'none' }} to="/data-extraction">
         <Button
-          sx={{ height: '25vh', width: '25vw', fontSize: '20px' }}
+          sx={{ height: '15vh', width: '25vw', fontSize: '20px' }}
           variant="contained"
           startIcon={<OutputIcon />}
         >

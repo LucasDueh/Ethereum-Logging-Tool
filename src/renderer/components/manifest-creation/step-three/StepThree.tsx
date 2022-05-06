@@ -53,7 +53,7 @@ function StepThree(props: any) {
                 name="connectionMode"
                 label="Connection Mode"
                 value={settings.connectionMode}
-                helperText="All you need is a running node in the Ethereum network, to which you have access either through its websocket port or through an ipc socket."
+                helperText="You need a running node in the Ethereum network, to which you have access either through its websocket port or through an ipc socket."
                 onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                   setSettings(event, false);
                 }}

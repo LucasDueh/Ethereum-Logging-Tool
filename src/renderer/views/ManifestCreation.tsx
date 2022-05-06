@@ -73,8 +73,11 @@ function ManifestCreation(props: any) {
       'wss://eth-mainnet.alchemyapi.io/v2/43UD7sDV0NX1hgJIZZms5btltccfFqqN',
   });
   const [settingsCode, setSettingsCode] = React.useState<string>('');
-  const [extractionCode, setExtractionCode] =
-    React.useState<string>(defaultBlockScope);
+  const extractionCode = React.useRef<string>(defaultBlockScope);
+
+  const getExtractionCode = () => {
+    return extractionCode.current;
+  };
 
   const addContract = () => {
     const { length } = contracts;
@@ -170,9 +173,9 @@ function ManifestCreation(props: any) {
 
   const updateExtractionCode = (newExtractionCode: string) => {
     if (newExtractionCode.length <= 2) {
-      setExtractionCode(defaultBlockScope);
+      extractionCode.current = defaultBlockScope;
     } else {
-      setExtractionCode(newExtractionCode);
+      extractionCode.current = newExtractionCode;
     }
   };
 
@@ -180,7 +183,7 @@ function ManifestCreation(props: any) {
     event.preventDefault();
 
     await window.electron.ipcRenderer
-      .saveManifestFile([settingsCode, extractionCode].join(''))
+      .saveManifestFile([settingsCode, extractionCode.current].join(''))
       .then(() => {
         navigate('/');
         return null;
@@ -273,10 +276,11 @@ function ManifestCreation(props: any) {
                     <StepFour
                       formId={stepLabels[3]}
                       settingsCode={settingsCode}
-                      extractionCode={extractionCode}
+                      extractionCode={extractionCode.current}
                       setExtractionCode={updateExtractionCode}
                       contracts={contracts}
                       handleSubmit={finishCreation}
+                      getExtractionCode={getExtractionCode}
                     />
                   );
               }

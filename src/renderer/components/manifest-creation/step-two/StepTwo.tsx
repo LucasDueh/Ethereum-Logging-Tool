@@ -48,8 +48,8 @@ function StepTwo(props: any) {
         alignItems="stretch"
       >
         <StepInstructions
-          heading="Select ABI Entries for Process Mining"
-          details="Every selected entry can later be mapped to an event."
+          heading="Select ABI Entries for Data Extraction"
+          details="Every selected function or event can be used to extract data from the blockchain."
         />
 
         {selected.length === contracts.length ? (

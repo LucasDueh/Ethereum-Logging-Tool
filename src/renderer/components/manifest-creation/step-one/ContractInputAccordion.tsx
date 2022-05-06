@@ -23,11 +23,11 @@ function ContractInputAccordion(props: any) {
     handleChange,
   } = props;
 
-  const handleChangeId = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeById = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     handleChange(event, id);
   };
 
-  const deleteContractId = () => {
+  const deleteContractById = () => {
     deleteContract(id);
   };
 
@@ -46,7 +46,8 @@ function ContractInputAccordion(props: any) {
           direction="row"
           alignItems="center"
           justifyContent="space-between"
-          style={{ width: '100%' }}
+          sx={{ width: '100%' }}
+          spacing={1}
         >
           <TextField
             name="name"
@@ -54,13 +55,14 @@ function ContractInputAccordion(props: any) {
             onClick={(event) => {
               event.stopPropagation();
             }}
-            onChange={handleChangeId}
+            onChange={handleChangeById}
             value={contractName}
+            sx={{ width: '50%' }}
           />
           <IconButton
             onClick={(event) => {
               event.stopPropagation();
-              deleteContractId();
+              deleteContractById();
             }}
           >
             <DeleteIcon />
@@ -73,7 +75,7 @@ function ContractInputAccordion(props: any) {
             name="address"
             label="Contract Address"
             placeholder="Enter Contract Address"
-            onChange={handleChangeId}
+            onChange={handleChangeById}
             value={contractAddress}
             fullWidth
           />
@@ -82,11 +84,11 @@ function ContractInputAccordion(props: any) {
             name="rawAbi"
             label="Contract ABI"
             placeholder="Enter Contract ABI"
-            onChange={handleChangeId}
+            onChange={handleChangeById}
             value={contractAbi}
             multiline
             minRows={4}
-            maxRows={8}
+            maxRows={6}
             fullWidth
           />
         </Stack>
