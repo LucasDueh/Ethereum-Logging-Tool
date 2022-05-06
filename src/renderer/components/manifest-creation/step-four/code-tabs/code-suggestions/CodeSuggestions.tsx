@@ -80,7 +80,7 @@ function CodeSuggestions(props: any) {
                       direction="row"
                     >
                       <Typography
-                        sx={{ fontSize: 14 }}
+                        sx={{ fontSize: 15 }}
                         variant="body2"
                         align="center"
                       >

@@ -9,23 +9,22 @@ function BaseBlock(props: any) {
   return (
     <Box
       sx={{
-        px: 0.8,
+        px: 0.6,
         pb: 0.4,
+        height: '100%',
       }}
     >
       <Box
         sx={{
           position: 'relative',
           border: '1px solid',
-          borderColor: 'rgba(0, 0, 0, .20)',
+          borderColor: 'rgba(0, 0, 0, .25)',
+          borderRadius: '2px',
+          height: '10vh',
+          width: '100%',
         }}
       >
-        <CodeEditor
-          value={code}
-          readOnly
-          maxLines={20}
-          highlightActiveLine={false}
-        />
+        <CodeEditor value={code} readOnly highlightActiveLine={false} />
       </Box>
     </Box>
   );

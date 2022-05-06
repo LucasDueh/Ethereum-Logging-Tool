@@ -16,7 +16,6 @@ function CodeEditor(props: any) {
     onChange,
     readOnly,
     minLines,
-    maxLines,
     highlightActiveLine,
   } = props;
 
@@ -77,7 +76,7 @@ function CodeEditor(props: any) {
       <Box
         sx={{
           position: 'absolute',
-          right: '1px',
+          right: '16px',
           top: '1px',
           zIndex: 1000,
         }}
@@ -115,7 +114,6 @@ function CodeEditor(props: any) {
         }}
         enableBasicAutocompletion
         enableLiveAutocompletion
-        maxLines={maxLines}
         minLines={minLines}
       />
     </>
@@ -125,7 +123,6 @@ function CodeEditor(props: any) {
 CodeEditor.defaultProps = {
   isManifestEditor: false,
   minLines: 1,
-  maxLines: 10000,
   onChange: () => {},
   readOnly: false,
   highlightActiveLine: true,
@@ -137,7 +134,6 @@ CodeEditor.propTypes = {
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   minLines: PropTypes.number,
-  maxLines: PropTypes.number,
   highlightActiveLine: PropTypes.bool,
 };
 

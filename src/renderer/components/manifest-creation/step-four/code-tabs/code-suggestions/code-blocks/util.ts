@@ -50,6 +50,8 @@ export const xesEventAttributes = (
   indent = ''
 ) => {
   let attributes = `"${activityName}" as xs:string concept:name,\n\t`;
+  attributes += 'block.timestamp as xs:date time:timestamp,\n\t';
+  attributes += 'block.number as xs:int blockNumber,\n\t';
   parameters.forEach(
     (input: ISolidityFunctionParam | ISolidityEventParam, index: number) => {
       if (index !== 0) attributes += `\t${indent}`;

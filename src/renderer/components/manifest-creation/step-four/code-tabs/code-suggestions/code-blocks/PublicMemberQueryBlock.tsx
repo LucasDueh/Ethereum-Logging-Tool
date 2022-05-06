@@ -10,8 +10,8 @@ function PublicQueryBlock(props: any) {
   const code = () => {
     const inputParameters = paramsToString(inputs, '\t');
     const outputParameters = paramsToString(outputs);
-
-    return `SMART CONTRACT (0) (${contractAddress}) (\n\t${outputParameters} = ${name}(\n\t\t${inputParameters}\n\t)\n){\n\t// Enter your extraction code here\n}`;
+    const inputString = inputs.length > 0 ? `\n\t\t${inputParameters}\n\t` : '';
+    return `SMART CONTRACT (0) (${contractAddress}) (\n\t${outputParameters} = ${name}(${inputString})\n){\n\t// Enter your extraction code here\n}`;
   };
 
   return <BaseBlock code={code()} />;

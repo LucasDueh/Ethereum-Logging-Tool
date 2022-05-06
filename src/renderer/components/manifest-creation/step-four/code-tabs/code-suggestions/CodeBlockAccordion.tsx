@@ -33,13 +33,13 @@ function CodeBlockAccordion(props: any) {
           spacing={1}
         >
           <Grid item xs={5}>
-            <Typography sx={{ fontSize: 14 }} variant="body2">
+            <Typography sx={{ fontSize: 15 }} variant="body2">
               {type}
             </Typography>
           </Grid>
 
           <Grid item xs={7}>
-            <Typography noWrap sx={{ fontSize: 14 }}>
+            <Typography noWrap sx={{ fontSize: 15 }}>
               {name}
             </Typography>
           </Grid>
@@ -51,9 +51,10 @@ function CodeBlockAccordion(props: any) {
           pb: 0.4,
           position: 'relative',
           backgroundColor: 'primary',
+          height: '100%',
         }}
       >
-        <Stack>{children}</Stack>
+        <Stack sx={{ height: '100%' }}>{children}</Stack>
       </AccordionDetails>
     </Accordion>
   );
