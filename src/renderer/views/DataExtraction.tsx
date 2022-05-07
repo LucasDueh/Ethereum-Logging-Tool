@@ -25,6 +25,7 @@ function DataExtraction() {
     <Box
       sx={{
         height: '100%',
+        width: '100vw',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: fileOpened ? 'flex-start' : 'center',
