@@ -1,15 +1,16 @@
 import { ISolidityEventParam, ISolidityFunctionParam } from 'types/types';
 
-const inputName = (name: string, index: number) => {
+const inputName = (name: string, index: number, outputInput: string) => {
   if (name === null || name === '') {
-    return `output${index}`;
+    return `${outputInput}${index}`;
   }
   return name;
 };
 
 export const paramsToString = (
   parameters: Array<ISolidityFunctionParam>,
-  indent = ''
+  indent = '',
+  outputInput = 'output'
 ) => {
   let paramString = '';
   parameters.forEach(
@@ -20,7 +21,11 @@ export const paramsToString = (
       }
 
       if (index !== 0) paramString += `\t${indent}`;
-      paramString += `${input.type} ${indexed}${inputName(input.name, index)}`;
+      paramString += `${input.type} ${indexed}${inputName(
+        input.name,
+        index,
+        outputInput
+      )}`;
       if (index < parameters.length - 1) paramString += ',\n';
     }
   );
@@ -47,7 +52,8 @@ const solToXesType = (type: string) => {
 export const xesEventAttributes = (
   activityName: string,
   parameters: Array<ISolidityFunctionParam>,
-  indent = ''
+  indent = '',
+  outputInput = 'output'
 ) => {
   let attributes = `"${activityName}" as xs:string concept:name,\n\t`;
   attributes += 'block.timestamp as xs:date time:timestamp,\n\t';
@@ -55,9 +61,15 @@ export const xesEventAttributes = (
   parameters.forEach(
     (input: ISolidityFunctionParam | ISolidityEventParam, index: number) => {
       if (index !== 0) attributes += `\t${indent}`;
-      attributes += `${inputName(input.name, index)} as xs:${solToXesType(
-        input.type
-      )} ${inputName(input.name, index)}`;
+      attributes += `${inputName(
+        input.name,
+        index,
+        outputInput
+      )} as xs:${solToXesType(input.type)} ${inputName(
+        input.name,
+        index,
+        outputInput
+      )}`;
       if (index < parameters.length - 1) attributes += ',\n';
     }
   );

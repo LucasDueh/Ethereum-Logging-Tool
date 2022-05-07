@@ -7,7 +7,7 @@ function TransactionInputBlock(props: any) {
   const { contractAddress, name, inputs } = props;
 
   const code = () => {
-    const inputParameters = paramsToString(inputs, '\t');
+    const inputParameters = paramsToString(inputs, '\t', 'input');
 
     return `TRANSACTION INPUT (${contractAddress}) (\n\t${name}(\n\t\t${inputParameters}\n\t)\n){\n\t// Enter your extraction code here\n}`;
   };
