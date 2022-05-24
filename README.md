@@ -7,7 +7,7 @@ The extraction capabilities are provided by the <a href="https://github.com/TU-A
 
 License: MIT Licence Agreement. Details can be found [LICENSE.md](https://github.com/TU-ADSP/Blockchain-Logging-Framework)
 
-The Ethereum Logging Tool deploys an <a href="https://github.com/LucasDueh/Blockchain-Logging-Framework">extension of the Blockchain Logging Framework</a> that additionally supports the extraction of decoded transaction input data. It also allows the invocation of public member queries for arbitrary block numbers, in particular, for `currentBlockNumber-1`, to access the state previous to the currently examined block.
+The Ethereum Logging Tool deploys an <a href="https://github.com/LucasDueh/Blockchain-Logging-Framework">extension of the Blockchain Logging Framework</a> that additionally supports the extraction of input and output data related to message calls.
 </p>
 
 ## Electron React Boilerplate
