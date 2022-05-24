@@ -7,7 +7,7 @@ function LogEntryBlock(props: any) {
   const { contractAddress, name, inputs } = props;
 
   const code = () => {
-    const inputParameters = paramsToString(inputs, '\t', 'input');
+    const inputParameters = paramsToString(inputs, '\t', 'noname');
 
     return `LOG ENTRIES (${contractAddress}) (\n\t${name}(\n\t\t${inputParameters}\n\t)\n){\n\t// Enter your extraction code here\n}`;
   };
