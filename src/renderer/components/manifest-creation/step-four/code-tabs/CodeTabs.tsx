@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab } from '@mui/material';
 import { IContract } from 'types/types';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+import _ from 'lodash';
+
 import TabPanel from '../../../general/tab-panel/TabPanel';
 import CodeSuggestions from './code-suggestions/CodeSuggestions';
 
@@ -52,9 +55,17 @@ function CodeTabs(props: any) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function areEqual(prevProps: any, nextProps: any) {
+  if (_.isEqual(prevProps.contracts, nextProps.contracts)) {
+    return true;
+  }
+  return false;
+}
+
 CodeTabs.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   contracts: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default CodeTabs;
+export default React.memo(CodeTabs, areEqual);
