@@ -7,7 +7,12 @@ function EmitStatementBlock(props: any) {
   const { parameters, activityName } = props;
 
   const code = () => {
-    const xesAttributes = xesEventAttributes(activityName, parameters);
+    const xesAttributes = xesEventAttributes(
+      activityName,
+      parameters,
+      '',
+      'noname'
+    );
 
     return `EMIT XES EVENT (pid)(piid)(eid)(\n\t${xesAttributes}\n);`;
   };
